@@ -1,7 +1,14 @@
 from fastapi import FastAPI
+from sqlalchemy import create_engine, text
 
 app = FastAPI()
 
+DATABASE_URL = "postgresql+psycopg2://roco_user:0605@localhost/roco_db"
+engine = create_engine(DATABASE_URL)
+
 @app.get("/")
 def read_root():
-    return {"message": "Welcome to roco kindom!"}
+    with engine.connect() as connection:
+        result = connection.execute(text("SELECT version();"))
+        db_version = result.scalar()
+    return {"message": "Welcome to roco kindom!", "db_version": db_version}
