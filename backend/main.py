@@ -8,7 +8,7 @@ engine = create_engine(DATABASE_URL)
 
 @app.get("/")
 def read_root():
-    with engine.connect() as connection:
-        result = connection.execute(text("SELECT version();"))
-        db_version = result.scalar()
-    return {"message": "Welcome to roco kindom!", "db_version": db_version}
+    with engine.connect() as conn:
+        version = conn.execute(text("SELECT version();")).scalar()
+        dbname = conn.execute(text("SELECT current_database();")).scalar()
+    return {"message": "Welcome to roco kindom!", "db_version": version, "database": dbname}
