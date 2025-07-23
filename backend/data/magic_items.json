@@ -1,0 +1,85 @@
+[
+  {
+    "name": "Enhancement Spell",
+    "description": "Can be applied to any monster. Converts the move at Slot 1 into Legacy Emerge for the whole battle.",
+    "localized": {
+      "zh": {
+        "name": "强化术",
+        "description": "对任意血脉的精灵使用，使用后技能栏第一个技能被替换为【血脉显现】技能，保持全场。"
+      }
+    },
+    "effect_code": "ENHANCE_SPELL",
+    "applies_to_type": null,
+    "effect_parameters": {
+      "move_name": "Legacy Emerge",
+      "move_type": null,
+      "energy_cost": 3,
+      "move_power": 100,
+      "applies_to_round": "entire_battle"
+    }
+  },
+  {
+    "name": "Sun Healing",
+    "description": "Can be applied to Grass (or Grass legacy type) monsters, recovering 50% of max HP.",
+    "localized": {
+      "zh": {
+        "name": "光合治愈",
+        "description": "对草系或者草血脉的精灵使用, 恢复精灵50%生命。"
+      }
+    },
+    "effect_code": "SUN_HEALING",
+    "applies_to_type": "Grass",
+    "effect_parameters": {
+      "heal_percent": 0.5,
+      "applies_to_round": "current"
+    }
+  },
+  {
+    "name": "Flare Burst",
+    "description": "Can be applied to Fire (or Fire legacy type) monsters. The move's power is increased by 150% this turn.",
+    "localized": {
+      "zh": {
+        "name": "闪焰爆发",
+        "description": "对火系或者火血脉的精灵使用, 本回合技能威力提升150%。"
+      }
+    },
+    "effect_code": "FLARE_BURST",
+    "applies_to_type": "Fire",
+    "effect_parameters": {
+      "power_multiplier": 1.5,
+      "applies_to_round": "current"
+    }
+  },
+  {
+    "name": "Flow Spell",
+    "description": "Can be applied to Water (or Water legacy type) monsters. Moves do not consume energy this turn.",
+    "localized": {
+      "zh": {
+        "name": "节流术",
+        "description": "对水系或者水血脉的精灵使用, 本回合技能不扣除能耗。"
+      }
+    },
+    "effect_code": "FLOW_SPELL",
+    "applies_to_type": "Water",
+    "effect_parameters": {
+      "energy_cost": 0,
+      "applies_to_round": "current"
+    }
+  },
+  {
+    "name": "Evolution Power",
+    "description": "Can be used only on monsters with Leader legacy type, allowing them to evolve into a Leader form.",
+    "localized": {
+      "zh": {
+        "name": "进化之力",
+        "description": "对首领血脉的精灵使用, 可以使该精灵在本场战斗中进化，部分精灵会激活远古血脉。"
+      }
+    },
+    "effect_code": "EVOLUTION_POWER",
+    "applies_to_type": "Leader",
+    "effect_parameters": {
+      "evolve_leader_form": true,
+      "applies_to_round": "entire_battle"
+    }
+  }
+]

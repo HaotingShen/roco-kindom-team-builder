@@ -1,0 +1,2719 @@
+[
+  {
+    "name": "Fuzzlet",
+    "evolves_from": null,
+    "species": "Fuzzlet",
+    "form": "default",
+    "main_type": "Bug",
+    "sub_type": "Cute",
+    "default_legacy_type": "Bug",
+    "trait": "Cocooning",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 35,
+    "base_phy_atk": 33,
+    "base_mag_atk": 33,
+    "base_phy_def": 43,
+    "base_mag_def": 43,
+    "base_spd": 84,
+    "moveset_key": "Flutterfly",
+    "localized": {
+      "zh": {
+        "name": "毛毛"
+      }
+    }
+  },
+  {
+    "name": "Crawler",
+    "evolves_from": "Fuzzlet",
+    "species": "Fuzzlet",
+    "form": "default",
+    "main_type": "Bug",
+    "sub_type": "Cute",
+    "default_legacy_type": "Bug",
+    "trait": "Cocooning",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 46,
+    "base_phy_atk": 44,
+    "base_mag_atk": 44,
+    "base_phy_def": 57,
+    "base_mag_def": 57,
+    "base_spd": 112,
+    "moveset_key": "Flutterfly",
+    "localized": {
+      "zh": {
+        "name": "爬爬"
+      }
+    }
+  },
+  {
+    "name": "Flutterfly",
+    "evolves_from": "Crawler",
+    "species": "Fuzzlet",
+    "form": "default",
+    "main_type": "Bug",
+    "sub_type": "Cute",
+    "default_legacy_type": "Bug",
+    "trait": "Cocooning",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 55,
+    "base_phy_atk": 54,
+    "base_mag_atk": 55,
+    "base_phy_def": 71,
+    "base_mag_def": 75,
+    "base_spd": 140,
+    "moveset_key": "Flutterfly",
+    "localized": {
+      "zh": {
+        "name": "化蝶"
+      }
+    }
+  },
+  {
+    "name": "Chessie",
+    "evolves_from": null,
+    "species": "Chessie",
+    "form": "default",
+    "main_type": "Fighting",
+    "sub_type": "Ground",
+    "default_legacy_type": "Fighting",
+    "trait": "Shifting Stance",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 64,
+    "base_phy_atk": 115,
+    "base_mag_atk": 49,
+    "base_phy_def": 63,
+    "base_mag_def": 49,
+    "base_spd": 100,
+    "moveset_key": "Chess_Knight",
+    "localized": {
+      "zh": {
+        "name": "棋棋"
+      }
+    }
+  },
+  {
+    "name": "Chess Knight",
+    "evolves_from": "Chessie",
+    "species": "Chessie",
+    "form": "default",
+    "main_type": "Fighting",
+    "sub_type": "Ground",
+    "default_legacy_type": "Fighting",
+    "trait": "Shifting Stance",
+    "leader_potential": true,
+    "is_leader_form": false,
+    "base_hp": 81,
+    "base_phy_atk": 144,
+    "base_mag_atk": 61,
+    "base_phy_def": 78,
+    "base_mag_def": 61,
+    "base_spd": 125,
+    "moveset_key": "Chess_Knight",
+    "localized": {
+      "zh": {
+        "name": "棋骑士"
+      }
+    }
+  },
+  {
+    "name": "Chess Guard",
+    "evolves_from": "Chessie",
+    "species": "Chessie",
+    "form": "default",
+    "main_type": "Fighting",
+    "sub_type": "Ground",
+    "default_legacy_type": "Fighting",
+    "trait": "Guard Duty",
+    "leader_potential": true,
+    "is_leader_form": false,
+    "base_hp": 109,
+    "base_phy_atk": 110,
+    "base_mag_atk": 90,
+    "base_phy_def": 116,
+    "base_mag_def": 83,
+    "base_spd": 75,
+    "moveset_key": "Chess_Guard",
+    "localized": {
+      "zh": {
+        "name": "棋齐垒"
+      }
+    }
+  },
+  {
+    "name": "Chess Overseer",
+    "evolves_from": "Chessie",
+    "species": "Chessie",
+    "form": "default",
+    "main_type": "Fighting",
+    "sub_type": "Ground",
+    "default_legacy_type": "Fighting",
+    "trait": "Twin Elephants",
+    "leader_potential": true,
+    "is_leader_form": false,
+    "base_hp": 127,
+    "base_phy_atk": 88,
+    "base_mag_atk": 88,
+    "base_phy_def": 85,
+    "base_mag_def": 67,
+    "base_spd": 85,
+    "moveset_key": "Chess_Overseer",
+    "localized": {
+      "zh": {
+        "name": "棋祈督"
+      }
+    }
+  },
+  {
+    "name": "Chess Queen",
+    "evolves_from": "Chessie",
+    "species": "Chessie",
+    "form": "default",
+    "main_type": "Fighting",
+    "sub_type": "Ground",
+    "default_legacy_type": "Fighting",
+    "trait": "Penetration",
+    "leader_potential": true,
+    "is_leader_form": false,
+    "base_hp": 86,
+    "base_phy_atk": 79,
+    "base_mag_atk": 79,
+    "base_phy_def": 88,
+    "base_mag_def": 88,
+    "base_spd": 90,
+    "moveset_key": "Chess_Queen",
+    "localized": {
+      "zh": {
+        "name": "棋绮后"
+      }
+    }
+  },
+  {
+    "name": "Chess Majesty",
+    "evolves_from": "Chess Queen",
+    "species": "Chessie",
+    "form": "default",
+    "main_type": "Fighting",
+    "sub_type": "Ground",
+    "default_legacy_type": "Leader",
+    "trait": "Royal Command - Leader",
+    "leader_potential": false,
+    "is_leader_form": true,
+    "base_hp": 99,
+    "base_phy_atk": 91,
+    "base_mag_atk": 91,
+    "base_phy_def": 101,
+    "base_mag_def": 101,
+    "base_spd": 90,
+    "moveset_key": null,
+    "localized": {
+      "zh": {
+        "name": "棋契陛下"
+      }
+    }
+  },
+  {
+    "name": "Starlite",
+    "evolves_from": null,
+    "species": "Starlite",
+    "form": "Starlight Energy",
+    "main_type": "Electric",
+    "sub_type": null,
+    "default_legacy_type": "Electric",
+    "trait": "Electric Surge",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 54,
+    "base_phy_atk": 94,
+    "base_mag_atk": 94,
+    "base_phy_def": 77,
+    "base_mag_def": 93,
+    "base_spd": 108,
+    "moveset_key": "Starlion_Starlight",
+    "localized": {
+      "zh": {
+        "name": "小星光",
+        "form": "星光能量的样子"
+      }
+    }
+  },
+  {
+    "name": "Starlite",
+    "evolves_from": null,
+    "species": "Starlite",
+    "form": "Moonlight Energy",
+    "main_type": "Electric",
+    "sub_type": "Light",
+    "default_legacy_type": "Electric",
+    "trait": "Electric Surge",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 42,
+    "base_phy_atk": 94,
+    "base_mag_atk": 103,
+    "base_phy_def": 77,
+    "base_mag_def": 103,
+    "base_spd": 100,
+    "moveset_key": "Starlion_Moonlight",
+    "localized": {
+      "zh": {
+        "name": "小星光",
+        "form": "月光能量的样子"
+      }
+    }
+  },
+  {
+    "name": "Starlion",
+    "evolves_from": "Starlite",
+    "species": "Starlite",
+    "form": "Starlight Energy",
+    "main_type": "Electric",
+    "sub_type": null,
+    "default_legacy_type": "Electric",
+    "trait": "Electric Surge",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 67,
+    "base_phy_atk": 117,
+    "base_mag_atk": 117,
+    "base_phy_def": 96,
+    "base_mag_def": 116,
+    "base_spd": 135,
+    "moveset_key": "Starlion_Starlight",
+    "localized": {
+      "zh": {
+        "name": "星光狮",
+        "form": "星光能量的样子"
+      }
+    }
+  },
+  {
+    "name": "Starlion",
+    "evolves_from": "Starlite",
+    "species": "Starlite",
+    "form": "Moonlight Energy",
+    "main_type": "Electric",
+    "sub_type": "Light",
+    "default_legacy_type": "Electric",
+    "trait": "Electric Surge",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 52,
+    "base_phy_atk": 117,
+    "base_mag_atk": 129,
+    "base_phy_def": 96,
+    "base_mag_def": 128,
+    "base_spd": 125,
+    "moveset_key": "Starlion_Moonlight",
+    "localized": {
+      "zh": {
+        "name": "星光狮",
+        "form": "月光能量的样子"
+      }
+    }
+  },
+  {
+    "name": "Jelly",
+    "evolves_from": null,
+    "species": "Jelly",
+    "form": "default",
+    "main_type": "Water",
+    "sub_type": null,
+    "default_legacy_type": "Water",
+    "trait": "Tea Polyphenol",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 102,
+    "base_phy_atk": 72,
+    "base_mag_atk": 88,
+    "base_phy_def": 72,
+    "base_mag_def": 77,
+    "base_spd": 96,
+    "moveset_key": "Matcha_Pudding",
+    "localized": {
+      "zh": {
+        "name": "果冻"
+      }
+    }
+    },
+  {
+    "name": "Matcha Pudding",
+    "evolves_from": "Jelly",
+    "species": "Jelly",
+    "form": "default",
+    "main_type": "Water",
+    "sub_type": "Grass",
+    "default_legacy_type": "Water",
+    "trait": "Tea Polyphenol",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 127,
+    "base_phy_atk": 90,
+    "base_mag_atk": 110,
+    "base_phy_def": 90,
+    "base_mag_def": 96,
+    "base_spd": 120,
+    "moveset_key": "Matcha_Pudding",
+    "localized": {
+      "zh": {
+        "name": "抹茶布丁"
+      }
+    }
+  },
+  {
+    "name": "Coconut Pudding",
+    "evolves_from": "Jelly",
+    "species": "Jelly",
+    "form": "default",
+    "main_type": "Water",
+    "sub_type": "Ice",
+    "default_legacy_type": "Water",
+    "trait": "Gelatin Sheet",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 108,
+    "base_phy_atk": 90,
+    "base_mag_atk": 110,
+    "base_phy_def": 98,
+    "base_mag_def": 104,
+    "base_spd": 120,
+    "moveset_key": "Coconut_Pudding",
+    "localized": {
+      "zh": {
+        "name": "椰浆布丁"
+      }
+    }
+  },
+  {
+    "name": "Lava Pudding",
+    "evolves_from": "Jelly",
+    "species": "Jelly",
+    "form": "default",
+    "main_type": "Water",
+    "sub_type": "Fire",
+    "default_legacy_type": "Water",
+    "trait": "Maillard Reaction",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 115,
+    "base_phy_atk": 125,
+    "base_mag_atk": 104,
+    "base_phy_def": 96,
+    "base_mag_def": 90,
+    "base_spd": 120,
+    "moveset_key": "Lava_Pudding",
+    "localized": {
+      "zh": {
+        "name": "熔岩布丁"
+      }
+    }
+  },
+  {
+    "name": "Starlet",
+    "evolves_from": null,
+    "species": "Starlet",
+    "form": "default",
+    "main_type": "Illusion",
+    "sub_type": null,
+    "default_legacy_type": "Illusion",
+    "trait": "Dual Lightspeed",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 55,
+    "base_phy_atk": 51,
+    "base_mag_atk": 127,
+    "base_phy_def": 63,
+    "base_mag_def": 93,
+    "base_spd": 92,
+    "moveset_key": "Pinkabbit",
+    "localized": {
+      "zh": {
+        "name": "粉星仔"
+      }
+    }
+  },
+  {
+    "name": "Pinkabbit",
+    "evolves_from": "Starlet",
+    "species": "Starlet",
+    "form": "default",
+    "main_type": "Illusion",
+    "sub_type": null,
+    "default_legacy_type": "Illusion",
+    "trait": "Dual Lightspeed",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 69,
+    "base_phy_atk": 64,
+    "base_mag_atk": 158,
+    "base_phy_def": 79,
+    "base_mag_def": 116,
+    "base_spd": 115,
+    "moveset_key": "Pinkabbit",
+    "localized": {
+      "zh": {
+        "name": "粉耳星兔"
+      }
+    }
+  },
+  {
+    "name": "Meteorabbit",
+    "evolves_from": "Starlet",
+    "species": "Starlet",
+    "form": "default",
+    "main_type": "Illusion",
+    "sub_type": "Ghost",
+    "default_legacy_type": "Illusion",
+    "trait": "Fallen",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 65,
+    "base_phy_atk": 63,
+    "base_mag_atk": 140,
+    "base_phy_def": 90,
+    "base_mag_def": 123,
+    "base_spd": 130,
+    "moveset_key": "Meteorabbit",
+    "localized": {
+      "zh": {
+        "name": "落陨星兔"
+      }
+    }
+  },
+  {
+    "name": "Dio",
+    "evolves_from": null,
+    "species": "Dio",
+    "form": "Grassland",
+    "main_type": "Grass",
+    "sub_type": null,
+    "default_legacy_type": "Grass",
+    "trait": "Feign Death",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 48,
+    "base_phy_atk": 66,
+    "base_mag_atk": 35,
+    "base_phy_def": 51,
+    "base_mag_def": 41,
+    "base_spd": 78,
+    "moveset_key": "Kawachung_Grassland",
+    "localized": {
+      "zh": {
+        "name": "丢丢",
+        "form": "草地附近的样子"
+      }
+    }
+  },
+  {
+    "name": "Dio",
+    "evolves_from": null,
+    "species": "Dio",
+    "form": "Sandy Land",
+    "main_type": "Grass",
+    "sub_type": "Ground",
+    "default_legacy_type": "Grass",
+    "trait": "Feign Death",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 48,
+    "base_phy_atk": 66,
+    "base_mag_atk": 35,
+    "base_phy_def": 52,
+    "base_mag_def": 41,
+    "base_spd": 75,
+    "moveset_key": "Kawachung_Sandy_Land",
+    "localized": {
+      "zh": {
+        "name": "丢丢",
+        "form": "沙地附近的样子"
+      }
+    }
+  },
+  {
+    "name": "Dio",
+    "evolves_from": null,
+    "species": "Dio",
+    "form": "Snowy Mountain",
+    "main_type": "Grass",
+    "sub_type": "Ice",
+    "default_legacy_type": "Grass",
+    "trait": "Feign Death",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 49,
+    "base_phy_atk": 66,
+    "base_mag_atk": 35,
+    "base_phy_def": 50,
+    "base_mag_def": 40,
+    "base_spd": 81,
+    "moveset_key": "Kawachung_Snowy_Mountain",
+    "localized": {
+      "zh": {
+        "name": "丢丢",
+        "form": "雪山附近的样子"
+      }
+    }
+  },
+  {
+    "name": "Kakabug",
+    "evolves_from": "Dio",
+    "species": "Dio",
+    "form": "Grassland",
+    "main_type": "Grass",
+    "sub_type": null,
+    "default_legacy_type": "Grass",
+    "trait": "Feign Death",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 64,
+    "base_phy_atk": 88,
+    "base_mag_atk": 47,
+    "base_phy_def": 68,
+    "base_mag_def": 55,
+    "base_spd": 104,
+    "moveset_key": "Kawachung_Grassland",
+    "localized": {
+      "zh": {
+        "name": "卡卡虫",
+        "form": "草地附近的样子"
+      }
+    }
+  },
+  {
+    "name": "Kakabug",
+    "evolves_from": "Dio",
+    "species": "Dio",
+    "form": "Sandy Land",
+    "main_type": "Grass",
+    "sub_type": "Ground",
+    "default_legacy_type": "Grass",
+    "trait": "Feign Death",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 64,
+    "base_phy_atk": 88,
+    "base_mag_atk": 47,
+    "base_phy_def": 69,
+    "base_mag_def": 55,
+    "base_spd": 100,
+    "moveset_key": "Kawachung_Sandy_Land",
+    "localized": {
+      "zh": {
+        "name": "卡卡虫",
+        "form": "沙地附近的样子"
+      }
+    }
+  },
+  {
+    "name": "Kakabug",
+    "evolves_from": "Dio",
+    "species": "Dio",
+    "form": "Snowy Mountain",
+    "main_type": "Grass",
+    "sub_type": "Ice",
+    "default_legacy_type": "Grass",
+    "trait": "Feign Death",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 65,
+    "base_phy_atk": 88,
+    "base_mag_atk": 47,
+    "base_phy_def": 66,
+    "base_mag_def": 53,
+    "base_spd": 108,
+    "moveset_key": "Kawachung_Snowy_Mountain",
+    "localized": {
+      "zh": {
+        "name": "卡卡虫",
+        "form": "雪山附近的样子"
+      }
+    }
+  },
+  {
+    "name": "Kawachung",
+    "evolves_from": "Kakabug",
+    "species": "Dio",
+    "form": "Grassland",
+    "main_type": "Grass",
+    "sub_type": null,
+    "default_legacy_type": "Grass",
+    "trait": "Feign Death",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 81,
+    "base_phy_atk": 110,
+    "base_mag_atk": 59,
+    "base_phy_def": 85,
+    "base_mag_def": 68,
+    "base_spd": 130,
+    "moveset_key": "Kawachung_Grassland",
+    "localized": {
+      "zh": {
+        "name": "卡瓦重",
+        "form": "草地附近的样子"
+      }
+    }
+  },
+  {
+    "name": "Kawachung",
+    "evolves_from": "Kakabug",
+    "species": "Dio",
+    "form": "Sandy Land",
+    "main_type": "Grass",
+    "sub_type": "Ground",
+    "default_legacy_type": "Grass",
+    "trait": "Feign Death",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 79,
+    "base_phy_atk": 110,
+    "base_mag_atk": 59,
+    "base_phy_def": 86,
+    "base_mag_def": 69,
+    "base_spd": 125,
+    "moveset_key": "Kawachung_Sandy_Land",
+    "localized": {
+      "zh": {
+        "name": "卡瓦重",
+        "form": "沙地附近的样子"
+      }
+    }
+  },
+  {
+    "name": "Kawachung",
+    "evolves_from": "Kakabug",
+    "species": "Dio",
+    "form": "Snowy Mountain",
+    "main_type": "Grass",
+    "sub_type": "Ice",
+    "default_legacy_type": "Grass",
+    "trait": "Feign Death",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 82,
+    "base_phy_atk": 110,
+    "base_mag_atk": 59,
+    "base_phy_def": 83,
+    "base_mag_def": 66,
+    "base_spd": 135,
+    "moveset_key": "Kawachung_Snowy_Mountain",
+    "localized": {
+      "zh": {
+        "name": "卡瓦重",
+        "form": "雪山附近的样子"
+      }
+    }
+  },
+  {
+    "name": "Snowbabe",
+    "evolves_from": null,
+    "species": "Snowbabe",
+    "form": "default",
+    "main_type": "Ice",
+    "sub_type": null,
+    "default_legacy_type": "Ice",
+    "trait": "Icebound",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 51,
+    "base_phy_atk": 45,
+    "base_mag_atk": 45,
+    "base_phy_def": 56,
+    "base_mag_def": 56,
+    "base_spd": 69,
+    "moveset_key": "Snowsprite",
+    "localized": {
+      "zh": {
+        "name": "雪娃娃"
+      }
+    }
+  },
+  {
+    "name": "Frostling",
+    "evolves_from": "Snowbabe",
+    "species": "Snowbabe",
+    "form": "default",
+    "main_type": "Ice",
+    "sub_type": null,
+    "default_legacy_type": "Ice",
+    "trait": "Icebound",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 68,
+    "base_phy_atk": 60,
+    "base_mag_atk": 60,
+    "base_phy_def": 75,
+    "base_mag_def": 75,
+    "base_spd": 92,
+    "moveset_key": "Snowsprite",
+    "localized": {
+      "zh": {
+        "name": "冰封怨灵"
+      }
+    }
+  },
+  {
+    "name": "Snowsprite",
+    "evolves_from": "Frostling",
+    "species": "Snowbabe",
+    "form": "default",
+    "main_type": "Ice",
+    "sub_type": null,
+    "default_legacy_type": "Ice",
+    "trait": "Icebound",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 85,
+    "base_phy_atk": 76,
+    "base_mag_atk": 76,
+    "base_phy_def": 94,
+    "base_mag_def": 94,
+    "base_spd": 115,
+    "moveset_key": "Snowsprite",
+    "localized": {
+      "zh": {
+        "name": "雪灵"
+      }
+    }
+  },
+  {
+    "name": "Jadejelly",
+    "evolves_from": null,
+    "species": "Jadejelly",
+    "form": "default",
+    "main_type": "Water",
+    "sub_type": "Poison",
+    "default_legacy_type": "Water",
+    "trait": "Diffuse Corrosion",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 58,
+    "base_phy_atk": 70,
+    "base_mag_atk": 107,
+    "base_phy_def": 87,
+    "base_mag_def": 103,
+    "base_spd": 76,
+    "moveset_key": "Glassjelly",
+    "localized": {
+      "zh": {
+        "name": "翡翠水母"
+      }
+    }
+  },
+  {
+    "name": "Glassjelly",
+    "evolves_from": "Jadejelly",
+    "species": "Jadejelly",
+    "form": "default",
+    "main_type": "Water",
+    "sub_type": "Poison",
+    "default_legacy_type": "Water",
+    "trait": "Diffuse Corrosion",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 72,
+    "base_phy_atk": 87,
+    "base_mag_atk": 133,
+    "base_phy_def": 109,
+    "base_mag_def": 128,
+    "base_spd": 95,
+    "moveset_key": "Glassjelly",
+    "localized": {
+      "zh": {
+        "name": "琉璃水母"
+      }
+    }
+  },
+  {
+    "name": "Grifflet",
+    "evolves_from": null,
+    "species": "Grifflet",
+    "form": "Cliffside",
+    "main_type": "Flying",
+    "sub_type": null,
+    "default_legacy_type": "Flying",
+    "trait": "Windrider Combo",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 65,
+    "base_phy_atk": 95,
+    "base_mag_atk": 39,
+    "base_phy_def": 53,
+    "base_mag_def": 36,
+    "base_spd": 72,
+    "moveset_key": "Royalgriff_Cliffside",
+    "localized": {
+      "zh": {
+        "name": "小狮鹫",
+        "form": "崖间地的样子"
+      }
+    }
+  },
+  {
+    "name": "Grifflet",
+    "evolves_from": null,
+    "species": "Grifflet",
+    "form": "Highland",
+    "main_type": "Flying",
+    "sub_type": null,
+    "default_legacy_type": "Flying",
+    "trait": "Windrider Combo",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 66,
+    "base_phy_atk": 90,
+    "base_mag_atk": 42,
+    "base_phy_def": 53,
+    "base_mag_def": 39,
+    "base_spd": 75,
+    "moveset_key": "Royalgriff_Highland",
+    "localized": {
+      "zh": {
+        "name": "小狮鹫",
+        "form": "高山地的样子"
+      }
+    }
+  },
+  {
+    "name": "Holygriff",
+    "evolves_from": "Grifflet",
+    "species": "Grifflet",
+    "form": "Cliffside",
+    "main_type": "Flying",
+    "sub_type": null,
+    "default_legacy_type": "Flying",
+    "trait": "Windrider Combo",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 87,
+    "base_phy_atk": 127,
+    "base_mag_atk": 52,
+    "base_phy_def": 71,
+    "base_mag_def": 48,
+    "base_spd": 96,
+    "moveset_key": "Royalgriff_Cliffside",
+    "localized": {
+      "zh": {
+        "name": "神圣狮鹫",
+        "form": "崖间地的样子"
+      }
+    }
+  },
+  {
+    "name": "Holygriff",
+    "evolves_from": "Grifflet",
+    "species": "Grifflet",
+    "form": "Highland",
+    "main_type": "Flying",
+    "sub_type": null,
+    "default_legacy_type": "Flying",
+    "trait": "Windrider Combo",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 88,
+    "base_phy_atk": 120,
+    "base_mag_atk": 56,
+    "base_phy_def": 71,
+    "base_mag_def": 52,
+    "base_spd": 100,
+    "moveset_key": "Royalgriff_Highland",
+    "localized": {
+      "zh": {
+        "name": "神圣狮鹫",
+        "form": "高山地的样子"
+      }
+    }
+  },
+  {
+    "name": "Royalgriff",
+    "evolves_from": "Holygriff",
+    "species": "Grifflet",
+    "form": "Cliffside",
+    "main_type": "Flying",
+    "sub_type": null,
+    "default_legacy_type": "Flying",
+    "trait": "Windrider Combo",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 109,
+    "base_phy_atk": 159,
+    "base_mag_atk": 65,
+    "base_phy_def": 88,
+    "base_mag_def": 60,
+    "base_spd": 120,
+    "moveset_key": "Royalgriff_Cliffside",
+    "localized": {
+      "zh": {
+        "name": "皇家狮鹫",
+        "form": "崖间地的样子"
+      }
+    }
+  },
+  {
+    "name": "Royalgriff",
+    "evolves_from": "Holygriff",
+    "species": "Grifflet",
+    "form": "Highland",
+    "main_type": "Flying",
+    "sub_type": null,
+    "default_legacy_type": "Flying",
+    "trait": "Windrider Combo",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 111,
+    "base_phy_atk": 151,
+    "base_mag_atk": 70,
+    "base_phy_def": 88,
+    "base_mag_def": 65,
+    "base_spd": 125,
+    "moveset_key": "Royalgriff_Highland",
+    "localized": {
+      "zh": {
+        "name": "皇家狮鹫",
+        "form": "高山地的样子"
+      }
+    }
+  },
+  {
+    "name": "Doling",
+    "evolves_from": null,
+    "species": "Doling",
+    "form": "default",
+    "main_type": "Ghost",
+    "sub_type": null,
+    "default_legacy_type": "Ghost",
+    "trait": "Spirit Drain",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 34,
+    "base_phy_atk": 24,
+    "base_mag_atk": 24,
+    "base_phy_def": 28,
+    "base_mag_def": 28,
+    "base_spd": 72,
+    "moveset_key": "Dolord",
+    "localized": {
+      "zh": {
+        "name": "多灵"
+      }
+    }
+  },
+  {
+    "name": "Dolord",
+    "evolves_from": "Doling",
+    "species": "Doling",
+    "form": "default",
+    "main_type": "Ghost",
+    "sub_type": null,
+    "default_legacy_type": "Ghost",
+    "trait": "Spirit Drain",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 42,
+    "base_phy_atk": 30,
+    "base_mag_atk": 30,
+    "base_phy_def": 35,
+    "base_mag_def": 35,
+    "base_spd": 90,
+    "moveset_key": "Dolord",
+    "localized": {
+      "zh": {
+        "name": "多灵主"
+      }
+    }
+  },
+  {
+    "name": "Pinkstar",
+    "evolves_from": null,
+    "species": "Pinkstar",
+    "form": "default",
+    "main_type": "Electric",
+    "sub_type": "Illusion",
+    "default_legacy_type": "Electric",
+    "trait": "Stellar Kindness",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 83,
+    "base_phy_atk": 66,
+    "base_mag_atk": 113,
+    "base_phy_def": 61,
+    "base_mag_def": 75,
+    "base_spd": 104,
+    "moveset_key": "Joltball",
+    "localized": {
+      "zh": {
+        "name": "粉粉星"
+      }
+    }
+  },
+  {
+    "name": "Joltball",
+    "evolves_from": "Pinkstar",
+    "species": "Pinkstar",
+    "form": "default",
+    "main_type": "Electric",
+    "sub_type": "Illusion",
+    "default_legacy_type": "Electric",
+    "trait": "Stellar Kindness",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 104,
+    "base_phy_atk": 82,
+    "base_mag_atk": 142,
+    "base_phy_def": 76,
+    "base_mag_def": 94,
+    "base_spd": 130,
+    "moveset_key": "Joltball",
+    "localized": {
+      "zh": {
+        "name": "小皮球"
+      }
+    }
+  },
+  {
+    "name": "Crystil",
+    "evolves_from": null,
+    "species": "Crystil",
+    "form": "default",
+    "main_type": "Light",
+    "sub_type": "Ground",
+    "default_legacy_type": "Light",
+    "trait": "Polarization",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 77,
+    "base_phy_atk": 70,
+    "base_mag_atk": 75,
+    "base_phy_def": 96,
+    "base_mag_def": 89,
+    "base_spd": 52,
+    "moveset_key": "Geoslug_Watermelon_Tourmaline",
+    "localized": {
+      "zh": {
+        "name": "矿晶虫"
+      }
+    }
+  },
+  {
+    "name": "Geoslug",
+    "evolves_from": "Crystil",
+    "species": "Crystil",
+    "form": "Watermelon Tourmaline",
+    "main_type": "Light",
+    "sub_type": "Ground",
+    "default_legacy_type": "Light",
+    "trait": "Polarization",
+    "leader_potential": true,
+    "is_leader_form": false,
+    "base_hp": 96,
+    "base_phy_atk": 88,
+    "base_mag_atk": 94,
+    "base_phy_def": 120,
+    "base_mag_def": 112,
+    "base_spd": 65,
+    "moveset_key": "Geoslug_Watermelon_Tourmaline",
+    "localized": {
+      "zh": {
+        "name": "晶石蜗",
+        "form": "西瓜碧玺的样子"
+      }
+    }
+  },
+  {
+    "name": "Geoslug",
+    "evolves_from": "Crystil",
+    "species": "Crystil",
+    "form": "Lotus Sapphire",
+    "main_type": "Light",
+    "sub_type": "Ground",
+    "default_legacy_type": "Light",
+    "trait": "Polarization",
+    "leader_potential": true,
+    "is_leader_form": false,
+    "base_hp": 99,
+    "base_phy_atk": 88,
+    "base_mag_atk": 94,
+    "base_phy_def": 120,
+    "base_mag_def": 108,
+    "base_spd": 65,
+    "moveset_key": "Geoslug_Lotus_Sapphire",
+    "localized": {
+      "zh": {
+        "name": "晶石蜗",
+        "form": "莲花刚玉的样子"
+      }
+    }
+  },
+  {
+    "name": "Geoslug",
+    "evolves_from": "Crystil",
+    "species": "Crystil",
+    "form": "Star Garnet",
+    "main_type": "Light",
+    "sub_type": "Ground",
+    "default_legacy_type": "Light",
+    "trait": "Polarization",
+    "leader_potential": true,
+    "is_leader_form": false,
+    "base_hp": 99,
+    "base_phy_atk": 94,
+    "base_mag_atk": 94,
+    "base_phy_def": 120,
+    "base_mag_def": 108,
+    "base_spd": 65,
+    "moveset_key": "Geoslug_Star_Garnet",
+    "localized": {
+      "zh": {
+        "name": "晶石蜗",
+        "form": "星彩榴石的样子"
+      }
+    }
+  },
+  {
+    "name": "Geoslug",
+    "evolves_from": "Crystil",
+    "species": "Crystil",
+    "form": "Obsidian",
+    "main_type": "Light",
+    "sub_type": "Ground",
+    "default_legacy_type": "Light",
+    "trait": "Polarization",
+    "leader_potential": true,
+    "is_leader_form": false,
+    "base_hp": 96,
+    "base_phy_atk": 88,
+    "base_mag_atk": 94,
+    "base_phy_def": 124,
+    "base_mag_def": 108,
+    "base_spd": 65,
+    "moveset_key": "Geoslug_Obsidian",
+    "localized": {
+      "zh": {
+        "name": "晶石蜗",
+        "form": "火山琉璃的样子"
+      }
+    }
+  },
+  {
+    "name": "Geoslug",
+    "evolves_from": "Crystil",
+    "species": "Crystil",
+    "form": "Benitoite",
+    "main_type": "Light",
+    "sub_type": "Ground",
+    "default_legacy_type": "Light",
+    "trait": "Polarization",
+    "leader_potential": true,
+    "is_leader_form": false,
+    "base_hp": 96,
+    "base_phy_atk": 88,
+    "base_mag_atk": 99,
+    "base_phy_def": 116,
+    "base_mag_def": 108,
+    "base_spd": 65,
+    "moveset_key": "Geoslug_Benitoite",
+    "localized": {
+      "zh": {
+        "name": "晶石蜗",
+        "form": "蓝锥矿的样子"
+      }
+    }
+  },
+  {
+    "name": "Geoslug",
+    "evolves_from": "Crystil",
+    "species": "Crystil",
+    "form": "Blued Gold",
+    "main_type": "Light",
+    "sub_type": "Ground",
+    "default_legacy_type": "Light",
+    "trait": "Polarization",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 98,
+    "base_phy_atk": 88,
+    "base_mag_atk": 94,
+    "base_phy_def": 120,
+    "base_mag_def": 108,
+    "base_spd": 70,
+    "moveset_key": "Geoslug_Blued_Gold",
+    "localized": {
+      "zh": {
+        "name": "晶石蜗",
+        "form": "烧蓝黄金的样子"
+      }
+    }
+  },
+  {
+    "name": "Diamoslug",
+    "evolves_from": "Geoslug",
+    "species": "Crystil",
+    "form": "default",
+    "main_type": "Light",
+    "sub_type": "Ground",
+    "default_legacy_type": "Leader",
+    "trait": "Polarization - Leader",
+    "leader_potential": false,
+    "is_leader_form": true,
+    "base_hp": 106,
+    "base_phy_atk": 97,
+    "base_mag_atk": 103,
+    "base_phy_def": 132,
+    "base_mag_def": 123,
+    "base_spd": 72,
+    "moveset_key": null,
+    "localized": {
+      "zh": {
+        "name": "钻石蜗"
+      }
+    }
+  },
+  {
+    "name": "Shadowwood",
+    "evolves_from": null,
+    "species": "Shadowwood",
+    "form": "default",
+    "main_type": "Ghost",
+    "sub_type": "Grass",
+    "default_legacy_type": "Ghost",
+    "trait": "Pickpocket",
+    "leader_potential": true,
+    "is_leader_form": false,
+    "base_hp": 118,
+    "base_phy_atk": 82,
+    "base_mag_atk": 82,
+    "base_phy_def": 93,
+    "base_mag_def": 113,
+    "base_spd": 80,
+    "moveset_key": "Shadowwood",
+    "localized": {
+      "zh": {
+        "name": "幽影树"
+      }
+    }
+  },
+  {
+    "name": "Phantomwood",
+    "evolves_from": "Shadowwood",
+    "species": "Shadowwood",
+    "form": "default",
+    "main_type": "Ghost",
+    "sub_type": "Grass",
+    "default_legacy_type": "Leader",
+    "trait": "Pickpocket - Leader",
+    "leader_potential": false,
+    "is_leader_form": true,
+    "base_hp": 128,
+    "base_phy_atk": 93,
+    "base_mag_atk": 93,
+    "base_phy_def": 103,
+    "base_mag_def": 123,
+    "base_spd": 88,
+    "moveset_key": "Shadowwood",
+    "localized": {
+      "zh": {
+        "name": "幻影树"
+      }
+    }
+  },
+  {
+    "name": "Chrysapear",
+    "evolves_from": null,
+    "species": "Chrysapear",
+    "form": "default",
+    "main_type": "Cute",
+    "sub_type": null,
+    "default_legacy_type": "Cute",
+    "trait": "Carefree",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 127,
+    "base_phy_atk": 65,
+    "base_mag_atk": 119,
+    "base_phy_def": 73,
+    "base_mag_def": 90,
+    "base_spd": 100,
+    "moveset_key": "Chrysapear",
+    "localized": {
+      "zh": {
+        "name": "菊花梨"
+      }
+    }
+  },
+  {
+    "name": "Fighto-5",
+    "evolves_from": null,
+    "species": "Fighto-5",
+    "form": "default",
+    "main_type": "Fighting",
+    "sub_type": null,
+    "default_legacy_type": "Fighting",
+    "trait": "Grapple",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 85,
+    "base_phy_atk": 88,
+    "base_mag_atk": 88,
+    "base_phy_def": 116,
+    "base_mag_def": 90,
+    "base_spd": 135,
+    "moveset_key": "Fighto-5",
+    "localized": {
+      "zh": {
+        "name": "格斗小五"
+      }
+    }
+  },
+  {
+    "name": "Fighto-6",
+    "evolves_from": null,
+    "species": "Fighto-6",
+    "form": "default",
+    "main_type": "Fighting",
+    "sub_type": null,
+    "default_legacy_type": "Fighting",
+    "trait": "Horse Stance",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 65,
+    "base_phy_atk": 145,
+    "base_mag_atk": 75,
+    "base_phy_def": 119,
+    "base_mag_def": 92,
+    "base_spd": 150,
+    "moveset_key": "Fighto-6",
+    "localized": {
+      "zh": {
+        "name": "格斗小六"
+      }
+    }
+  },
+  {
+    "name": "Fighto-8",
+    "evolves_from": null,
+    "species": "Fighto-8",
+    "form": "default",
+    "main_type": "Fighting",
+    "sub_type": null,
+    "default_legacy_type": "Fighting",
+    "trait": "Ukemi",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 135,
+    "base_phy_atk": 128,
+    "base_mag_atk": 72,
+    "base_phy_def": 112,
+    "base_mag_def": 91,
+    "base_spd": 66,
+    "moveset_key": "Fighto-8",
+    "localized": {
+      "zh": {
+        "name": "格斗小八"
+      }
+    }
+  },
+  {
+    "name": "Meowmi",
+    "evolves_from": null,
+    "species": "Meowmi",
+    "form": "default",
+    "main_type": "Grass",
+    "sub_type": null,
+    "default_legacy_type": "Grass",
+    "trait": "Oxygen Cycle",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 65,
+    "base_phy_atk": 53,
+    "base_mag_atk": 53,
+    "base_phy_def": 59,
+    "base_mag_def": 62,
+    "base_spd": 54,
+    "moveset_key": "Magikat",
+    "localized": {
+      "zh": {
+        "name": "喵喵"
+      }
+    }
+  },
+  {
+    "name": "Meowoo",
+    "evolves_from": "Meowmi",
+    "species": "Meowmi",
+    "form": "default",
+    "main_type": "Grass",
+    "sub_type": null,
+    "default_legacy_type": "Grass",
+    "trait": "Oxygen Cycle",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 87,
+    "base_phy_atk": 71,
+    "base_mag_atk": 71,
+    "base_phy_def": 79,
+    "base_mag_def": 83,
+    "base_spd": 72,
+    "moveset_key": "Magikat",
+    "localized": {
+      "zh": {
+        "name": "喵呜"
+      }
+    }
+  },
+  {
+    "name": "Magikat",
+    "evolves_from": "Meowoo",
+    "species": "Meowmi",
+    "form": "default",
+    "main_type": "Grass",
+    "sub_type": null,
+    "default_legacy_type": "Grass",
+    "trait": "Oxygen Cycle",
+    "leader_potential": true,
+    "is_leader_form": false,
+    "base_hp": 109,
+    "base_phy_atk": 88,
+    "base_mag_atk": 88,
+    "base_phy_def": 98,
+    "base_mag_def": 104,
+    "base_spd": 90,
+    "moveset_key": "Magikat",
+    "localized": {
+      "zh": {
+        "name": "魔力猫"
+      }
+    }
+  },
+  {
+    "name": "Leafcrown Magikat",
+    "evolves_from": "Magikat",
+    "species": "Meowmi",
+    "form": "default",
+    "main_type": "Grass",
+    "sub_type": null,
+    "default_legacy_type": "Leader",
+    "trait": "Oxygen Cycle - Leader",
+    "leader_potential": false,
+    "is_leader_form": true,
+    "base_hp": 120,
+    "base_phy_atk": 97,
+    "base_mag_atk": 97,
+    "base_phy_def": 108,
+    "base_mag_def": 114,
+    "base_spd": 99,
+    "moveset_key": "Magikat",
+    "localized": {
+      "zh": {
+        "name": "叶冕魔力猫"
+      }
+    }
+  },
+  {
+    "name": "Shyeel",
+    "evolves_from": null,
+    "species": "Shyeel",
+    "form": "default",
+    "main_type": "Electric",
+    "sub_type": "Water",
+    "default_legacy_type": "Electric",
+    "trait": "Bioelectricity",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 67,
+    "base_phy_atk": 75,
+    "base_mag_atk": 75,
+    "base_phy_def": 89,
+    "base_mag_def": 96,
+    "base_spd": 92,
+    "moveset_key": "Volteel",
+    "localized": {
+      "zh": {
+        "name": "胆小鳗鱼"
+      }
+    }
+  },
+  {
+    "name": "Volteel",
+    "evolves_from": "Shyeel",
+    "species": "Shyeel",
+    "form": "default",
+    "main_type": "Electric",
+    "sub_type": "Water",
+    "default_legacy_type": "Electric",
+    "trait": "Bioelectricity",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 84,
+    "base_phy_atk": 94,
+    "base_mag_atk": 94,
+    "base_phy_def": 112,
+    "base_mag_def": 120,
+    "base_spd": 115,
+    "moveset_key": "Volteel",
+    "localized": {
+      "zh": {
+        "name": "闪电鳗鱼"
+      }
+    }
+  },
+  {
+    "name": "Spirapa",
+    "evolves_from": null,
+    "species": "Spirapa",
+    "form": "default",
+    "main_type": "Mechanical",
+    "sub_type": "Flying",
+    "default_legacy_type": "Mechanical",
+    "trait": "Wing Axis",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 79,
+    "base_phy_atk": 42,
+    "base_mag_atk": 17,
+    "base_phy_def": 87,
+    "base_mag_def": 73,
+    "base_spd": 80,
+    "moveset_key": "Papaska",
+    "localized": {
+      "zh": {
+        "name": "螺旋帕帕"
+      }
+    }
+  },
+  {
+    "name": "Papaska",
+    "evolves_from": "Spirapa",
+    "species": "Spirapa",
+    "form": "default",
+    "main_type": "Mechanical",
+    "sub_type": "Flying",
+    "default_legacy_type": "Mechanical",
+    "trait": "Wing Axis",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 98,
+    "base_phy_atk": 53,
+    "base_mag_atk": 22,
+    "base_phy_def": 108,
+    "base_mag_def": 92,
+    "base_spd": 100,
+    "moveset_key": "Papaska",
+    "localized": {
+      "zh": {
+        "name": "帕帕斯卡"
+      }
+    }
+  },
+  {
+    "name": "Spiritfox",
+    "evolves_from": null,
+    "species": "Spiritfox",
+    "form": "default",
+    "main_type": "Fire",
+    "sub_type": "Ice",
+    "default_legacy_type": "Fire",
+    "trait": "Soul Scorch",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 64,
+    "base_phy_atk": 52,
+    "base_mag_atk": 52,
+    "base_phy_def": 55,
+    "base_mag_def": 70,
+    "base_spd": 60,
+    "moveset_key": "Mystifox",
+    "localized": {
+      "zh": {
+        "name": "灵狐"
+      }
+    }
+  },
+  {
+    "name": "Ninetails",
+    "evolves_from": "Spiritfox",
+    "species": "Spiritfox",
+    "form": "default",
+    "main_type": "Fire",
+    "sub_type": "Ice",
+    "default_legacy_type": "Fire",
+    "trait": "Soul Scorch",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 85,
+    "base_phy_atk": 69,
+    "base_mag_atk": 69,
+    "base_phy_def": 73,
+    "base_mag_def": 93,
+    "base_spd": 80,
+    "moveset_key": "Mystifox",
+    "localized": {
+      "zh": {
+        "name": "九尾狐"
+      }
+    }
+  },
+  {
+    "name": "Mystifox",
+    "evolves_from": "Ninetails",
+    "species": "Spiritfox",
+    "form": "default",
+    "main_type": "Fire",
+    "sub_type": "Ice",
+    "default_legacy_type": "Fire",
+    "trait": "Soul Scorch",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 106,
+    "base_phy_atk": 86,
+    "base_mag_atk": 86,
+    "base_phy_def": 92,
+    "base_mag_def": 116,
+    "base_spd": 100,
+    "moveset_key": "Mystifox",
+    "localized": {
+      "zh": {
+        "name": "尖嘴狐仙"
+      }
+    }
+  },
+  {
+    "name": "Qiulo",
+    "evolves_from": null,
+    "species": "Qiulo",
+    "form": "default",
+    "main_type": "Poison",
+    "sub_type": null,
+    "default_legacy_type": "Poison",
+    "trait": "Etching",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 47,
+    "base_phy_atk": 65,
+    "base_mag_atk": 58,
+    "base_phy_def": 55,
+    "base_mag_def": 67,
+    "base_spd": 75,
+    "moveset_key": "Qiuka",
+    "localized": {
+      "zh": {
+        "name": "裘洛"
+      }
+    }
+  },
+  {
+    "name": "Qiuli",
+    "evolves_from": "Qiulo",
+    "species": "Qiulo",
+    "form": "default",
+    "main_type": "Poison",
+    "sub_type": null,
+    "default_legacy_type": "Poison",
+    "trait": "Etching",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 62,
+    "base_phy_atk": 87,
+    "base_mag_atk": 77,
+    "base_phy_def": 73,
+    "base_mag_def": 89,
+    "base_spd": 100,
+    "moveset_key": "Qiuka",
+    "localized": {
+      "zh": {
+        "name": "裘力"
+      }
+    }
+  },
+  {
+    "name": "Qiuka",
+    "evolves_from": "Qiuli",
+    "species": "Qiulo",
+    "form": "default",
+    "main_type": "Poison",
+    "sub_type": null,
+    "default_legacy_type": "Poison",
+    "trait": "Etching",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 78,
+    "base_phy_atk": 108,
+    "base_mag_atk": 97,
+    "base_phy_def": 92,
+    "base_mag_def": 112,
+    "base_spd": 125,
+    "moveset_key": "Qiuka",
+    "localized": {
+      "zh": {
+        "name": "裘卡"
+      }
+    }
+  },
+  {
+    "name": "Toxilora",
+    "evolves_from": null,
+    "species": "Toxilora",
+    "form": "default",
+    "main_type": "Poison",
+    "sub_type": "Dark",
+    "default_legacy_type": "Poison",
+    "trait": "Corrosion",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 83,
+    "base_phy_atk": 80,
+    "base_mag_atk": 34,
+    "base_phy_def": 72,
+    "base_mag_def": 55,
+    "base_spd": 108,
+    "moveset_key": "Toxilure",
+    "localized": {
+      "zh": {
+        "name": "厉毒小萝"
+      }
+    }
+  },
+  {
+    "name": "Toxilure",
+    "evolves_from": "Toxilora",
+    "species": "Toxilora",
+    "form": "default",
+    "main_type": "Poison",
+    "sub_type": "Dark",
+    "default_legacy_type": "Poison",
+    "trait": "Corrosion",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 104,
+    "base_phy_atk": 100,
+    "base_mag_atk": 42,
+    "base_phy_def": 90,
+    "base_mag_def": 69,
+    "base_spd": 135,
+    "moveset_key": "Toxilure",
+    "localized": {
+      "zh": {
+        "name": "厉毒修萝"
+      }
+    }
+  },
+  {
+    "name": "Ebayle",
+    "evolves_from": null,
+    "species": "Ebayle",
+    "form": "default",
+    "main_type": "Grass",
+    "sub_type": null,
+    "default_legacy_type": "Grass",
+    "trait": "Humus Cycle",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 83,
+    "base_phy_atk": 64,
+    "base_mag_atk": 61,
+    "base_phy_def": 83,
+    "base_mag_def": 83,
+    "base_spd": 72,
+    "moveset_key": "Ebayflora",
+    "localized": {
+      "zh": {
+        "name": "伊贝儿"
+      }
+    }
+  },
+  {
+    "name": "Ebayflora",
+    "evolves_from": "Ebayle",
+    "species": "Ebayle",
+    "form": "default",
+    "main_type": "Grass",
+    "sub_type": null,
+    "default_legacy_type": "Grass",
+    "trait": "Humus Cycle",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 104,
+    "base_phy_atk": 79,
+    "base_mag_atk": 76,
+    "base_phy_def": 104,
+    "base_mag_def": 104,
+    "base_spd": 90,
+    "moveset_key": "Ebayflora",
+    "localized": {
+      "zh": {
+        "name": "伊贝粉粉"
+      }
+    }
+  },
+  {
+    "name": "Chestnut",
+    "evolves_from": null,
+    "species": "Chestnut",
+    "form": "default",
+    "main_type": "Poison",
+    "sub_type": null,
+    "default_legacy_type": "Poison",
+    "trait": "Chestnut Shell",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 88,
+    "base_phy_atk": 34,
+    "base_mag_atk": 36,
+    "base_phy_def": 67,
+    "base_mag_def": 96,
+    "base_spd": 80,
+    "moveset_key": "Shellnut",
+    "localized": {
+      "zh": {
+        "name": "栗鼠"
+      }
+    }
+  },
+  {
+    "name": "Shellnut",
+    "evolves_from": "Chestnut",
+    "species": "Chestnut",
+    "form": "default",
+    "main_type": "Poison",
+    "sub_type": null,
+    "default_legacy_type": "Poison",
+    "trait": "Chestnut Shell",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 111,
+    "base_phy_atk": 43,
+    "base_mag_atk": 45,
+    "base_phy_def": 84,
+    "base_mag_def": 120,
+    "base_spd": 100,
+    "moveset_key": "Shellnut",
+    "localized": {
+      "zh": {
+        "name": "壳栗丝鼠"
+      }
+    }
+  },
+  {
+    "name": "Cubrage",
+    "evolves_from": null,
+    "species": "Cubrage",
+    "form": "default",
+    "main_type": "Fire",
+    "sub_type": "Fighting",
+    "default_legacy_type": "Fire",
+    "trait": "Sacred Flame Knight",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 59,
+    "base_phy_atk": 36,
+    "base_mag_atk": 74,
+    "base_phy_def": 52,
+    "base_mag_def": 67,
+    "base_spd": 48,
+    "moveset_key": "Heartblaze",
+    "localized": {
+      "zh": {
+        "name": "小勇狮"
+      }
+    }
+  },
+  {
+    "name": "Blazion",
+    "evolves_from": "Cubrage",
+    "species": "Cubrage",
+    "form": "default",
+    "main_type": "Fire",
+    "sub_type": "Fighting",
+    "default_legacy_type": "Fire",
+    "trait": "Sacred Flame Knight",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 78,
+    "base_phy_atk": 48,
+    "base_mag_atk": 99,
+    "base_phy_def": 69,
+    "base_mag_def": 89,
+    "base_spd": 64,
+    "moveset_key": "Heartblaze",
+    "localized": {
+      "zh": {
+        "name": "炽焰狮"
+      }
+    }
+  },
+  {
+    "name": "Heartblaze",
+    "evolves_from": "Blazion",
+    "species": "Cubrage",
+    "form": "default",
+    "main_type": "Fire",
+    "sub_type": "Fighting",
+    "default_legacy_type": "Fire",
+    "trait": "Sacred Flame Knight",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 98,
+    "base_phy_atk": 60,
+    "base_mag_atk": 124,
+    "base_phy_def": 86,
+    "base_mag_def": 112,
+    "base_spd": 80,
+    "moveset_key": "Heartblaze",
+    "localized": {
+      "zh": {
+        "name": "炽心勇狮"
+      }
+    }
+  },
+  {
+    "name": "Pricklet",
+    "evolves_from": null,
+    "species": "Pricklet",
+    "form": "Waning",
+    "main_type": "Poison",
+    "sub_type": "Cute",
+    "default_legacy_type": "Poison",
+    "trait": "Toughness King",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 96,
+    "base_phy_atk": 68,
+    "base_mag_atk": 70,
+    "base_phy_def": 71,
+    "base_mag_def": 87,
+    "base_spd": 84,
+    "moveset_key": "Moonlet",
+    "localized": {
+      "zh": {
+        "name": "刺轮砣",
+        "form": "下弦的样子"
+      }
+    }
+  },
+  {
+    "name": "Pricklet",
+    "evolves_from": null,
+    "species": "Pricklet",
+    "form": "Waxing",
+    "main_type": "Poison",
+    "sub_type": "Cute",
+    "default_legacy_type": "Poison",
+    "trait": "Toughness King",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 96,
+    "base_phy_atk": 70,
+    "base_mag_atk": 68,
+    "base_phy_def": 87,
+    "base_mag_def": 71,
+    "base_spd": 84,
+    "moveset_key": "Moonlet",
+    "localized": {
+      "zh": {
+        "name": "刺轮砣",
+        "form": "上弦的样子"
+      }
+    }
+  },
+  {
+    "name": "Moonlet",
+    "evolves_from": "Pricklet",
+    "species": "Pricklet",
+    "form": "Crescent",
+    "main_type": "Poison",
+    "sub_type": "Cute",
+    "default_legacy_type": "Poison",
+    "trait": "Toughness King",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 120,
+    "base_phy_atk": 85,
+    "base_mag_atk": 88,
+    "base_phy_def": 88,
+    "base_mag_def": 108,
+    "base_spd": 105,
+    "moveset_key": "Moonlet",
+    "localized": {
+      "zh": {
+        "name": "月亮砣",
+        "form": "下弦的样子"
+      }
+    }
+  },
+  {
+    "name": "Moonlet",
+    "evolves_from": "Pricklet",
+    "species": "Pricklet",
+    "form": "Gibbous",
+    "main_type": "Poison",
+    "sub_type": "Cute",
+    "default_legacy_type": "Poison",
+    "trait": "Toughness King",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 120,
+    "base_phy_atk": 88,
+    "base_mag_atk": 85,
+    "base_phy_def": 108,
+    "base_mag_def": 88,
+    "base_spd": 105,
+    "moveset_key": "Moonlet",
+    "localized": {
+      "zh": {
+        "name": "月亮砣",
+        "form": "上弦的样子"
+      }
+    }
+  },
+  {
+    "name": "Sealior",
+    "evolves_from": null,
+    "species": "Sealior",
+    "form": "default",
+    "main_type": "Fighting",
+    "sub_type": "Water",
+    "default_legacy_type": "Fighting",
+    "trait": "Seasoned Veteran",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 61,
+    "base_phy_atk": 70,
+    "base_mag_atk": 66,
+    "base_phy_def": 96,
+    "base_mag_def": 67,
+    "base_spd": 80,
+    "moveset_key": "Seaptain",
+    "localized": {
+      "zh": {
+        "name": "海豹战士"
+      }
+    }
+  },
+  {
+    "name": "Seaptain",
+    "evolves_from": "Sealior",
+    "species": "Sealior",
+    "form": "default",
+    "main_type": "Fighting",
+    "sub_type": "Water",
+    "default_legacy_type": "Fighting",
+    "trait": "Seasoned Veteran",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 76,
+    "base_phy_atk": 88,
+    "base_mag_atk": 82,
+    "base_phy_def": 120,
+    "base_mag_def": 84,
+    "base_spd": 100,
+    "moveset_key": "Seaptain",
+    "localized": {
+      "zh": {
+        "name": "海豹船长"
+      }
+    }
+  },
+  {
+    "name": "Conetina",
+    "evolves_from": null,
+    "species": "Conetina",
+    "form": "default",
+    "main_type": "Ice",
+    "sub_type": null,
+    "default_legacy_type": "Ice",
+    "trait": "Add a Snowball",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 63,
+    "base_phy_atk": 45,
+    "base_mag_atk": 87,
+    "base_phy_def": 46,
+    "base_mag_def": 60,
+    "base_spd": 60,
+    "moveset_key": "Sundaetina",
+    "localized": {
+      "zh": {
+        "name": "脆筒甜甜"
+      }
+    }
+  },
+  {
+    "name": "Vanitina",
+    "evolves_from": "Conetina",
+    "species": "Conetina",
+    "form": "default",
+    "main_type": "Ice",
+    "sub_type": null,
+    "default_legacy_type": "Ice",
+    "trait": "Add a Snowball",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 84,
+    "base_phy_atk": 60,
+    "base_mag_atk": 116,
+    "base_phy_def": 62,
+    "base_mag_def": 80,
+    "base_spd": 80,
+    "moveset_key": "Sundaetina",
+    "localized": {
+      "zh": {
+        "name": "香草甜甜"
+      }
+    }
+  },
+  {
+    "name": "Sundaetina",
+    "evolves_from": "Vanitina",
+    "species": "Conetina",
+    "form": "default",
+    "main_type": "Ice",
+    "sub_type": null,
+    "default_legacy_type": "Ice",
+    "trait": "Add a Snowball",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 105,
+    "base_phy_atk": 75,
+    "base_mag_atk": 145,
+    "base_phy_def": 77,
+    "base_mag_def": 100,
+    "base_spd": 100,
+    "moveset_key": "Sundaetina",
+    "localized": {
+      "zh": {
+        "name": "圣代甜甜"
+      }
+    }
+  },
+  {
+    "name": "Mechacube",
+    "evolves_from": null,
+    "species": "Mechacube",
+    "form": "default",
+    "main_type": "Mechanical",
+    "sub_type": null,
+    "default_legacy_type": "Mechanical",
+    "trait": "Blindfold Shuffle",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 54,
+    "base_phy_atk": 56,
+    "base_mag_atk": 33,
+    "base_phy_def": 59,
+    "base_mag_def": 50,
+    "base_spd": 51,
+    "moveset_key": "Cubanoid",
+    "localized": {
+      "zh": {
+        "name": "机械方方"
+      }
+    }
+  },
+  {
+    "name": "Colorcube",
+    "evolves_from": "Mechacube",
+    "species": "Mechacube",
+    "form": "default",
+    "main_type": "Mechanical",
+    "sub_type": null,
+    "default_legacy_type": "Mechanical",
+    "trait": "Blindfold Shuffle",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 72,
+    "base_phy_atk": 75,
+    "base_mag_atk": 44,
+    "base_phy_def": 79,
+    "base_mag_def": 67,
+    "base_spd": 68,
+    "moveset_key": "Cubanoid",
+    "localized": {
+      "zh": {
+        "name": "多彩方方"
+      }
+    }
+  },
+  {
+    "name": "Cubanoid",
+    "evolves_from": "Colorcube",
+    "species": "Mechacube",
+    "form": "default",
+    "main_type": "Mechanical",
+    "sub_type": null,
+    "default_legacy_type": "Mechanical",
+    "trait": "Blindfold Shuffle",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 89,
+    "base_phy_atk": 94,
+    "base_mag_atk": 55,
+    "base_phy_def": 98,
+    "base_mag_def": 84,
+    "base_spd": 85,
+    "moveset_key": "Cubanoid",
+    "localized": {
+      "zh": {
+        "name": "立方人"
+      }
+    }
+  },
+  {
+    "name": "Nylette",
+    "evolves_from": null,
+    "species": "Nylette",
+    "form": "default",
+    "main_type": "Dark",
+    "sub_type": null,
+    "default_legacy_type": "Dark",
+    "trait": "Scapegoat",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 49,
+    "base_phy_atk": 63,
+    "base_mag_atk": 56,
+    "base_phy_def": 47,
+    "base_mag_def": 38,
+    "base_spd": 69,
+    "moveset_key": "Nyve",
+    "localized": {
+      "zh": {
+        "name": "小夜"
+      }
+    }
+  },
+  {
+    "name": "Vionite",
+    "evolves_from": "Nylette",
+    "species": "Nylette",
+    "form": "default",
+    "main_type": "Dark",
+    "sub_type": null,
+    "default_legacy_type": "Dark",
+    "trait": "Scapegoat",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 65,
+    "base_phy_atk": 84,
+    "base_mag_atk": 75,
+    "base_phy_def": 63,
+    "base_mag_def": 50,
+    "base_spd": 92,
+    "moveset_key": "Nyve",
+    "localized": {
+      "zh": {
+        "name": "紫夜"
+      }
+    }
+  },
+  {
+    "name": "Nyve",
+    "evolves_from": "Vionite",
+    "species": "Nylette",
+    "form": "default",
+    "main_type": "Dark",
+    "sub_type": null,
+    "default_legacy_type": "Dark",
+    "trait": "Scapegoat",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 82,
+    "base_phy_atk": 104,
+    "base_mag_atk": 94,
+    "base_phy_def": 79,
+    "base_mag_def": 63,
+    "base_spd": 115,
+    "moveset_key": "Nyve",
+    "localized": {
+      "zh": {
+        "name": "朔夜伊芙"
+      }
+    }
+  },
+  {
+    "name": "Kindlbug",
+    "evolves_from": null,
+    "species": "Kindlbug",
+    "form": "default",
+    "main_type": "Fire",
+    "sub_type": "Grass",
+    "default_legacy_type": "Fire",
+    "trait": "Cindershrub",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 96,
+    "base_phy_atk": 113,
+    "base_mag_atk": 58,
+    "base_phy_def": 73,
+    "base_mag_def": 57,
+    "base_spd": 80,
+    "moveset_key": "Embermite",
+    "localized": {
+      "zh": {
+        "name": "柴渣虫"
+      }
+    }
+  },
+  {
+    "name": "Embermite",
+    "evolves_from": "Kindlbug",
+    "species": "Kindlbug",
+    "form": "default",
+    "main_type": "Fire",
+    "sub_type": "Grass",
+    "default_legacy_type": "Fire",
+    "trait": "Cindershrub",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 120,
+    "base_phy_atk": 142,
+    "base_mag_atk": 73,
+    "base_phy_def": 92,
+    "base_mag_def": 71,
+    "base_spd": 100,
+    "moveset_key": "Embermite",
+    "localized": {
+      "zh": {
+        "name": "燃薪虫"
+      }
+    }
+  },
+  {
+    "name": "Mudgull",
+    "evolves_from": null,
+    "species": "Mudgull",
+    "form": "default",
+    "main_type": "Ground",
+    "sub_type": "Flying",
+    "default_legacy_type": "Ground",
+    "trait": "Indiscriminate Filter",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 64,
+    "base_phy_atk": 86,
+    "base_mag_atk": 45,
+    "base_phy_def": 95,
+    "base_mag_def": 77,
+    "base_spd": 76,
+    "moveset_key": "Mudhowl",
+    "localized": {
+      "zh": {
+        "name": "吸泥鸥"
+      }
+    }
+  },
+  {
+    "name": "Mudhowl",
+    "evolves_from": "Mudgull",
+    "species": "Mudgull",
+    "form": "default",
+    "main_type": "Ground",
+    "sub_type": "Flying",
+    "default_legacy_type": "Ground",
+    "trait": "Indiscriminate Filter",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 80,
+    "base_phy_atk": 107,
+    "base_mag_atk": 57,
+    "base_phy_def": 119,
+    "base_mag_def": 96,
+    "base_spd": 95,
+    "moveset_key": "Mudhowl",
+    "localized": {
+      "zh": {
+        "name": "泥吼牙"
+      }
+    }
+  },
+  {
+    "name": "Kapo",
+    "evolves_from": null,
+    "species": "Kapo",
+    "form": "default",
+    "main_type": "Dark",
+    "sub_type": null,
+    "default_legacy_type": "Dark",
+    "trait": "Hang by a Thread",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 102,
+    "base_phy_atk": 102,
+    "base_mag_atk": 57,
+    "base_phy_def": 66,
+    "base_mag_def": 53,
+    "base_spd": 80,
+    "moveset_key": "Kalaboss",
+    "localized": {
+      "zh": {
+        "name": "卡波"
+      }
+    }
+  },
+  {
+    "name": "Kalaboss",
+    "evolves_from": "Kapo",
+    "species": "Kapo",
+    "form": "default",
+    "main_type": "Dark",
+    "sub_type": null,
+    "default_legacy_type": "Dark",
+    "trait": "Hang by a Thread",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 127,
+    "base_phy_atk": 128,
+    "base_mag_atk": 72,
+    "base_phy_def": 83,
+    "base_mag_def": 66,
+    "base_spd": 100,
+    "moveset_key": "Kalaboss",
+    "localized": {
+      "zh": {
+        "name": "卡拉波斯"
+      }
+    }
+  },
+  {
+    "name": "Scaredicat",
+    "evolves_from": null,
+    "species": "Scaredicat",
+    "form": "default",
+    "main_type": "Fighting",
+    "sub_type": null,
+    "default_legacy_type": "Fighting",
+    "trait": "Intimidation",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 78,
+    "base_phy_atk": 102,
+    "base_mag_atk": 102,
+    "base_phy_def": 96,
+    "base_mag_def": 92,
+    "base_spd": 76,
+    "moveset_key": "Furycat",
+    "localized": {
+      "zh": {
+        "name": "小怂猫"
+      }
+    }
+  },
+  {
+    "name": "Furycat",
+    "evolves_from": "Scaredicat",
+    "species": "Scaredicat",
+    "form": "default",
+    "main_type": "Fighting",
+    "sub_type": null,
+    "default_legacy_type": "Fighting",
+    "trait": "Intimidation",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 98,
+    "base_phy_atk": 128,
+    "base_mag_atk": 128,
+    "base_phy_def": 120,
+    "base_mag_def": 115,
+    "base_spd": 95,
+    "moveset_key": "Furycat",
+    "localized": {
+      "zh": {
+        "name": "怒目怂猫"
+      }
+    }
+  },
+  {
+    "name": "Bellshark",
+    "evolves_from": null,
+    "species": "Bellshark",
+    "form": "default",
+    "main_type": "Water",
+    "sub_type": "Flying",
+    "default_legacy_type": "Water",
+    "trait": "Hydro Wing Boost",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 45,
+    "base_phy_atk": 32,
+    "base_mag_atk": 32,
+    "base_phy_def": 47,
+    "base_mag_def": 47,
+    "base_spd": 75,
+    "moveset_key": "Prismashark",
+    "localized": {
+      "zh": {
+        "name": "风铃鲨"
+      }
+    }
+  },
+  {
+    "name": "Blushark",
+    "evolves_from": "Bellshark",
+    "species": "Bellshark",
+    "form": "default",
+    "main_type": "Water",
+    "sub_type": "Flying",
+    "default_legacy_type": "Water",
+    "trait": "Hydro Wing Boost",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 60,
+    "base_phy_atk": 42,
+    "base_mag_atk": 42,
+    "base_phy_def": 63,
+    "base_mag_def": 63,
+    "base_spd": 100,
+    "moveset_key": "Prismashark",
+    "localized": {
+      "zh": {
+        "name": "蓝蝶鲨"
+      }
+    }
+  },
+  {
+    "name": "Prismashark",
+    "evolves_from": "Blushark",
+    "species": "Bellshark",
+    "form": "default",
+    "main_type": "Water",
+    "sub_type": "Flying",
+    "default_legacy_type": "Water",
+    "trait": "Hydro Wing Boost",
+    "leader_potential": true,
+    "is_leader_form": false,
+    "base_hp": 75,
+    "base_phy_atk": 53,
+    "base_mag_atk": 53,
+    "base_phy_def": 78,
+    "base_mag_def": 78,
+    "base_spd": 125,
+    "moveset_key": "Prismashark",
+    "localized": {
+      "zh": {
+        "name": "彩蝶鲨"
+      }
+    }
+  },
+  {
+    "name": "Oracleshark",
+    "evolves_from": "Prismashark",
+    "species": "Bellshark",
+    "form": "default",
+    "main_type": "Water",
+    "sub_type": "Flying",
+    "default_legacy_type": "Leader",
+    "trait": "Hydro Wing Boost - Leader",
+    "leader_potential": false,
+    "is_leader_form": true,
+    "base_hp": 83,
+    "base_phy_atk": 58,
+    "base_mag_atk": 58,
+    "base_phy_def": 86,
+    "base_mag_def": 86,
+    "base_spd": 125,
+    "moveset_key": "Prismashark",
+    "localized": {
+      "zh": {
+        "name": "神谕鲨"
+      }
+    }
+  },
+  {
+    "name": "Chiligrass",
+    "evolves_from": null,
+    "species": "Chiligrass",
+    "form": "default",
+    "main_type": "Grass",
+    "sub_type": null,
+    "default_legacy_type": "Grass",
+    "trait": "Nutrient Reabsorption",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 58,
+    "base_phy_atk": 54,
+    "base_mag_atk": 54,
+    "base_phy_def": 60,
+    "base_mag_def": 60,
+    "base_spd": 48,
+    "moveset_key": "Chiliflower",
+    "localized": {
+      "zh": {
+        "name": "奇丽草"
+      }
+    }
+  },
+  {
+    "name": "Chilileaf",
+    "evolves_from": "Chiligrass",
+    "species": "Chiligrass",
+    "form": "default",
+    "main_type": "Grass",
+    "sub_type": null,
+    "default_legacy_type": "Grass",
+    "trait": "Nutrient Reabsorption",
+    "leader_potential": false,
+    "is_leader_form": false,
+    "base_hp": 77,
+    "base_phy_atk": 71,
+    "base_mag_atk": 71,
+    "base_phy_def": 80,
+    "base_mag_def": 80,
+    "base_spd": 64,
+    "moveset_key": "Chiliflower",
+    "localized": {
+      "zh": {
+        "name": "奇丽叶"
+      }
+    }
+  },
+  {
+    "name": "Chiliflower",
+    "evolves_from": "Chilileaf",
+    "species": "Chiligrass",
+    "form": "default",
+    "main_type": "Grass",
+    "sub_type": null,
+    "default_legacy_type": "Grass",
+    "trait": "Nutrient Reabsorption",
+    "leader_potential": true,
+    "is_leader_form": false,
+    "base_hp": 96,
+    "base_phy_atk": 89,
+    "base_mag_atk": 89,
+    "base_phy_def": 100,
+    "base_mag_def": 100,
+    "base_spd": 80,
+    "moveset_key": "Chiliflower",
+    "localized": {
+      "zh": {
+        "name": "奇丽花"
+      }
+    }
+  },
+  {
+    "name": "Chilifruit",
+    "evolves_from": "Chiliflower",
+    "species": "Chiligrass",
+    "form": "default",
+    "main_type": "Grass",
+    "sub_type": null,
+    "default_legacy_type": "Leader",
+    "trait": "Nutrient Reabsorption - Leader",
+    "leader_potential": false,
+    "is_leader_form": true,
+    "base_hp": 106,
+    "base_phy_atk": 98,
+    "base_mag_atk": 98,
+    "base_phy_def": 110,
+    "base_mag_def": 110,
+    "base_spd": 88,
+    "moveset_key": "Chiliflower",
+    "localized": {
+      "zh": {
+        "name": "奇丽果"
+      }
+    }
+  }
+]

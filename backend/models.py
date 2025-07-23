@@ -1,7 +1,6 @@
 import enum
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
-from sqlalchemy import String, Integer, Float, Boolean, ForeignKey, Table, Column, UniqueConstraint
-from sqlalchemy import Enum
+from sqlalchemy import String, Integer, Float, Boolean, ForeignKey, Table, Column, Enum, Index, UniqueConstraint
 from sqlalchemy.dialects.postgresql import JSONB
 
 class Base(DeclarativeBase):
@@ -14,8 +13,23 @@ monster_moves = Table(
     Column("move_id", Integer, ForeignKey("moves.id"), primary_key=True)
 )
 
+# Association tables for type effectiveness
+type_effective_against = Table(
+    "type_effective_against", Base.metadata,
+    Column("type_id", Integer, ForeignKey("types.id"), primary_key=True),
+    Column("target_type_id", Integer, ForeignKey("types.id"), primary_key=True)
+)
+
+type_weak_against = Table(
+    "type_weak_against", Base.metadata,
+    Column("type_id", Integer, ForeignKey("types.id"), primary_key=True),
+    Column("target_type_id", Integer, ForeignKey("types.id"), primary_key=True)
+)
+
+
 class MoveCategory(enum.Enum):
-    ATTACK = "Attack"
+    PHY_ATTACK = "Physical Attack"
+    MAG_ATTACK = "Magic Attack"
     DEFENSE = "Defense"
     STATUS = "Status"
     
@@ -30,36 +44,73 @@ class Type(Base):
     __tablename__ = "types"
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     name: Mapped[str] = mapped_column(String(32), nullable=False, unique=True)
+    localized: Mapped[dict] = mapped_column(JSONB, nullable=False, default=dict)
+    __table_args__ = (
+        Index("ix_types_localized_gin", "localized", postgresql_using="gin"),
+    )
     
     # Relationships
     moves = relationship("Move", back_populates="move_type")
     legacy_moves = relationship("LegacyMove", back_populates="type")
     user_monsters_as_legacy = relationship("UserMonster", back_populates="legacy_type")
-    monsters_as_main_type = relationship("Monster", foreign_keys="[Monster.main_type_id]", back_populates="main_type")
-    monsters_as_sub_type = relationship("Monster", foreign_keys="[Monster.sub_type_id]", back_populates="sub_type")
-    monsters_as_legacy_type = relationship("Monster", foreign_keys="[Monster.default_legacy_type_id]", back_populates="default_legacy_type")
+    # Use "foreign_keys" to handle circular references to models defined later in the file
+    monsters_as_main_type = relationship("Monster", foreign_keys="Monster.main_type_id", back_populates="main_type")
+    monsters_as_sub_type = relationship("Monster", foreign_keys="Monster.sub_type_id", back_populates="sub_type")
+    monsters_as_legacy_type = relationship("Monster", foreign_keys="Monster.default_legacy_type_id", back_populates="default_legacy_type")
     magic_items = relationship("MagicItem", back_populates="applies_to_type")
+    # Self-referential many-to-many relationship
+    effective_against = relationship(
+        "Type",
+        secondary=type_effective_against,
+        primaryjoin=id==type_effective_against.c.type_id,
+        secondaryjoin=id==type_effective_against.c.target_type_id,
+        backref="vulnerable_to"
+    )
+    weak_against = relationship(
+        "Type",
+        secondary=type_weak_against,
+        primaryjoin=id==type_weak_against.c.type_id,
+        secondaryjoin=id==type_weak_against.c.target_type_id,
+        backref="resisted_by"
+    )
+
+class GameTerm(Base):
+    __tablename__ = "game_terms"
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    key: Mapped[str] = mapped_column(String(32), nullable=False, unique=True)
+    description: Mapped[str] = mapped_column(String(255), nullable=False)
+    localized: Mapped[dict] = mapped_column(JSONB, nullable=False, default=dict)
+    __table_args__ = (
+        Index("ix_game_terms_localized_gin", "localized", postgresql_using="gin"),
+    )
     
 class Trait(Base):
     __tablename__ = "traits"
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     name: Mapped[str] = mapped_column(String(32), nullable=False, unique=True)
     description: Mapped[str] = mapped_column(String(255), nullable=False)
+    localized: Mapped[dict] = mapped_column(JSONB, nullable=False, default=dict)
+    __table_args__ = (
+        Index("ix_traits_localized_gin", "localized", postgresql_using="gin"),
+    )
     
     # Relationships
-    monster = relationship("Monster", back_populates="trait", uselist=False)
+    monster = relationship("Monster", back_populates="trait") # one-to-many with Monster
     
 class Personality(Base):
     __tablename__ = "personalities"
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column(String(32), unique=True, nullable=False)
-    # Percent modifications
     hp_mod_pct: Mapped[float] = mapped_column(Float, default=0.0)
-    atk_mod_pct: Mapped[float] = mapped_column(Float, default=0.0)
+    phy_atk_mod_pct: Mapped[float] = mapped_column(Float, default=0.0)
     mag_atk_mod_pct: Mapped[float] = mapped_column(Float, default=0.0)
-    def_mod_pct: Mapped[float] = mapped_column(Float, default=0.0)
+    phy_def_mod_pct: Mapped[float] = mapped_column(Float, default=0.0)
     mag_def_mod_pct: Mapped[float] = mapped_column(Float, default=0.0)
     spd_mod_pct: Mapped[float] = mapped_column(Float, default=0.0)
+    localized: Mapped[dict] = mapped_column(JSONB, nullable=False, default=dict)
+    __table_args__ = (
+        Index("ix_personalities_localized_gin", "localized", postgresql_using="gin"),
+    )
     
     # Relationships
     user_monsters = relationship("UserMonster", back_populates="personality")
@@ -70,10 +121,15 @@ class Move(Base):
     name: Mapped[str] = mapped_column(String(32), nullable=False, unique=True)
     move_type_id: Mapped[int] = mapped_column(Integer, ForeignKey("types.id"))
     move_category: Mapped[MoveCategory] = mapped_column(Enum(MoveCategory, name="move_category"), nullable=False)
-    power: Mapped[int] = mapped_column(Integer)
     energy_cost: Mapped[int] = mapped_column(Integer, nullable=False)
+    power: Mapped[int] = mapped_column(Integer)
     description: Mapped[str] = mapped_column(String(255), nullable=False)
     has_counter: Mapped[bool] = mapped_column(Boolean, default=False)
+    is_move_stone: Mapped[bool] = mapped_column(Boolean, default=False)
+    localized: Mapped[dict] = mapped_column(JSONB, nullable=False, default=dict)
+    __table_args__ = (
+        Index("ix_moves_localized_gin", "localized", postgresql_using="gin"),
+    )
     
     # Relationships
     move_type = relationship("Type", back_populates="moves")
@@ -90,41 +146,64 @@ class LegacyMove(Base):
     monster = relationship("Monster", back_populates="legacy_moves")
     type = relationship("Type", back_populates="legacy_moves")
     move = relationship("Move", back_populates="legacy_for")
+    
+class MonsterSpecies(Base):
+    __tablename__ = "monster_species"
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    name: Mapped[str] = mapped_column(String(32), nullable=False, unique=True)
+    localized: Mapped[dict] = mapped_column(JSONB, nullable=False, default=dict)
+    __table_args__ = (
+        Index("ix_monster_species_localized_gin", "localized", postgresql_using="gin"),
+    )
+    
+    # Relationships
+    forms = relationship("Monster", back_populates="species")
 
 class Monster(Base):
     __tablename__ = "monsters"
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     name: Mapped[str] = mapped_column(String(32), nullable=False, unique=True)
+    evolves_from_id: Mapped[int] = mapped_column(Integer, ForeignKey("monsters.id"), nullable=True)
+    species_id: Mapped[int] = mapped_column(Integer, ForeignKey("monster_species.id"), nullable=False)
+    form: Mapped[str] = mapped_column(String(32), nullable=False, default="default")
+    
     main_type_id: Mapped[int] = mapped_column(Integer, ForeignKey("types.id"), nullable=False)
     sub_type_id: Mapped[int] = mapped_column(Integer, ForeignKey("types.id"))
     default_legacy_type_id: Mapped[int] = mapped_column(Integer, ForeignKey("types.id"), nullable=False)
-    trait_id: Mapped[int] = mapped_column(Integer, ForeignKey("traits.id"), nullable=False, unique=True)
-    leader_potential: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
+    trait_id: Mapped[int] = mapped_column(Integer, ForeignKey("traits.id"), nullable=False)
+    leader_potential: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)  # True if monster is in final evolution stage and can be a leader
+    is_leader_form: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
+    
     base_hp: Mapped[int] = mapped_column(Integer, nullable=False)
-    base_atk: Mapped[int] = mapped_column(Integer, nullable=False)
+    base_phy_atk: Mapped[int] = mapped_column(Integer, nullable=False)
     base_mag_atk: Mapped[int] = mapped_column(Integer, nullable=False)
-    base_def: Mapped[int] = mapped_column(Integer, nullable=False)
+    base_phy_def: Mapped[int] = mapped_column(Integer, nullable=False)
     base_mag_def: Mapped[int] = mapped_column(Integer, nullable=False)
     base_spd: Mapped[int] = mapped_column(Integer, nullable=False)
+    localized: Mapped[dict] = mapped_column(JSONB, nullable=False, default=dict)
+    __table_args__ = (
+        Index("ix_monsters_localized_gin", "localized", postgresql_using="gin"),
+    )
     
     # Relationships
-    trait = relationship("Trait", back_populates="monster", uselist=False)
+    species = relationship("MonsterSpecies", back_populates="forms")
+    evolves_from = relationship("Monster", remote_side=[id]) # self-referential FK for evolution
+    trait = relationship("Trait", back_populates="monster")
     move_pool = relationship("Move", secondary=monster_moves, back_populates="monsters")
     legacy_moves = relationship("LegacyMove", back_populates="monster")
     user_monsters = relationship("UserMonster", back_populates="monster")
     main_type = relationship("Type", foreign_keys=[main_type_id], back_populates="monsters_as_main_type")
     sub_type = relationship("Type", foreign_keys=[sub_type_id], back_populates="monsters_as_sub_type")
     default_legacy_type = relationship("Type", foreign_keys=[default_legacy_type_id], back_populates="monsters_as_legacy_type")
-
     
 class Talent(Base):
     __tablename__ = "talents"
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     monster_instance_id: Mapped[int] = mapped_column(Integer, ForeignKey("user_monsters.id"))
     hp_boost: Mapped[int] = mapped_column(Integer, default=0)
-    atk_boost: Mapped[int] = mapped_column(Integer, default=0)
+    phy_atk_boost: Mapped[int] = mapped_column(Integer, default=0)
     mag_atk_boost: Mapped[int] = mapped_column(Integer, default=0)
-    def_boost: Mapped[int] = mapped_column(Integer, default=0)
+    phy_def_boost: Mapped[int] = mapped_column(Integer, default=0)
     mag_def_boost: Mapped[int] = mapped_column(Integer, default=0)
     spd_boost: Mapped[int] = mapped_column(Integer, default=0)
     
@@ -138,7 +217,6 @@ class UserMonster(Base):
     monster_id: Mapped[int] = mapped_column(Integer, ForeignKey("monsters.id"), nullable=False)
     personality_id: Mapped[int] = mapped_column(Integer, ForeignKey("personalities.id"), nullable=False)
     legacy_type_id: Mapped[int] = mapped_column(Integer, ForeignKey("types.id"), nullable=False)
-    has_leader_tag: Mapped[bool] = mapped_column(Boolean, default=False)
     # Selected 4 moves for each user monster
     move1_id: Mapped[int] = mapped_column(Integer, ForeignKey("moves.id"))
     move2_id: Mapped[int] = mapped_column(Integer, ForeignKey("moves.id"))
@@ -161,9 +239,11 @@ class MagicItem(Base):
     description: Mapped[str] = mapped_column(String(255), nullable=False)
     effect_code: Mapped[MagicEffectCode] = mapped_column(Enum(MagicEffectCode, name="magic_effect_code"), nullable=False)
     applies_to_type_id: Mapped[int] = mapped_column(Integer, ForeignKey("types.id"), nullable=True)
-    applies_to_leader_tag: Mapped[bool] = mapped_column(Boolean, default=False)
-    # JSON for extra logic
     effect_parameters: Mapped[dict] = mapped_column(JSONB, nullable=True)
+    localized: Mapped[dict] = mapped_column(JSONB, nullable=False, default=dict)
+    __table_args__ = (
+        Index("ix_magic_items_localized_gin", "localized", postgresql_using="gin"),
+    )
 
     # Relationships
     applies_to_type = relationship("Type", back_populates="magic_items")

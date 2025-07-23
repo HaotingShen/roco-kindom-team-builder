@@ -1,0 +1,492 @@
+[
+  {
+    "name": "Cocooning",
+    "description": "When this monster takes fatal damage, it becomes immune to that instance of damage and gains 1 stack of Regression. This effect can trigger up to two times. However, if this monster is in its lowest evolutionary form and takes fatal damage at any point, it will be immediately defeated.",
+    "localized": {
+      "zh": {
+        "name": "化茧",
+        "description": "受到致命伤害时, 免疫此次伤害并获得1层萌化。此特性最多触发两次, 但如果在最低形态受到致命伤害, 将被直接击败。"
+      }
+    }
+  },
+  {
+    "name": "Shifting Stance",
+    "description": "Each time this monster takes an action, all Fighting-type monsters on the team gain Speed +10 when entering the battlefield.",
+    "localized": {
+      "zh": {
+        "name": "腾挪",
+        "description": "每行动一次, 队伍中武系精灵登场时速度+10。"
+      }
+    }
+  },
+  {
+    "name": "Guard Duty",
+    "description": "Each time this monster takes an action, all Fighting-type monsters on the team gain Physical Defense +10% when entering the battlefield.",
+    "localized": {
+      "zh": {
+        "name": "保卫",
+        "description": "每行动一次, 队伍中武系精灵登场时物防提升10%。"
+      }
+    }
+  },
+  {
+    "name": "Twin Elephants",
+    "description": "Each time this monster takes an action, all Fighting-type monsters on the team gain Attack +10% when entering the battlefield.",
+    "localized": {
+      "zh": {
+        "name": "好象坏象",
+        "description": "每行动一次, 队伍中武系精灵登场时攻击提升10%。"
+      }
+    }
+  },
+  {
+    "name": "Penetration",
+    "description": "When this monster enters the battlefield, for each time another Fighting-type monster on the team has taken an action, this monster gains Attack +5%, Defense +5%, and Speed +5.",
+    "localized": {
+      "zh": {
+        "name": "渗透",
+        "description": "登场时, 其他武系精灵每行动过一次, 攻击防御+5%, 速度+5。"
+      }
+    }
+  },
+  {
+    "name": "Royal Command - Leader",
+    "description": "This monster cannot be switched out. When defeated, the player loses 4 Blood Points.",
+    "localized": {
+      "zh": {
+        "name": "御驾亲征--首领",
+        "description": "不可下场, 力竭时扣除4点魔力值。"
+      }
+    }
+  },
+  {
+    "name": "Electric Surge",
+    "description": "Burst: move power +40.",
+    "localized": {
+      "zh": {
+        "name": "电流刺激",
+        "description": "迸发：技能威力+40。"
+      }
+    }
+  },
+  {
+    "name": "Tea Polyphenol",
+    "description": "When exiting the battlefield, the next monster to enter restores 20% HP and is immune to Leech.",
+    "localized": {
+      "zh": {
+        "name": "茶多酚",
+        "description": "离场时, 下个入场精灵恢复20%生命且免疫寄生。"
+      }
+    }
+  },
+  {
+    "name": "Gelatin Sheet",
+    "description": "When exiting the battlefield, the next monster to enter gains Defense +20% and is immune to Freeze.",
+    "localized": {
+      "zh": {
+        "name": "吉利丁片",
+        "description": "离场时, 下个入场精灵提高20%防御且免疫冰冻。"
+      }
+    }
+  },
+  {
+    "name": "Maillard Reaction",
+    "description": "When exiting the battlefield, the next monster to enter gains Attack +20% and is immune to Burn.",
+    "localized": {
+      "zh": {
+        "name": "美拉德反应",
+        "description": "离场时, 下个入场精灵提高20%攻击且免疫灼烧。"
+      }
+    }
+  },
+  {
+    "name": "Dual Lightspeed",
+    "description": "All end-of-turn effects on the battlefield trigger twice.",
+    "localized": {
+      "zh": {
+        "name": "双向光速",
+        "description": "场上所有回合结束时的效果触发2次。"
+      }
+    }
+  },
+  {
+    "name": "Fallen",
+    "description": "All end-of-turn effects on the battlefield do not trigger.",
+    "localized": {
+      "zh": {
+        "name": "陨落",
+        "description": "场上所有回合结束时的效果不触发。"
+      }
+    }
+  },
+  {
+    "name": "Feign Death",
+    "description": "When defeated, no Blood Points are lost.",
+    "localized": {
+      "zh": {
+        "name": "诈死",
+        "description": "力竭时不消耗魔力。"
+      }
+    }
+  },
+  {
+    "name": "Icebound",
+    "description": "While this monster is on the battlefield, opponent's Move Energy Cost +2.",
+    "localized": {
+      "zh": {
+        "name": "冰封",
+        "description": "自身在场时, 敌方所有的技能能耗+2。"
+      }
+    }
+  },
+  {
+    "name": "Diffuse Corrosion",
+    "description": "When using a Water-type move, opponent's Poison Effect stacks x2.",
+    "localized": {
+      "zh": {
+        "name": "扩散侵蚀",
+        "description": "释放水系技能时, 敌方中毒效果层数翻倍。"
+      }
+    }
+  },
+  {
+    "name": "Windrider Combo",
+    "description": "When using a Flying-type move, this monster gains Combo count +1.",
+    "localized": {
+      "zh": {
+        "name": "乘风连击",
+        "description": "释放翼系技能时, 获得连击数+1。"
+      }
+    }
+  },
+  {
+    "name": "Spirit Drain",
+    "description": "When a teammate is defeated, upon entering the battlefield, this monster inherits that teammate's highest stat other than Speed.",
+    "localized": {
+      "zh": {
+        "name": "吸灵",
+        "description": "己方精灵被击败后, 入场时继承其的除速度外最高的一项属性。"
+      }
+    }
+  },
+  {
+    "name": "Stellar Kindness",
+    "description": "If a teammate on the battlefield has 0 energy, this monster immediately switch in to replace that teammate.",
+    "localized": {
+      "zh": {
+        "name": "星地善良",
+        "description": "若场上的己方精灵能量等于0, 则自身立即替换此精灵。"
+      }
+    }
+  },
+  {
+    "name": "Polarization",
+    "description": "Resists the type of the move equipped by this monster.",
+    "localized": {
+      "zh": {
+        "name": "偏振",
+        "description": "抵抗自身装备技能的系别。"
+      }
+    }
+  },
+  {
+    "name": "Polarization - Leader",
+    "description": "Resists the type of the move equipped by this monster. When resisting, damage taken x0.25.",
+    "localized": {
+      "zh": {
+        "name": "偏振--首领",
+        "description": "抵抗自身装备技能的系别, 抵抗时受到伤害变为四分之一。"
+      }
+    }
+  },
+  {
+    "name": "Pickpocket",
+    "description": "When entering the battlefield, steals 2 energy from the opponent's active monster.",
+    "localized": {
+      "zh": {
+        "name": "小偷小摸",
+        "description": "入场时偷取敌方在场精灵2点能量。"
+      }
+    }
+  },
+  {
+    "name": "Pickpocket - Leader",
+    "description": "At the end of the turn, steals 2 energy from the opponent's active monster.",
+    "localized": {
+      "zh": {
+        "name": "小偷小摸--首领",
+        "description": "回合结束时, 入偷取敌方在场精灵2点能量。"
+      }
+    }
+  },
+  {
+    "name": "Carefree",
+    "description": "Always has 1 stack of Regression.",
+    "localized": {
+      "zh": {
+        "name": "无忧无虑",
+        "description": "永远具有一层萌化。"
+      }
+    }
+  },
+  {
+    "name": "Grapple",
+    "description": "When this monster uses an Attack-type move that includes the Counter effect, if Counter is successful that turn, restores 25% HP.",
+    "localized": {
+      "zh": {
+        "name": "擒拿",
+        "description": "攻击技能应对成功时, 回复25%生命。"
+      }
+    }
+  },
+  {
+    "name": "Horse Stance",
+    "description": "When this monster uses a Status-type move that includes the Counter effect, if Counter is successful that turn, gains 10 energy.",
+    "localized": {
+      "zh": {
+        "name": "马步",
+        "description": "状态技能应对成功时, 获得10点能量。"
+      }
+    }
+  },
+  {
+    "name": "Ukemi",
+    "description": "When this monster uses a Defense-type move that includes the Counter effect, if Counter is successful that turn, permanently gains Speed +40.",
+    "localized": {
+      "zh": {
+        "name": "受身",
+        "description": "防御技能应对成功时, 速度永久+40。"
+      }
+    }
+  },
+  {
+    "name": "Oxygen Cycle",
+    "description": "When using a Grass-type move, restores 10% max HP.",
+    "localized": {
+      "zh": {
+        "name": "氧循环",
+        "description": "释放草系技能时, 回复10%最大生命。"
+      }
+    }
+  },
+  {
+    "name": "Oxygen Cycle - Leader",
+    "description": "When using a Grass-type move, restores 20% max HP.",
+    "localized": {
+      "zh": {
+        "name": "氧循环--首领",
+        "description": "释放草系技能时, 回复20%最大生命。"
+      }
+    }
+  },
+  {
+    "name": "Bioelectricity",
+    "description": "Burst: Electric-type move energy cost -3.",
+    "localized": {
+      "zh": {
+        "name": "生物电",
+        "description": "迸发：电系技能能耗-3。"
+      }
+    }
+  },
+  {
+    "name": "Wing Axis",
+    "description": "The move in Slot 1 gains Quick Entry and Transmission.",
+    "localized": {
+      "zh": {
+        "name": "翼轴",
+        "description": "1号位技能获得迅捷和传动。"
+      }
+    }
+  },
+  {
+    "name": "Soul Scorch",
+    "description": "Ice-type moves inflict 2 stacks of Burn on the opponent. Fire-type moves inflict 2 stacks of Freeze on the opponent.",
+    "localized": {
+      "zh": {
+        "name": "灵魂灼伤",
+        "description": "冰系技能赋予敌方2层灼烧, 火系技能赋予敌方2层冰冻。"
+      }
+    }
+  },
+  {
+    "name": "Etching",
+    "description": "When entering the battlefield, converts all Poison on the opponent into Poison Mark. When exiting the battlefield, converts Poison Mark back into Poison.",
+    "localized": {
+      "zh": {
+        "name": "蚀刻",
+        "description": "入场时将敌方中毒变为中毒印记, 离场时还原为中毒。"
+      }
+    }
+  },
+  {
+    "name": "Corrosion",
+    "description": "For each stack of Poison Effect on the opponent, gains Combo count +1 this turn.",
+    "localized": {
+      "zh": {
+        "name": "侵蚀",
+        "description": "敌方每拥有一层中毒效果, 本次连击数+1。"
+      }
+    }
+  },
+  {
+    "name": "Humus Cycle",
+    "description": "Each time this monster gains 1 energy, restore 5% HP.",
+    "localized": {
+      "zh": {
+        "name": "腐植循环",
+        "description": "每获得1点能量, 回复5%生命。"
+      }
+    }
+  },
+  {
+    "name": "Chestnut Shell",
+    "description": "When attacked, inflicts 1 stack of Spike Mark on the opponent.",
+    "localized": {
+      "zh": {
+        "name": "栗子壳",
+        "description": "被攻击时, 赋予敌方一层棘刺印记。"
+      }
+    }
+  },
+  {
+    "name": "Sacred Flame Knight",
+    "description": "When dealing super effective damage, move power is doubled next turn.",
+    "localized": {
+      "zh": {
+        "name": "圣火骑士",
+        "description": "造成克制时, 下回合威力翻倍。"
+      }
+    }
+  },
+  {
+    "name": "Toughness King",
+    "description": "Poison Effect damage taken from the opponent heals this monster.",
+    "localized": {
+      "zh": {
+        "name": "耐活王",
+        "description": "敌方中毒效果伤害可以治疗自身。"
+      }
+    }
+  },
+  {
+    "name": "Seasoned Veteran",
+    "description": "For each time a teammate's Counter is successful, this monster's Fighting-type move power +20% and Water-type move power +20% when entering the battlefield.",
+    "localized": {
+      "zh": {
+        "name": "身经百战",
+        "description": "己方精灵每触发1次应对, 入场时武系和水系技能威力提升20%。"
+      }
+    }
+  },
+  {
+    "name": "Add a Snowball",
+    "description": "When inflicting Freeze on the opponent, inflicts 2 additional stacks of Freeze.",
+    "localized": {
+      "zh": {
+        "name": "加个雪球",
+        "description": "赋予冻结时, 额外赋予2层冻结。"
+      }
+    }
+  },
+  {
+    "name": "Blindfold Shuffle",
+    "description": "At the start of each turn, the order of moves is shuffled. The move in Slot x has its energy cost reduced by x.",
+    "localized": {
+      "zh": {
+        "name": "盲拧",
+        "description": "技能顺序每回合打乱, X号位的技能, 能耗-X。"
+      }
+    }
+  },
+  {
+    "name": "Scapegoat",
+    "description": "The first time this monster takes fatal damage, it becomes immune to that instance of damage and Exit.",
+    "localized": {
+      "zh": {
+        "name": "嫁祸",
+        "description": "首次受到致命伤害时, 免疫此伤害并脱离。"
+      }
+    }
+  },
+  {
+    "name": "Cindershrub",
+    "description": "While this monster is on the battlefield, all Burn effects increase instead of decrease.",
+    "localized": {
+      "zh": {
+        "name": "煤渣草",
+        "description": "精灵在场时, 所有灼烧效果不是减少而是增加。"
+      }
+    }
+  },
+  {
+    "name": "Indiscriminate Filter",
+    "description": "While this monster is on the battlefield, monsters on both sides have Combo count 3.",
+    "localized": {
+      "zh": {
+        "name": "无差别过滤",
+        "description": "在场时, 所有精灵连击数固定为3。"
+      }
+    }
+  },
+  {
+    "name": "Hang by a Thread",
+    "description": "The first time this monster takes fatal damage, it survives with 1 HP.",
+    "localized": {
+      "zh": {
+        "name": "悬一线",
+        "description": "首次受到致命伤害时, 保留1生命值。"
+      }
+    }
+  },
+  {
+    "name": "Intimidation",
+    "description": "When this monster triggers Interrupt against the opponent, the interrupted move enters a 2-turn Cooldown.",
+    "localized": {
+      "zh": {
+        "name": "威慑",
+        "description": "打断敌方时, 被打断的技能进入2回合冷却。"
+      }
+    }
+  },
+  {
+    "name": "Hydro Wing Boost",
+    "description": "For each time a teammate uses a Water-type move, this monster's move energy cost -1 when entering the battlefield.",
+    "localized": {
+      "zh": {
+        "name": "水翼推进",
+        "description": "己方精灵每释放一次水系技能, 入场时技能消耗-1。"
+      }
+    }
+  },
+  {
+    "name": "Hydro Wing Boost - Leader",
+    "description": "For each time a teammate uses a Water-type move, this monster's move energy cost -1 when entering the battlefield. The weather becomes Rain.",
+    "localized": {
+      "zh": {
+        "name": "水翼推进--首领",
+        "description": "己方精灵每释放一次水系技能, 入场时技能消耗-1, 同时下雨。"
+      }
+    }
+  },
+  {
+    "name": "Nutrient Reabsorption",
+    "description": "At the end of the turn, gains 4 energy.",
+    "localized": {
+      "zh": {
+        "name": "养分重吸收",
+        "description": "回合结束时, 获得4点能量。"
+      }
+    }
+  },
+  {
+    "name": "Nutrient Reabsorption - Leader",
+    "description": "At the end of the turn, gains 7 energy.",
+    "localized": {
+      "zh": {
+        "name": "养分重吸收--首领",
+        "description": "回合结束时, 获得7点能量。"
+      }
+    }
+  }
+]
