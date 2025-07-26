@@ -5570,7 +5570,7 @@
   {
     "name": "Preparation Stance",
     "type": "Fighting",
-    "category": "Support",
+    "category": "Status",
     "energy_cost": 2,
     "power": null,
     "description": "User's Physical Defense +80%. Counter Defense: opponent's Physical Attack -80%.",
@@ -6626,7 +6626,7 @@
   {
     "name": "Malice Swap",
     "type": "Dark",
-    "category": "Support",
+    "category": "Status",
     "energy_cost": 4,
     "power": null,
     "description": "Swaps HP ratio with the opponent.",

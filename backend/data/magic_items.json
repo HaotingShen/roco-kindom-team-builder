@@ -5,7 +5,7 @@
     "localized": {
       "zh": {
         "name": "强化术",
-        "description": "对任意血脉的精灵使用，使用后技能栏第一个技能被替换为【血脉显现】技能，保持全场。"
+        "description": "对任意血脉的精灵使用, 使用后技能栏第一个技能被替换为【血脉显现】技能, 保持全场。"
       }
     },
     "effect_code": "ENHANCE_SPELL",
@@ -72,7 +72,7 @@
     "localized": {
       "zh": {
         "name": "进化之力",
-        "description": "对首领血脉的精灵使用, 可以使该精灵在本场战斗中进化，部分精灵会激活远古血脉。"
+        "description": "对首领血脉的精灵使用, 可以使该精灵在本场战斗中进化, 部分精灵会激活远古血脉。"
       }
     },
     "effect_code": "EVOLUTION_POWER",

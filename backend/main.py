@@ -1,9 +1,9 @@
 from fastapi import FastAPI
 from sqlalchemy import create_engine, text
+from config import DATABASE_URL
 
 app = FastAPI()
 
-DATABASE_URL = "postgresql+psycopg2://roco_user:0605@localhost/roco_db"
 engine = create_engine(DATABASE_URL)
 
 @app.get("/")

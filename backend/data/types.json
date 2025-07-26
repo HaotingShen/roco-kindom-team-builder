@@ -1,15 +1,21 @@
 [
   {
-    "name": "Fire",
-    "localized": {"zh": "火"},
-    "effective_against": ["Grass", "Ice", "Bug", "Mechanical"],
-    "weak_against": ["Water", "Ground", "Dragon"]
+    "name": "Normal",
+    "localized": {"zh": "普"},
+    "effective_against": [],
+    "weak_against": ["Ground", "Ghost", "Mechanical"]
   },
   {
     "name": "Grass",
     "localized": {"zh": "草"},
-    "effective_against": ["Water", "Ground"],
+    "effective_against": ["Water", "Ground", "Light"],
     "weak_against": ["Fire", "Dragon", "Poison", "Bug", "Flying", "Mechanical"]
+  },
+  {
+    "name": "Fire",
+    "localized": {"zh": "火"},
+    "effective_against": ["Grass", "Ice", "Bug", "Mechanical"],
+    "weak_against": ["Water", "Ground", "Dragon"]
   },
   {
     "name": "Water",
@@ -18,10 +24,76 @@
     "weak_against": ["Grass", "Ice", "Dragon"]
   },
   {
+    "name": "Light",
+    "localized": {"zh": "光"},
+    "effective_against": ["Ghost", "Dark"],
+    "weak_against": ["Grass", "Ice"]
+  },
+  {
+    "name": "Ground",
+    "localized": {"zh": "地"},
+    "effective_against": ["Fire", "Ice", "Electric", "Poison"],
+    "weak_against": ["Grass", "Fighting"]
+  },
+  {
+    "name": "Ice",
+    "localized": {"zh": "冰"},
+    "effective_against": ["Grass", "Ground", "Dragon", "Flying"],
+    "weak_against": ["Fire", "Ice", "Mechanical"]
+  },
+  {
     "name": "Dragon",
     "localized": {"zh": "龙"},
     "effective_against": ["Dragon"],
     "weak_against": ["Mechanical"]
+  },
+  {
+    "name": "Electric",
+    "localized": {"zh": "电"},
+    "effective_against": ["Water", "Flying"],
+    "weak_against": ["Grass", "Ground", "Dragon", "Electric"]
+  },
+  {
+    "name": "Poison",
+    "localized": {"zh": "毒"},
+    "effective_against": ["Grass", "Cute"],
+    "weak_against": ["Ground", "Ghost", "Mechanical", "Poison"]
+  },
+  {
+    "name": "Bug",
+    "localized": {"zh": "虫"},
+    "effective_against": ["Grass", "Illusion", "Dark"],
+    "weak_against": ["Fire", "Poison", "Fighting", "Flying", "Cute", "Ghost", "Mechanical"]
+  },
+  {
+    "name": "Fighting",
+    "localized": {"zh": "武"},
+    "effective_against": ["Normal", "Ground", "Ice", "Dark", "Mechanical"],
+    "weak_against": ["Poison", "Bug", "Flying", "Cute", "Ghost", "Illusion"]
+  },
+  {
+    "name": "Flying",
+    "localized": {"zh": "翼"},
+    "effective_against": ["Grass", "Bug", "Fighting"],
+    "weak_against": ["Ground", "Dragon", "Electric", "Mechanical"]
+  },
+  {
+    "name": "Cute",
+    "localized": {"zh": "萌"},
+    "effective_against": ["Dragon", "Fighting", "Dark"],
+    "weak_against": ["Fire", "Poison", "Mechanical"]
+  },
+  {
+    "name": "Ghost",
+    "localized": {"zh": "幽"},
+    "effective_against": ["Light", "Ghost", "Illusion"],
+    "weak_against": ["Normal", "Dark"]
+  },
+  {
+    "name": "Dark",
+    "localized": {"zh": "恶"},
+    "effective_against": ["Poison", "Ghost", "Cute"],
+    "weak_against": ["Light", "Fighting", "Dark"]
   },
   {
     "name": "Mechanical",
@@ -34,78 +106,6 @@
     "localized": {"zh": "幻"},
     "effective_against": ["Poison", "Fighting"],
     "weak_against": ["Light", "Illusion", "Mechanical"]
-  },
-  {
-    "name": "Normal",
-    "localized": {"zh": "普"},
-    "effective_against": [],
-    "weak_against": ["Ground", "Ghost", "Mechanical"]
-  },
-  {
-    "name": "Cute",
-    "localized": {"zh": "萌"},
-    "effective_against": ["Dragon", "Fighting", "Dark"],
-    "weak_against": ["Fire", "Poison", "Mechanical"]
-  },
-  {
-    "name": "Dark",
-    "localized": {"zh": "恶"},
-    "effective_against": ["Poison", "Ghost", "Cute"],
-    "weak_against": ["Light", "Fighting", "Dark"]
-  },
-  {
-    "name": "Ghost",
-    "localized": {"zh": "幽"},
-    "effective_against": ["Light", "Ghost", "Illusion"],
-    "weak_against": ["Normal", "Dark"]
-  },
-  {
-    "name": "Flying",
-    "localized": {"zh": "翼"},
-    "effective_against": ["Grass", "Bug", "Fighting"],
-    "weak_against": ["Ground", "Dragon", "Electric", "Mechanical"]
-  },
-  {
-    "name": "Fighting",
-    "localized": {"zh": "武"},
-    "effective_against": ["Normal", "Ground", "Ice", "Dark", "Mechanical"],
-    "weak_against": ["Poison", "Bug", "Flying", "Cute", "Ghost", "Illusion"]
-  },
-  {
-    "name": "Bug",
-    "localized": {"zh": "虫"},
-    "effective_against": ["Grass", "Illusion", "Dark"],
-    "weak_against": ["Fire", "Poison", "Fighting", "Flying", "Cute", "Ghost", "Mechanical"]
-  },
-  {
-    "name": "Poison",
-    "localized": {"zh": "毒"},
-    "effective_against": ["Grass", "Cute"],
-    "weak_against": ["Ground", "Ghost", "Mechanical", "Poison"]
-  },
-  {
-    "name": "Electric",
-    "localized": {"zh": "电"},
-    "effective_against": ["Water", "Flying"],
-    "weak_against": ["Grass", "Ground", "Dragon", "Electric"]
-  },
-  {
-    "name": "Ice",
-    "localized": {"zh": "冰"},
-    "effective_against": ["Grass", "Ground", "Dragon", "Flying"],
-    "weak_against": ["Fire", "Ice", "Mechanical"]
-  },
-  {
-    "name": "Ground",
-    "localized": {"zh": "地"},
-    "effective_against": ["Fire", "Ice", "Electric", "Poison"],
-    "weak_against": ["Grass", "Fighting"]
-  },
-  {
-    "name": "Light",
-    "localized": {"zh": "光"},
-    "effective_against": ["Ghost", "Dark"],
-    "weak_against": ["Grass", "Ice"]
   },
   {
     "name": "Leader",

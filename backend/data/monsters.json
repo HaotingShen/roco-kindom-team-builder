@@ -104,7 +104,7 @@
     "sub_type": "Ground",
     "default_legacy_type": "Fighting",
     "trait": "Shifting Stance",
-    "leader_potential": true,
+    "leader_potential": false,
     "is_leader_form": false,
     "base_hp": 81,
     "base_phy_atk": 144,
@@ -128,7 +128,7 @@
     "sub_type": "Ground",
     "default_legacy_type": "Fighting",
     "trait": "Guard Duty",
-    "leader_potential": true,
+    "leader_potential": false,
     "is_leader_form": false,
     "base_hp": 109,
     "base_phy_atk": 110,
@@ -152,7 +152,7 @@
     "sub_type": "Ground",
     "default_legacy_type": "Fighting",
     "trait": "Twin Elephants",
-    "leader_potential": true,
+    "leader_potential": false,
     "is_leader_form": false,
     "base_hp": 127,
     "base_phy_atk": 88,
@@ -208,7 +208,7 @@
     "base_phy_def": 101,
     "base_mag_def": 101,
     "base_spd": 90,
-    "moveset_key": null,
+    "moveset_key": "Chess_Queen",
     "localized": {
       "zh": {
         "name": "棋契陛下"
@@ -1252,7 +1252,7 @@
     "name": "Diamoslug",
     "evolves_from": "Geoslug",
     "species": "Crystil",
-    "form": "default",
+    "form": "Watermelon Tourmaline",
     "main_type": "Light",
     "sub_type": "Ground",
     "default_legacy_type": "Leader",
@@ -1265,7 +1265,127 @@
     "base_phy_def": 132,
     "base_mag_def": 123,
     "base_spd": 72,
-    "moveset_key": null,
+    "moveset_key": "Geoslug_Watermelon_Tourmaline",
+    "localized": {
+      "zh": {
+        "name": "钻石蜗"
+      }
+    }
+  },
+  {
+    "name": "Diamoslug",
+    "evolves_from": "Geoslug",
+    "species": "Crystil",
+    "form": "Lotus Sapphire",
+    "main_type": "Light",
+    "sub_type": "Ground",
+    "default_legacy_type": "Leader",
+    "trait": "Polarization - Leader",
+    "leader_potential": false,
+    "is_leader_form": true,
+    "base_hp": 106,
+    "base_phy_atk": 97,
+    "base_mag_atk": 103,
+    "base_phy_def": 132,
+    "base_mag_def": 123,
+    "base_spd": 72,
+    "moveset_key": "Geoslug_Lotus_Sapphire",
+    "localized": {
+      "zh": {
+        "name": "钻石蜗"
+      }
+    }
+  },
+  {
+    "name": "Diamoslug",
+    "evolves_from": "Geoslug",
+    "species": "Crystil",
+    "form": "Star Garnet",
+    "main_type": "Light",
+    "sub_type": "Ground",
+    "default_legacy_type": "Leader",
+    "trait": "Polarization - Leader",
+    "leader_potential": false,
+    "is_leader_form": true,
+    "base_hp": 106,
+    "base_phy_atk": 97,
+    "base_mag_atk": 103,
+    "base_phy_def": 132,
+    "base_mag_def": 123,
+    "base_spd": 72,
+    "moveset_key": "Geoslug_Star_Garnet",
+    "localized": {
+      "zh": {
+        "name": "钻石蜗"
+      }
+    }
+  },
+  {
+    "name": "Diamoslug",
+    "evolves_from": "Geoslug",
+    "species": "Crystil",
+    "form": "Obsidian",
+    "main_type": "Light",
+    "sub_type": "Ground",
+    "default_legacy_type": "Leader",
+    "trait": "Polarization - Leader",
+    "leader_potential": false,
+    "is_leader_form": true,
+    "base_hp": 106,
+    "base_phy_atk": 97,
+    "base_mag_atk": 103,
+    "base_phy_def": 132,
+    "base_mag_def": 123,
+    "base_spd": 72,
+    "moveset_key": "Geoslug_Obsidian",
+    "localized": {
+      "zh": {
+        "name": "钻石蜗"
+      }
+    }
+  },
+  {
+    "name": "Diamoslug",
+    "evolves_from": "Geoslug",
+    "species": "Crystil",
+    "form": "Benitoite",
+    "main_type": "Light",
+    "sub_type": "Ground",
+    "default_legacy_type": "Leader",
+    "trait": "Polarization - Leader",
+    "leader_potential": false,
+    "is_leader_form": true,
+    "base_hp": 106,
+    "base_phy_atk": 97,
+    "base_mag_atk": 108,
+    "base_phy_def": 128,
+    "base_mag_def": 123,
+    "base_spd": 72,
+    "moveset_key": "Geoslug_Benitoite",
+    "localized": {
+      "zh": {
+        "name": "钻石蜗"
+      }
+    }
+  },
+  {
+    "name": "Diamoslug",
+    "evolves_from": "Geoslug",
+    "species": "Crystil",
+    "form": "Blued Gold",
+    "main_type": "Light",
+    "sub_type": "Ground",
+    "default_legacy_type": "Leader",
+    "trait": "Polarization - Leader",
+    "leader_potential": false,
+    "is_leader_form": true,
+    "base_hp": 106,
+    "base_phy_atk": 97,
+    "base_mag_atk": 103,
+    "base_phy_def": 132,
+    "base_mag_def": 123,
+    "base_spd": 72,
+    "moveset_key": "Geoslug_Blued_Gold",
     "localized": {
       "zh": {
         "name": "钻石蜗"
@@ -2022,7 +2142,7 @@
     "name": "Moonlet",
     "evolves_from": "Pricklet",
     "species": "Pricklet",
-    "form": "Crescent",
+    "form": "Waning",
     "main_type": "Poison",
     "sub_type": "Cute",
     "default_legacy_type": "Poison",
@@ -2047,7 +2167,7 @@
     "name": "Moonlet",
     "evolves_from": "Pricklet",
     "species": "Pricklet",
-    "form": "Gibbous",
+    "form": "Waxing",
     "main_type": "Poison",
     "sub_type": "Cute",
     "default_legacy_type": "Poison",

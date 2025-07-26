@@ -1,6 +1,6 @@
 import enum
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
-from sqlalchemy import String, Integer, Float, Boolean, ForeignKey, Table, Column, Enum, Index, UniqueConstraint
+from sqlalchemy import String, Integer, Float, Boolean, ForeignKey, Table, Column, Enum, Index, Text, UniqueConstraint
 from sqlalchemy.dialects.postgresql import JSONB
 
 class Base(DeclarativeBase):
@@ -71,14 +71,14 @@ class Type(Base):
         secondary=type_weak_against,
         primaryjoin=id==type_weak_against.c.type_id,
         secondaryjoin=id==type_weak_against.c.target_type_id,
-        backref="resisted_by"
+        backref="resistant_to"
     )
 
 class GameTerm(Base):
     __tablename__ = "game_terms"
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     key: Mapped[str] = mapped_column(String(32), nullable=False, unique=True)
-    description: Mapped[str] = mapped_column(String(255), nullable=False)
+    description: Mapped[str] = mapped_column(Text, nullable=False)
     localized: Mapped[dict] = mapped_column(JSONB, nullable=False, default=dict)
     __table_args__ = (
         Index("ix_game_terms_localized_gin", "localized", postgresql_using="gin"),
@@ -88,7 +88,7 @@ class Trait(Base):
     __tablename__ = "traits"
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     name: Mapped[str] = mapped_column(String(32), nullable=False, unique=True)
-    description: Mapped[str] = mapped_column(String(255), nullable=False)
+    description: Mapped[str] = mapped_column(Text, nullable=False)
     localized: Mapped[dict] = mapped_column(JSONB, nullable=False, default=dict)
     __table_args__ = (
         Index("ix_traits_localized_gin", "localized", postgresql_using="gin"),
@@ -119,11 +119,11 @@ class Move(Base):
     __tablename__ = "moves"
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     name: Mapped[str] = mapped_column(String(32), nullable=False, unique=True)
-    move_type_id: Mapped[int] = mapped_column(Integer, ForeignKey("types.id"))
+    move_type_id: Mapped[int] = mapped_column(Integer, ForeignKey("types.id"), nullable=True)
     move_category: Mapped[MoveCategory] = mapped_column(Enum(MoveCategory, name="move_category"), nullable=False)
     energy_cost: Mapped[int] = mapped_column(Integer, nullable=False)
-    power: Mapped[int] = mapped_column(Integer)
-    description: Mapped[str] = mapped_column(String(255), nullable=False)
+    power: Mapped[int] = mapped_column(Integer, nullable=True)
+    description: Mapped[str] = mapped_column(Text, nullable=False)
     has_counter: Mapped[bool] = mapped_column(Boolean, default=False)
     is_move_stone: Mapped[bool] = mapped_column(Boolean, default=False)
     localized: Mapped[dict] = mapped_column(JSONB, nullable=False, default=dict)
@@ -162,13 +162,13 @@ class MonsterSpecies(Base):
 class Monster(Base):
     __tablename__ = "monsters"
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    name: Mapped[str] = mapped_column(String(32), nullable=False, unique=True)
+    name: Mapped[str] = mapped_column(String(32), nullable=False)
     evolves_from_id: Mapped[int] = mapped_column(Integer, ForeignKey("monsters.id"), nullable=True)
     species_id: Mapped[int] = mapped_column(Integer, ForeignKey("monster_species.id"), nullable=False)
     form: Mapped[str] = mapped_column(String(32), nullable=False, default="default")
     
     main_type_id: Mapped[int] = mapped_column(Integer, ForeignKey("types.id"), nullable=False)
-    sub_type_id: Mapped[int] = mapped_column(Integer, ForeignKey("types.id"))
+    sub_type_id: Mapped[int] = mapped_column(Integer, ForeignKey("types.id"), nullable=True)
     default_legacy_type_id: Mapped[int] = mapped_column(Integer, ForeignKey("types.id"), nullable=False)
     trait_id: Mapped[int] = mapped_column(Integer, ForeignKey("traits.id"), nullable=False)
     leader_potential: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)  # True if monster is in final evolution stage and can be a leader
@@ -183,6 +183,7 @@ class Monster(Base):
     localized: Mapped[dict] = mapped_column(JSONB, nullable=False, default=dict)
     __table_args__ = (
         Index("ix_monsters_localized_gin", "localized", postgresql_using="gin"),
+        UniqueConstraint("name", "form", name="uq_monster_name_form"),
     )
     
     # Relationships
@@ -236,7 +237,7 @@ class MagicItem(Base):
     __tablename__ = "magic_items"
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     name: Mapped[str] = mapped_column(String(32), unique=True, nullable=False)
-    description: Mapped[str] = mapped_column(String(255), nullable=False)
+    description: Mapped[str] = mapped_column(Text, nullable=False)
     effect_code: Mapped[MagicEffectCode] = mapped_column(Enum(MagicEffectCode, name="magic_effect_code"), nullable=False)
     applies_to_type_id: Mapped[int] = mapped_column(Integer, ForeignKey("types.id"), nullable=True)
     effect_parameters: Mapped[dict] = mapped_column(JSONB, nullable=True)

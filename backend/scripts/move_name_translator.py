@@ -19,7 +19,7 @@ def format_json_array_field(field_name, move_names, max_per_line=10, indent="  "
     return result
 
 # Load moves and build Chinese->English map, and is_move_stone flag
-with open(r'D:\Alan\Github Projects\roco-kindom-team-builder\backend\data\moves_with_stone_flag.json', 'r', encoding='utf-8') as f:
+with open('backend/data/moves.json', 'r', encoding='utf-8') as f:
     moves = json.load(f)
 
 zh2en = {}
