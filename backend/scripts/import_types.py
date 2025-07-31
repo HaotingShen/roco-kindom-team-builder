@@ -56,5 +56,8 @@ def load_types():
         session.commit()
         print("Types and associations imported successfully!")
 
-if __name__ == "__main__":
+def main():
     load_types()
+
+if __name__ == "__main__":
+    main()

@@ -141,7 +141,7 @@
   },
   {
     "name": "Diffuse Corrosion",
-    "description": "When using a Water-type move, opponent's Poison Effect stacks x2.",
+    "description": "Each time this monster uses a Water-type move, opponent's Poison Effect stacks x2.",
     "localized": {
       "zh": {
         "name": "扩散侵蚀",
@@ -151,7 +151,7 @@
   },
   {
     "name": "Windrider Combo",
-    "description": "When using a Flying-type move, this monster gains Combo count +1.",
+    "description": "Each time this monster uses a Flying-type move, it gains a cumulative Combo count +1 bonus, which applies to all of its moves.",
     "localized": {
       "zh": {
         "name": "乘风连击",
@@ -181,7 +181,7 @@
   },
   {
     "name": "Polarization",
-    "description": "Resists the type of the move equipped by this monster.",
+    "description": "Resists the type of the move equipped by this monster. When resisting, damage taken -50%.",
     "localized": {
       "zh": {
         "name": "偏振",
@@ -191,7 +191,7 @@
   },
   {
     "name": "Polarization - Leader",
-    "description": "Resists the type of the move equipped by this monster. When resisting, damage taken x0.25.",
+    "description": "Resists the type of the move equipped by this monster. When resisting, damage taken -75%.",
     "localized": {
       "zh": {
         "name": "偏振--首领",
@@ -311,7 +311,7 @@
   },
   {
     "name": "Etching",
-    "description": "When entering the battlefield, converts all Poison on the opponent into Poison Mark. When exiting the battlefield, converts Poison Mark back into Poison.",
+    "description": "When entering the battlefield, converts all Poison stacks on the opponent into Poison Mark stacks. When exiting the battlefield, converts Poison Mark stacks back into Poison stacks.",
     "localized": {
       "zh": {
         "name": "蚀刻",
@@ -321,7 +321,7 @@
   },
   {
     "name": "Corrosion",
-    "description": "For each stack of Poison Effect on the opponent, gains Combo count +1 this turn.",
+    "description": "For each Poison Effect stack on the opponent, this monster's moves gain Combo count +1.",
     "localized": {
       "zh": {
         "name": "侵蚀",
@@ -351,7 +351,7 @@
   },
   {
     "name": "Sacred Flame Knight",
-    "description": "When dealing super effective damage, move power is doubled next turn.",
+    "description": "When this monster deals super effective damage, its move power x2 next turn.",
     "localized": {
       "zh": {
         "name": "圣火骑士",
@@ -371,7 +371,7 @@
   },
   {
     "name": "Seasoned Veteran",
-    "description": "For each time a teammate's Counter is successful, this monster's Fighting-type move power +20% and Water-type move power +20% when entering the battlefield.",
+    "description": "Each time a teammate performs a successful Counter, this monster's Fighting-type move power +20% and Water-type move power +20% when entering the battlefield.",
     "localized": {
       "zh": {
         "name": "身经百战",
@@ -381,7 +381,7 @@
   },
   {
     "name": "Add a Snowball",
-    "description": "When inflicting Freeze on the opponent, inflicts 2 additional stacks of Freeze.",
+    "description": "When inflicting Freeze on the opponent, additionally inflicts 2 stacks of Freeze.",
     "localized": {
       "zh": {
         "name": "加个雪球",
@@ -451,7 +451,7 @@
   },
   {
     "name": "Hydro Wing Boost",
-    "description": "For each time a teammate uses a Water-type move, this monster's move energy cost -1 when entering the battlefield.",
+    "description": "Each time a teammate uses a Water-type move, this monster's Move Energy Cost -1 when entering the battlefield.",
     "localized": {
       "zh": {
         "name": "水翼推进",
@@ -461,7 +461,7 @@
   },
   {
     "name": "Hydro Wing Boost - Leader",
-    "description": "For each time a teammate uses a Water-type move, this monster's move energy cost -1 when entering the battlefield. The weather becomes Rain.",
+    "description": "Each time a teammate uses a Water-type move, this monster's Move Energy Cost -1 when entering the battlefield. The weather becomes Rain.",
     "localized": {
       "zh": {
         "name": "水翼推进--首领",
@@ -471,7 +471,7 @@
   },
   {
     "name": "Nutrient Reabsorption",
-    "description": "At the end of the turn, gains 4 energy.",
+    "description": "At the end of each turn, gains 4 energy.",
     "localized": {
       "zh": {
         "name": "养分重吸收",
@@ -481,7 +481,7 @@
   },
   {
     "name": "Nutrient Reabsorption - Leader",
-    "description": "At the end of the turn, gains 7 energy.",
+    "description": "At the end of each turn, gains 7 energy.",
     "localized": {
       "zh": {
         "name": "养分重吸收--首领",

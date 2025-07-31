@@ -20,7 +20,7 @@
   },
   {
     "name": "Sun Healing",
-    "description": "Can be applied to Grass (or Grass legacy type) monsters, recovering 50% of max HP.",
+    "description": "Can be applied to Grass (or Grass legacy type) monsters. Restores 50% max HP.",
     "localized": {
       "zh": {
         "name": "光合治愈",
@@ -36,7 +36,7 @@
   },
   {
     "name": "Flare Burst",
-    "description": "Can be applied to Fire (or Fire legacy type) monsters. The move's power is increased by 150% this turn.",
+    "description": "Can be applied to Fire (or Fire legacy type) monsters. Move power +150% this turn.",
     "localized": {
       "zh": {
         "name": "闪焰爆发",
@@ -68,7 +68,7 @@
   },
   {
     "name": "Evolution Power",
-    "description": "Can be used only on monsters with Leader legacy type, allowing them to evolve into a Leader form.",
+    "description": "Can be applied only to monsters with Leader legacy type, allowing them to evolve into a Leader form.",
     "localized": {
       "zh": {
         "name": "进化之力",

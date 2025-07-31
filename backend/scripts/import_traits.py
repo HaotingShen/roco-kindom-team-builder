@@ -31,5 +31,8 @@ def load_traits():
         session.commit()
         print("Traits imported successfully!")
 
-if __name__ == "__main__":
+def main():
     load_traits()
+
+if __name__ == "__main__":
+    main()

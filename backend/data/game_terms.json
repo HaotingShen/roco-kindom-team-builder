@@ -244,7 +244,7 @@
     "description": "Each player has 4 Blood Points at the start of the battle. Generally, when a monster is defeated, the player loses 1 Blood Point. Some traits can have different effects on Blood Points. If a player runs out of Blood Points, they lose the battle.",
     "localized": {
       "zh": {
-        "name": "血点",
+        "name": "魔力值",
         "description": "每位玩家在战斗开始时拥有4点魔力值。一般情况下, 当一只精灵力竭时, 玩家会失去1点魔力值。有些特性会对魔力值有不同的影响。如果玩家的魔力值耗尽, 则输掉战斗。"
       }
     }

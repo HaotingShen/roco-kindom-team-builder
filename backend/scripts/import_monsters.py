@@ -85,5 +85,8 @@ def load_monsters_two_pass():
         session.commit()
         print("Monsters imported successfully!")
 
-if __name__ == "__main__":
+def main():
     load_monsters_two_pass()
+
+if __name__ == "__main__":
+    main()

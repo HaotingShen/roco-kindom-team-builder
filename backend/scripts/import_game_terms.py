@@ -30,5 +30,8 @@ def load_game_terms():
         session.commit()
         print("Game terms imported successfully!")
 
-if __name__ == "__main__":
+def main():
     load_game_terms()
+
+if __name__ == "__main__":
+    main()

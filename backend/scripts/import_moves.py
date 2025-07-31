@@ -60,5 +60,8 @@ def load_moves():
         session.commit()
         print("Moves imported successfully!")
 
-if __name__ == "__main__":
+def main():
     load_moves()
+
+if __name__ == "__main__":
+    main()

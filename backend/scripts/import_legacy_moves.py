@@ -56,5 +56,8 @@ def load_legacy_moves():
         session.commit()
         print("Legacy moves imported successfully!")
 
-if __name__ == "__main__":
+def main():
     load_legacy_moves()
+
+if __name__ == "__main__":
+    main()

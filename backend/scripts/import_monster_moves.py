@@ -48,5 +48,8 @@ def load_monster_moves():
         session.commit()
         print("Monster-move associations imported successfully!")
 
-if __name__ == "__main__":
+def main():
     load_monster_moves()
+
+if __name__ == "__main__":
+    main()

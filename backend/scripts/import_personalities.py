@@ -40,5 +40,8 @@ def load_personalities():
         session.commit()
         print("Personalities imported successfully!")
 
-if __name__ == "__main__":
+def main():
     load_personalities()
+
+if __name__ == "__main__":
+    main()

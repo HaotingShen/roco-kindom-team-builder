@@ -218,11 +218,11 @@ class UserMonster(Base):
     monster_id: Mapped[int] = mapped_column(Integer, ForeignKey("monsters.id"), nullable=False)
     personality_id: Mapped[int] = mapped_column(Integer, ForeignKey("personalities.id"), nullable=False)
     legacy_type_id: Mapped[int] = mapped_column(Integer, ForeignKey("types.id"), nullable=False)
-    # Selected 4 moves for each user monster
     move1_id: Mapped[int] = mapped_column(Integer, ForeignKey("moves.id"))
     move2_id: Mapped[int] = mapped_column(Integer, ForeignKey("moves.id"))
     move3_id: Mapped[int] = mapped_column(Integer, ForeignKey("moves.id"))
     move4_id: Mapped[int] = mapped_column(Integer, ForeignKey("moves.id"))
+    team_id: Mapped[int] = mapped_column(Integer, ForeignKey("teams.id"), nullable=True)
     # Relationships
     monster = relationship("Monster", back_populates="user_monsters")
     personality = relationship("Personality", back_populates="user_monsters")
@@ -232,6 +232,7 @@ class UserMonster(Base):
     move2 = relationship("Move", foreign_keys=[move2_id])
     move3 = relationship("Move", foreign_keys=[move3_id])
     move4 = relationship("Move", foreign_keys=[move4_id])
+    team = relationship("Team", back_populates="user_monsters")
 
 class MagicItem(Base):
     __tablename__ = "magic_items"
@@ -248,3 +249,13 @@ class MagicItem(Base):
 
     # Relationships
     applies_to_type = relationship("Type", back_populates="magic_items")
+    
+class Team(Base):
+    __tablename__ = "teams"
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    name: Mapped[str] = mapped_column(String(32), nullable=True)
+    magic_item_id: Mapped[int] = mapped_column(Integer, ForeignKey("magic_items.id"), nullable=True)
+
+    # Relationships
+    user_monsters = relationship("UserMonster", back_populates="team")
+    magic_item = relationship("MagicItem")

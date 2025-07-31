@@ -28,5 +28,8 @@ def load_monster_species():
         session.commit()
         print("Monster species imported successfully!")
 
-if __name__ == "__main__":
+def main():
     load_monster_species()
+
+if __name__ == "__main__":
+    main()

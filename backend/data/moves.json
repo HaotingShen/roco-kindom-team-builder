@@ -5,7 +5,7 @@
     "category": "Status",
     "energy_cost": 0,
     "power": null,
-    "description": "Skip this turn to restore 5 energy.",
+    "description": "Skips this turn and restores 5 energy.",
     "has_counter": false,
     "is_move_stone": false,
     "localized": {
@@ -53,7 +53,7 @@
     "category": "Physical Attack",
     "energy_cost": 7,
     "power": 120,
-    "description": "Deals physical damage. This move's energy cost -1 per turn.",
+    "description": "Deals physical damage. Each turn, this move's energy cost -1.",
     "has_counter": false,
     "is_move_stone": false,
     "localized": {
@@ -229,7 +229,7 @@
     "category": "Status",
     "energy_cost": 0,
     "power": null,
-    "description": "This move becomes a random this monster's uncarried move each turn.",
+    "description": "Each turn, this move becomes a random uncarried move from this monster.",
     "has_counter": false,
     "is_move_stone": false,
     "localized": {
@@ -421,7 +421,7 @@
     "category": "Status",
     "energy_cost": 0,
     "power": null,
-    "description": "At the start of each round, randomly changes into another move carried by a teammate.",
+    "description": "At the start of each turn, this move becomes a random move carried by a teammate.",
     "has_counter": false,
     "is_move_stone": true,
     "localized": {
@@ -613,7 +613,7 @@
     "category": "Physical Attack",
     "energy_cost": 3,
     "power": 70,
-    "description": "Deals physical damage. For each time this monster successfully counters, this move's power +30.",
+    "description": "Deals physical damage. Each time this monster performs a successful Counter, this move's power +30.",
     "has_counter": true,
     "is_move_stone": true,
     "localized": {
@@ -677,7 +677,7 @@
     "category": "Physical Attack",
     "energy_cost": 2,
     "power": 60,
-    "description": "Deals physical damage. Each time this move is used, move power +20.",
+    "description": "Deals physical damage. Each time this move is used, its power +20.",
     "has_counter": false,
     "is_move_stone": false,
     "localized": {
@@ -821,7 +821,7 @@
     "category": "Defense",
     "energy_cost": 2,
     "power": null,
-    "description": "Damage taken -70%. Counter Attack: for each time this monster is damaged, its Speed +20.",
+    "description": "Damage taken -70%. Counter Attack: each time this monster is damaged, its Speed +20.",
     "has_counter": true,
     "is_move_stone": true,
     "localized": {
@@ -901,7 +901,7 @@
     "category": "Physical Attack",
     "energy_cost": 6,
     "power": 135,
-    "description": "Deals physical damage. If this move defeats the opponent's monster, gain 6 energy.",
+    "description": "Deals physical damage. If this move defeats the opponent's monster, gains 6 energy.",
     "has_counter": false,
     "is_move_stone": true,
     "localized": {
@@ -1029,7 +1029,7 @@
     "category": "Magic Attack",
     "energy_cost": 6,
     "power": 120,
-    "description": "Deals magic damage. For each time another Normal-type move is used, this move's energy cost -2.",
+    "description": "Deals magic damage. Each time another Normal-type move is used, this move's energy cost -2.",
     "has_counter": false,
     "is_move_stone": false,
     "localized": {
@@ -2053,7 +2053,7 @@
     "category": "Physical Attack",
     "energy_cost": 2,
     "power": 65,
-    "description": "Deals physical damage. For each time this move defeats the opponent's monster, this move's power +40.",
+    "description": "Deals physical damage. Each time this move defeats the opponent's monster, its power +40.",
     "has_counter": false,
     "is_move_stone": true,
     "localized": {
@@ -2133,7 +2133,7 @@
     "category": "Physical Attack",
     "energy_cost": 3,
     "power": 15,
-    "description": "Deals physical damage. Every time another Fire-type move is used, this move's power x2.",
+    "description": "Deals physical damage. Each time another Fire-type move is used, this move's power x2.",
     "has_counter": false,
     "is_move_stone": false,
     "localized": {
@@ -2501,7 +2501,7 @@
     "category": "Magic Attack",
     "energy_cost": 6,
     "power": 100,
-    "description": "Deals magic damage. This move's power +20 each turn.",
+    "description": "Deals magic damage. Each turn, this move's power +20.",
     "has_counter": false,
     "is_move_stone": false,
     "localized": {
@@ -2725,7 +2725,7 @@
     "category": "Magic Attack",
     "energy_cost": 6,
     "power": 100,
-    "description": "Deals magic damage. For each 1 this move's energy cost is reduced, power +10%.",
+    "description": "Deals magic damage. Each time this move's energy cost -1, its power +10%.",
     "has_counter": false,
     "is_move_stone": true,
     "localized": {
@@ -2805,7 +2805,7 @@
     "category": "Magic Attack",
     "energy_cost": 3,
     "power": 50,
-    "description": "Deals magic damage. For every different type of move carried, this move's power +20.",
+    "description": "Deals magic damage. For each different move type carried, this move's power +20.",
     "has_counter": false,
     "is_move_stone": false,
     "localized": {
@@ -2981,7 +2981,7 @@
     "category": "Magic Attack",
     "energy_cost": 3,
     "power": 50,
-    "description": "Deals magic damage. For each different type of move carried, this move's power +20.",
+    "description": "Deals magic damage. For each different move type carried, this move's power +20.",
     "has_counter": false,
     "is_move_stone": false,
     "localized": {
@@ -3269,7 +3269,7 @@
     "category": "Physical Attack",
     "energy_cost": 20,
     "power": 140,
-    "description": "Deals physical damage. This move's energy cost -5 every turn.",
+    "description": "Deals physical damage. Each turn, this move's energy cost -5.",
     "has_counter": false,
     "is_move_stone": false,
     "localized": {
@@ -3301,7 +3301,7 @@
     "category": "Status",
     "energy_cost": 8,
     "power": null,
-    "description": "Changes weather to Sandstorm. This move's energy cost -1 each turn.",
+    "description": "Changes weather to Sandstorm. Each turn, this move's energy cost -1.",
     "has_counter": false,
     "is_move_stone": false,
     "localized": {
@@ -3813,7 +3813,7 @@
     "category": "Status",
     "energy_cost": 8,
     "power": null,
-    "description": "Gives opponent 4 stacks of Freeze. For each Freeze stack on the opponent, opponent gets a stack of Move Energy Cost +1.",
+    "description": "Gives opponent 4 stacks of Freeze. For each Freeze stack on the opponent, opponent gains 1 stack of Move Energy Cost +1.",
     "has_counter": false,
     "is_move_stone": false,
     "localized": {
@@ -3845,7 +3845,7 @@
     "category": "Magic Attack",
     "energy_cost": 5,
     "power": 60,
-    "description": "Deals magic damage. For each stack of Freeze the opponent has, this move's power +20.",
+    "description": "Deals magic damage. For each Freeze stack on the opponent, this move's power +20.",
     "has_counter": false,
     "is_move_stone": false,
     "localized": {
@@ -4565,7 +4565,7 @@
     "category": "Defense",
     "energy_cost": 0,
     "power": null,
-    "description": "Damage taken -50%. For each stack of Poison Effect the opponent has, damage reduction +10%. Counter Attack.",
+    "description": "Damage taken -50%. For each Poison Effect stack on the opponent, damage taken -10% this turn. Counter Attack.",
     "has_counter": true,
     "is_move_stone": true,
     "localized": {
@@ -4645,7 +4645,7 @@
     "category": "Magic Attack",
     "energy_cost": 5,
     "power": 120,
-    "description": "Deals magic damage. For each stack of Poison Effect on the opponent, this move's energy cost -1. Gives opponent 1 stack of Poison.",
+    "description": "Deals magic damage. For each Poison Effect stack on the opponent, this move's energy cost -1. Gives opponent 1 stack of Poison.",
     "has_counter": false,
     "is_move_stone": true,
     "localized": {
@@ -4693,7 +4693,7 @@
     "category": "Status",
     "energy_cost": 3,
     "power": null,
-    "description": "For each stack of Poison Effect on the opponent, opponent's Attack -30%.",
+    "description": "For each Poison Effect stack on the opponent, opponent's Attack -30%.",
     "has_counter": false,
     "is_move_stone": true,
     "localized": {
@@ -4805,7 +4805,7 @@
     "category": "Status",
     "energy_cost": 1,
     "power": null,
-    "description": "For each stack of Poison Effect on the opponent, Magic Attack +20%.",
+    "description": "For each Poison Effect stack on the opponent, user's Magic Attack +20%.",
     "has_counter": false,
     "is_move_stone": false,
     "localized": {
@@ -4853,7 +4853,7 @@
     "category": "Magic Attack",
     "energy_cost": 3,
     "power": 55,
-    "description": "Deals magic damage. For each stack of Poison Effect on the opponent, this move's power +10. Counter Status: gives opponent 2 stacks of Poison.",
+    "description": "Deals magic damage. For each Poison Effect stack on the opponent, this move's power +10. Counter Status: gives opponent 2 stacks of Poison.",
     "has_counter": true,
     "is_move_stone": false,
     "localized": {
@@ -5077,7 +5077,7 @@
     "category": "Physical Attack",
     "energy_cost": 0,
     "power": 40,
-    "description": "Deals physical damage. This move is affected by Devotion; each time it is affected, energy cost +1.",
+    "description": "Deals physical damage. This move is affected by Devotion; each time this move is affected, its energy cost +1.",
     "has_counter": false,
     "is_move_stone": false,
     "localized": {
@@ -5109,7 +5109,7 @@
     "category": "Status",
     "energy_cost": 3,
     "power": null,
-    "description": "Dispels all opponent's Marks; user restores 10% HP per mark.",
+    "description": "Dispels all opponent's Marks; each mark restores 10% HP to the user.",
     "has_counter": false,
     "is_move_stone": false,
     "localized": {
@@ -5205,7 +5205,7 @@
     "category": "Status",
     "energy_cost": 3,
     "power": null,
-    "description": "Increases Attack by 60%. For each 0-energy move carried, gain an extra 60%.",
+    "description": "User's Attack +60%. Additionally, for each 0-energy move carried, Attack +60%.",
     "has_counter": false,
     "is_move_stone": false,
     "localized": {
@@ -5285,7 +5285,7 @@
     "category": "Magic Attack",
     "energy_cost": 5,
     "power": 60,
-    "description": "Deals magic damage, 1 Combo. For each successful Counter, this move's Combo count +2.",
+    "description": "Deals magic damage, 1 Combo. Each time this monster performs a successful Counter, this move's Combo count +2.",
     "has_counter": true,
     "is_move_stone": false,
     "localized": {
@@ -5381,7 +5381,7 @@
     "category": "Physical Attack",
     "energy_cost": 2,
     "power": 75,
-    "description": "Deals physical damage. Counter Status: Interrupt the opponent and gain energy equal to the interrupted move's energy cost.",
+    "description": "Deals physical damage. Counter Status: Interrupt the opponent and gains energy equal to the interrupted move's energy cost.",
     "has_counter": true,
     "is_move_stone": false,
     "localized": {
@@ -5445,7 +5445,7 @@
     "category": "Status",
     "energy_cost": 13,
     "power": null,
-    "description": "Restores 50% HP, Physical Attack +80%. For each successful Counter, move's energy cost -3, but resets after use.",
+    "description": "Restores 50% HP, Physical Attack +80%. Each time this monster performs a successful Counter, this move's energy cost -3, but resets after use.",
     "has_counter": false,
     "is_move_stone": false,
     "localized": {
@@ -6037,7 +6037,7 @@
     "category": "Status",
     "energy_cost": 1,
     "power": null,
-    "description": "Removes all stacks of Regression from the user; each stack gives the opponent 1 stack of Regression.",
+    "description": "Removes all Regression stacks from the user; each stack gives the opponent 1 stack of Regression.",
     "has_counter": false,
     "is_move_stone": false,
     "localized": {
@@ -6101,7 +6101,7 @@
     "category": "Magic Attack",
     "energy_cost": 3,
     "power": 30,
-    "description": "Deals magic damage, 2 Combo. For each stack of Regression on the user, Combo count x2. Removes all Regression stacks.",
+    "description": "Deals magic damage, 2 Combo. For each Regression stack on the user, Combo count x2. Removes all Regression stacks.",
     "has_counter": false,
     "is_move_stone": false,
     "localized": {
@@ -6133,7 +6133,7 @@
     "category": "Status",
     "energy_cost": 2,
     "power": null,
-    "description": "Removes all stacks of Regression on the user. For each stack removed, Attack +80%, Speed +30.",
+    "description": "Removes all Regression stacks on the user. For each stack removed, user's Attack +80%, Speed +30.",
     "has_counter": false,
     "is_move_stone": true,
     "localized": {
@@ -6197,7 +6197,7 @@
     "category": "Physical Attack",
     "energy_cost": 4,
     "power": 30,
-    "description": "Deals physical damage, 1 Combo. For each stack of Regression on the user's team, this move's Combo count +1.",
+    "description": "Deals physical damage, 1 Combo. For each Regression stack on the user's team, this move's Combo count +1.",
     "has_counter": false,
     "is_move_stone": true,
     "localized": {
@@ -6869,7 +6869,7 @@
     "category": "Defense",
     "energy_cost": 2,
     "power": null,
-    "description": "Damage taken -80%. If energy is insufficient to use this move, consumes 5% HP for each energy required. Counter Attack.",
+    "description": "Damage taken -80%. If there is not enough energy to use this move, the user consumes 5% HP per energy required. Counter Attack.",
     "has_counter": true,
     "is_move_stone": true,
     "localized": {
@@ -6949,7 +6949,7 @@
     "category": "Physical Attack",
     "energy_cost": 2,
     "power": 40,
-    "description": "Deals physical damage. For each time the position of this move changes, this move's power +30.",
+    "description": "Deals physical damage. Each time the position of this move changes, this move's power +30.",
     "has_counter": false,
     "is_move_stone": true,
     "localized": {
@@ -7253,7 +7253,7 @@
     "category": "Magic Attack",
     "energy_cost": 4,
     "power": 10,
-    "description": "Deals magic damage, 1 Combo. For each stack of Starfall Mark the opponent has, Combo count +1.",
+    "description": "Deals magic damage, 1 Combo. For each Starfall Mark stack on the opponent, Combo count +1.",
     "has_counter": false,
     "is_move_stone": true,
     "localized": {
@@ -7365,7 +7365,7 @@
     "category": "Magic Attack",
     "energy_cost": 6,
     "power": 100,
-    "description": "Deals magic damage. For each generic mark the opponent has, this move's energy cost -1.",
+    "description": "Deals magic damage. For each generic mark on the opponent, this move's energy cost -1.",
     "has_counter": false,
     "is_move_stone": false,
     "localized": {

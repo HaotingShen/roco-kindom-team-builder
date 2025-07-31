@@ -47,5 +47,8 @@ def load_magic_items():
         session.commit()
         print("Magic items imported successfully!")
 
-if __name__ == "__main__":
+def main():
     load_magic_items()
+
+if __name__ == "__main__":
+    main()
