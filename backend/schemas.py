@@ -16,6 +16,11 @@ class MoveCategory(str, Enum):
     MAG_ATTACK = "Magic Attack"
     DEFENSE = "Defense"
     STATUS = "Status"
+    
+class AttackStyle(str, Enum):
+    PHYSICAL = "Physical"
+    MAGIC = "Magic"
+    BOTH = "Both"
 
 class TypeOut(BaseModel):
     id: int
@@ -111,6 +116,7 @@ class MonsterOut(MonsterLiteOut):
     base_spd: int
     move_pool: List[MoveOut]
     legacy_moves: List[LegacyMoveOut]
+    preferred_attack_style: AttackStyle
 
     class Config:
         from_attributes = True
@@ -166,7 +172,7 @@ class TalentOut(TalentIn):
     id: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class UserMonsterCreate(BaseModel):
     monster_id: int
@@ -225,27 +231,30 @@ class EnergyProfile(BaseModel):
     avg_energy_cost: float
     has_zero_cost_move: bool
     has_energy_restore_move: bool
-    zero_cost_moves: List[int] = []
-    energy_restore_moves: List[int] = []
+    zero_cost_moves: List[int] = Field(default_factory=list)
+    energy_restore_moves: List[int] = Field(default_factory=list)
     
 class CounterCoverage(BaseModel):
     has_attack_counter_status: bool
     has_defense_counter_attack: bool
     has_status_counter_defense: bool
     total_counter_moves: int
-    counter_move_ids: List[int] = []
-
-class TypeCoverageReport(BaseModel):
-    covered_types: List[int]
-    missing_types: List[int]
-    team_weak_to: List[int]
+    counter_move_ids: List[int] = Field(default_factory=list)
+    
+class DefenseStatusMove(BaseModel):
+    defense_status_move_count: int
+    defense_status_move: List[int] = Field(default_factory=list)
 
 class TraitSynergyFinding(BaseModel):
     monster_id: int
     trait: TraitOut
-    synergy_moves: List[int] = []
-    anti_synergy_moves: List[int] = []
-    recommendation: List[str] = []
+    synergy_moves: List[int] = Field(default_factory=list)
+    recommendation: List[str] = Field(default_factory=list)
+
+class TypeCoverageReport(BaseModel):
+    effective_against_types: List[int] = Field(default_factory=list)
+    weak_against_types: List[int] = Field(default_factory=list)
+    team_weak_to: List[int] = Field(default_factory=list)
 
 class MagicItemEvaluation(BaseModel):
     chosen_item: MagicItemOut
@@ -258,11 +267,18 @@ class MonsterAnalysisOut(BaseModel):
     effective_stats: EffectiveStats
     energy_profile: EnergyProfile
     counter_coverage: CounterCoverage
-    trait_synergies: List[TraitSynergyFinding] = []
+    defense_status_move: DefenseStatusMove
+    trait_synergies: List[TraitSynergyFinding] = Field(default_factory=list)
+    
+    class Config:
+        from_attributes = True
 
 class TeamAnalysisOut(BaseModel):
     team: TeamOut
     per_monster: List[MonsterAnalysisOut]
     type_coverage: TypeCoverageReport
     magic_item_eval: MagicItemEvaluation
-    recommendations: List[str] = []
+    recommendations: List[str] = Field(default_factory=list)
+    
+    class Config:
+        from_attributes = True

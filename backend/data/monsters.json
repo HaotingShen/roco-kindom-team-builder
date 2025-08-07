@@ -16,6 +16,7 @@
     "base_phy_def": 43,
     "base_mag_def": 43,
     "base_spd": 84,
+    "preferred_attack_style": "Physical",
     "moveset_key": "Flutterfly",
     "localized": {
       "zh": {
@@ -40,6 +41,7 @@
     "base_phy_def": 57,
     "base_mag_def": 57,
     "base_spd": 112,
+    "preferred_attack_style": "Physical",
     "moveset_key": "Flutterfly",
     "localized": {
       "zh": {
@@ -64,6 +66,7 @@
     "base_phy_def": 71,
     "base_mag_def": 75,
     "base_spd": 140,
+    "preferred_attack_style": "Physical",
     "moveset_key": "Flutterfly",
     "localized": {
       "zh": {
@@ -88,6 +91,7 @@
     "base_phy_def": 63,
     "base_mag_def": 49,
     "base_spd": 100,
+    "preferred_attack_style": "Physical",
     "moveset_key": "Chess_Knight",
     "localized": {
       "zh": {
@@ -112,6 +116,7 @@
     "base_phy_def": 78,
     "base_mag_def": 61,
     "base_spd": 125,
+    "preferred_attack_style": "Physical",
     "moveset_key": "Chess_Knight",
     "localized": {
       "zh": {
@@ -136,6 +141,7 @@
     "base_phy_def": 116,
     "base_mag_def": 83,
     "base_spd": 75,
+    "preferred_attack_style": "Physical",
     "moveset_key": "Chess_Guard",
     "localized": {
       "zh": {
@@ -160,6 +166,7 @@
     "base_phy_def": 85,
     "base_mag_def": 67,
     "base_spd": 85,
+    "preferred_attack_style": "Physical",
     "moveset_key": "Chess_Overseer",
     "localized": {
       "zh": {
@@ -184,6 +191,7 @@
     "base_phy_def": 88,
     "base_mag_def": 88,
     "base_spd": 90,
+    "preferred_attack_style": "Physical",
     "moveset_key": "Chess_Queen",
     "localized": {
       "zh": {
@@ -208,6 +216,7 @@
     "base_phy_def": 101,
     "base_mag_def": 101,
     "base_spd": 90,
+    "preferred_attack_style": "Physical",
     "moveset_key": "Chess_Queen",
     "localized": {
       "zh": {
@@ -232,6 +241,7 @@
     "base_phy_def": 77,
     "base_mag_def": 93,
     "base_spd": 108,
+    "preferred_attack_style": "Magic",
     "moveset_key": "Starlion_Starlight",
     "localized": {
       "zh": {
@@ -257,6 +267,7 @@
     "base_phy_def": 77,
     "base_mag_def": 103,
     "base_spd": 100,
+    "preferred_attack_style": "Magic",
     "moveset_key": "Starlion_Moonlight",
     "localized": {
       "zh": {
@@ -282,6 +293,7 @@
     "base_phy_def": 96,
     "base_mag_def": 116,
     "base_spd": 135,
+    "preferred_attack_style": "Magic",
     "moveset_key": "Starlion_Starlight",
     "localized": {
       "zh": {
@@ -307,6 +319,7 @@
     "base_phy_def": 96,
     "base_mag_def": 128,
     "base_spd": 125,
+    "preferred_attack_style": "Magic",
     "moveset_key": "Starlion_Moonlight",
     "localized": {
       "zh": {
@@ -332,6 +345,7 @@
     "base_phy_def": 72,
     "base_mag_def": 77,
     "base_spd": 96,
+    "preferred_attack_style": "Magic",
     "moveset_key": "Matcha_Pudding",
     "localized": {
       "zh": {
@@ -356,6 +370,7 @@
     "base_phy_def": 90,
     "base_mag_def": 96,
     "base_spd": 120,
+    "preferred_attack_style": "Magic",
     "moveset_key": "Matcha_Pudding",
     "localized": {
       "zh": {
@@ -380,6 +395,7 @@
     "base_phy_def": 98,
     "base_mag_def": 104,
     "base_spd": 120,
+    "preferred_attack_style": "Magic",
     "moveset_key": "Coconut_Pudding",
     "localized": {
       "zh": {
@@ -404,6 +420,7 @@
     "base_phy_def": 96,
     "base_mag_def": 90,
     "base_spd": 120,
+    "preferred_attack_style": "Physical",
     "moveset_key": "Lava_Pudding",
     "localized": {
       "zh": {
@@ -428,6 +445,7 @@
     "base_phy_def": 63,
     "base_mag_def": 93,
     "base_spd": 92,
+    "preferred_attack_style": "Magic",
     "moveset_key": "Pinkabbit",
     "localized": {
       "zh": {
@@ -452,6 +470,7 @@
     "base_phy_def": 79,
     "base_mag_def": 116,
     "base_spd": 115,
+    "preferred_attack_style": "Magic",
     "moveset_key": "Pinkabbit",
     "localized": {
       "zh": {
@@ -476,6 +495,7 @@
     "base_phy_def": 90,
     "base_mag_def": 123,
     "base_spd": 130,
+    "preferred_attack_style": "Magic",
     "moveset_key": "Meteorabbit",
     "localized": {
       "zh": {
@@ -500,6 +520,7 @@
     "base_phy_def": 51,
     "base_mag_def": 41,
     "base_spd": 78,
+    "preferred_attack_style": "Physical",
     "moveset_key": "Kawachung_Grassland",
     "localized": {
       "zh": {
@@ -525,6 +546,7 @@
     "base_phy_def": 52,
     "base_mag_def": 41,
     "base_spd": 75,
+    "preferred_attack_style": "Physical",
     "moveset_key": "Kawachung_Sandy_Land",
     "localized": {
       "zh": {
@@ -550,6 +572,7 @@
     "base_phy_def": 50,
     "base_mag_def": 40,
     "base_spd": 81,
+    "preferred_attack_style": "Physical",
     "moveset_key": "Kawachung_Snowy_Mountain",
     "localized": {
       "zh": {
@@ -575,6 +598,7 @@
     "base_phy_def": 68,
     "base_mag_def": 55,
     "base_spd": 104,
+    "preferred_attack_style": "Physical",
     "moveset_key": "Kawachung_Grassland",
     "localized": {
       "zh": {
@@ -600,6 +624,7 @@
     "base_phy_def": 69,
     "base_mag_def": 55,
     "base_spd": 100,
+    "preferred_attack_style": "Physical",
     "moveset_key": "Kawachung_Sandy_Land",
     "localized": {
       "zh": {
@@ -625,6 +650,7 @@
     "base_phy_def": 66,
     "base_mag_def": 53,
     "base_spd": 108,
+    "preferred_attack_style": "Physical",
     "moveset_key": "Kawachung_Snowy_Mountain",
     "localized": {
       "zh": {
@@ -650,6 +676,7 @@
     "base_phy_def": 85,
     "base_mag_def": 68,
     "base_spd": 130,
+    "preferred_attack_style": "Physical",
     "moveset_key": "Kawachung_Grassland",
     "localized": {
       "zh": {
@@ -675,6 +702,7 @@
     "base_phy_def": 86,
     "base_mag_def": 69,
     "base_spd": 125,
+    "preferred_attack_style": "Physical",
     "moveset_key": "Kawachung_Sandy_Land",
     "localized": {
       "zh": {
@@ -700,6 +728,7 @@
     "base_phy_def": 83,
     "base_mag_def": 66,
     "base_spd": 135,
+    "preferred_attack_style": "Physical",
     "moveset_key": "Kawachung_Snowy_Mountain",
     "localized": {
       "zh": {
@@ -725,6 +754,7 @@
     "base_phy_def": 56,
     "base_mag_def": 56,
     "base_spd": 69,
+    "preferred_attack_style": "Magic",
     "moveset_key": "Snowsprite",
     "localized": {
       "zh": {
@@ -749,6 +779,7 @@
     "base_phy_def": 75,
     "base_mag_def": 75,
     "base_spd": 92,
+    "preferred_attack_style": "Magic",
     "moveset_key": "Snowsprite",
     "localized": {
       "zh": {
@@ -773,6 +804,7 @@
     "base_phy_def": 94,
     "base_mag_def": 94,
     "base_spd": 115,
+    "preferred_attack_style": "Magic",
     "moveset_key": "Snowsprite",
     "localized": {
       "zh": {
@@ -797,6 +829,7 @@
     "base_phy_def": 87,
     "base_mag_def": 103,
     "base_spd": 76,
+    "preferred_attack_style": "Magic",
     "moveset_key": "Glassjelly",
     "localized": {
       "zh": {
@@ -821,6 +854,7 @@
     "base_phy_def": 109,
     "base_mag_def": 128,
     "base_spd": 95,
+    "preferred_attack_style": "Magic",
     "moveset_key": "Glassjelly",
     "localized": {
       "zh": {
@@ -845,6 +879,7 @@
     "base_phy_def": 53,
     "base_mag_def": 36,
     "base_spd": 72,
+    "preferred_attack_style": "Physical",
     "moveset_key": "Royalgriff_Cliffside",
     "localized": {
       "zh": {
@@ -870,6 +905,7 @@
     "base_phy_def": 53,
     "base_mag_def": 39,
     "base_spd": 75,
+    "preferred_attack_style": "Physical",
     "moveset_key": "Royalgriff_Highland",
     "localized": {
       "zh": {
@@ -895,6 +931,7 @@
     "base_phy_def": 71,
     "base_mag_def": 48,
     "base_spd": 96,
+    "preferred_attack_style": "Physical",
     "moveset_key": "Royalgriff_Cliffside",
     "localized": {
       "zh": {
@@ -920,6 +957,7 @@
     "base_phy_def": 71,
     "base_mag_def": 52,
     "base_spd": 100,
+    "preferred_attack_style": "Physical",
     "moveset_key": "Royalgriff_Highland",
     "localized": {
       "zh": {
@@ -945,6 +983,7 @@
     "base_phy_def": 88,
     "base_mag_def": 60,
     "base_spd": 120,
+    "preferred_attack_style": "Physical",
     "moveset_key": "Royalgriff_Cliffside",
     "localized": {
       "zh": {
@@ -970,6 +1009,7 @@
     "base_phy_def": 88,
     "base_mag_def": 65,
     "base_spd": 125,
+    "preferred_attack_style": "Physical",
     "moveset_key": "Royalgriff_Highland",
     "localized": {
       "zh": {
@@ -995,6 +1035,7 @@
     "base_phy_def": 28,
     "base_mag_def": 28,
     "base_spd": 72,
+    "preferred_attack_style": "Both",
     "moveset_key": "Dolord",
     "localized": {
       "zh": {
@@ -1019,6 +1060,7 @@
     "base_phy_def": 35,
     "base_mag_def": 35,
     "base_spd": 90,
+    "preferred_attack_style": "Both",
     "moveset_key": "Dolord",
     "localized": {
       "zh": {
@@ -1043,6 +1085,7 @@
     "base_phy_def": 61,
     "base_mag_def": 75,
     "base_spd": 104,
+    "preferred_attack_style": "Magic",
     "moveset_key": "Joltball",
     "localized": {
       "zh": {
@@ -1067,6 +1110,7 @@
     "base_phy_def": 76,
     "base_mag_def": 94,
     "base_spd": 130,
+    "preferred_attack_style": "Magic",
     "moveset_key": "Joltball",
     "localized": {
       "zh": {
@@ -1091,6 +1135,7 @@
     "base_phy_def": 96,
     "base_mag_def": 89,
     "base_spd": 52,
+    "preferred_attack_style": "Both",
     "moveset_key": "Geoslug_Watermelon_Tourmaline",
     "localized": {
       "zh": {
@@ -1115,6 +1160,7 @@
     "base_phy_def": 120,
     "base_mag_def": 112,
     "base_spd": 65,
+    "preferred_attack_style": "Both",
     "moveset_key": "Geoslug_Watermelon_Tourmaline",
     "localized": {
       "zh": {
@@ -1140,6 +1186,7 @@
     "base_phy_def": 120,
     "base_mag_def": 108,
     "base_spd": 65,
+    "preferred_attack_style": "Both",
     "moveset_key": "Geoslug_Lotus_Sapphire",
     "localized": {
       "zh": {
@@ -1165,6 +1212,7 @@
     "base_phy_def": 120,
     "base_mag_def": 108,
     "base_spd": 65,
+    "preferred_attack_style": "Both",
     "moveset_key": "Geoslug_Star_Garnet",
     "localized": {
       "zh": {
@@ -1190,6 +1238,7 @@
     "base_phy_def": 124,
     "base_mag_def": 108,
     "base_spd": 65,
+    "preferred_attack_style": "Both",
     "moveset_key": "Geoslug_Obsidian",
     "localized": {
       "zh": {
@@ -1215,6 +1264,7 @@
     "base_phy_def": 116,
     "base_mag_def": 108,
     "base_spd": 65,
+    "preferred_attack_style": "Both",
     "moveset_key": "Geoslug_Benitoite",
     "localized": {
       "zh": {
@@ -1240,6 +1290,7 @@
     "base_phy_def": 120,
     "base_mag_def": 108,
     "base_spd": 70,
+    "preferred_attack_style": "Both",
     "moveset_key": "Geoslug_Blued_Gold",
     "localized": {
       "zh": {
@@ -1265,6 +1316,7 @@
     "base_phy_def": 132,
     "base_mag_def": 123,
     "base_spd": 72,
+    "preferred_attack_style": "Both",
     "moveset_key": "Geoslug_Watermelon_Tourmaline",
     "localized": {
       "zh": {
@@ -1289,6 +1341,7 @@
     "base_phy_def": 132,
     "base_mag_def": 123,
     "base_spd": 72,
+    "preferred_attack_style": "Both",
     "moveset_key": "Geoslug_Lotus_Sapphire",
     "localized": {
       "zh": {
@@ -1313,6 +1366,7 @@
     "base_phy_def": 132,
     "base_mag_def": 123,
     "base_spd": 72,
+    "preferred_attack_style": "Both",
     "moveset_key": "Geoslug_Star_Garnet",
     "localized": {
       "zh": {
@@ -1337,6 +1391,7 @@
     "base_phy_def": 132,
     "base_mag_def": 123,
     "base_spd": 72,
+    "preferred_attack_style": "Both",
     "moveset_key": "Geoslug_Obsidian",
     "localized": {
       "zh": {
@@ -1361,6 +1416,7 @@
     "base_phy_def": 128,
     "base_mag_def": 123,
     "base_spd": 72,
+    "preferred_attack_style": "Both",
     "moveset_key": "Geoslug_Benitoite",
     "localized": {
       "zh": {
@@ -1385,6 +1441,7 @@
     "base_phy_def": 132,
     "base_mag_def": 123,
     "base_spd": 72,
+    "preferred_attack_style": "Both",
     "moveset_key": "Geoslug_Blued_Gold",
     "localized": {
       "zh": {
@@ -1409,6 +1466,7 @@
     "base_phy_def": 93,
     "base_mag_def": 113,
     "base_spd": 80,
+    "preferred_attack_style": "Magic",
     "moveset_key": "Shadowwood",
     "localized": {
       "zh": {
@@ -1433,6 +1491,7 @@
     "base_phy_def": 103,
     "base_mag_def": 123,
     "base_spd": 88,
+    "preferred_attack_style": "Magic",
     "moveset_key": "Shadowwood",
     "localized": {
       "zh": {
@@ -1457,6 +1516,7 @@
     "base_phy_def": 73,
     "base_mag_def": 90,
     "base_spd": 100,
+    "preferred_attack_style": "Magic",
     "moveset_key": "Chrysapear",
     "localized": {
       "zh": {
@@ -1481,6 +1541,7 @@
     "base_phy_def": 116,
     "base_mag_def": 90,
     "base_spd": 135,
+    "preferred_attack_style": "Physical",
     "moveset_key": "Fighto-5",
     "localized": {
       "zh": {
@@ -1505,6 +1566,7 @@
     "base_phy_def": 119,
     "base_mag_def": 92,
     "base_spd": 150,
+    "preferred_attack_style": "Physical",
     "moveset_key": "Fighto-6",
     "localized": {
       "zh": {
@@ -1529,6 +1591,7 @@
     "base_phy_def": 112,
     "base_mag_def": 91,
     "base_spd": 66,
+    "preferred_attack_style": "Physical",
     "moveset_key": "Fighto-8",
     "localized": {
       "zh": {
@@ -1553,6 +1616,7 @@
     "base_phy_def": 59,
     "base_mag_def": 62,
     "base_spd": 54,
+    "preferred_attack_style": "Magic",
     "moveset_key": "Magikat",
     "localized": {
       "zh": {
@@ -1577,6 +1641,7 @@
     "base_phy_def": 79,
     "base_mag_def": 83,
     "base_spd": 72,
+    "preferred_attack_style": "Magic",
     "moveset_key": "Magikat",
     "localized": {
       "zh": {
@@ -1601,6 +1666,7 @@
     "base_phy_def": 98,
     "base_mag_def": 104,
     "base_spd": 90,
+    "preferred_attack_style": "Magic",
     "moveset_key": "Magikat",
     "localized": {
       "zh": {
@@ -1625,6 +1691,7 @@
     "base_phy_def": 108,
     "base_mag_def": 114,
     "base_spd": 99,
+    "preferred_attack_style": "Magic",
     "moveset_key": "Magikat",
     "localized": {
       "zh": {
@@ -1649,6 +1716,7 @@
     "base_phy_def": 89,
     "base_mag_def": 96,
     "base_spd": 92,
+    "preferred_attack_style": "Magic",
     "moveset_key": "Volteel",
     "localized": {
       "zh": {
@@ -1673,6 +1741,7 @@
     "base_phy_def": 112,
     "base_mag_def": 120,
     "base_spd": 115,
+    "preferred_attack_style": "Magic",
     "moveset_key": "Volteel",
     "localized": {
       "zh": {
@@ -1697,6 +1766,7 @@
     "base_phy_def": 87,
     "base_mag_def": 73,
     "base_spd": 80,
+    "preferred_attack_style": "Physical",
     "moveset_key": "Papaska",
     "localized": {
       "zh": {
@@ -1721,6 +1791,7 @@
     "base_phy_def": 108,
     "base_mag_def": 92,
     "base_spd": 100,
+    "preferred_attack_style": "Physical",
     "moveset_key": "Papaska",
     "localized": {
       "zh": {
@@ -1745,6 +1816,7 @@
     "base_phy_def": 55,
     "base_mag_def": 70,
     "base_spd": 60,
+    "preferred_attack_style": "Magic",
     "moveset_key": "Mystifox",
     "localized": {
       "zh": {
@@ -1769,6 +1841,7 @@
     "base_phy_def": 73,
     "base_mag_def": 93,
     "base_spd": 80,
+    "preferred_attack_style": "Magic",
     "moveset_key": "Mystifox",
     "localized": {
       "zh": {
@@ -1793,6 +1866,7 @@
     "base_phy_def": 92,
     "base_mag_def": 116,
     "base_spd": 100,
+    "preferred_attack_style": "Magic",
     "moveset_key": "Mystifox",
     "localized": {
       "zh": {
@@ -1817,6 +1891,7 @@
     "base_phy_def": 55,
     "base_mag_def": 67,
     "base_spd": 75,
+    "preferred_attack_style": "Magic",
     "moveset_key": "Qiuka",
     "localized": {
       "zh": {
@@ -1841,6 +1916,7 @@
     "base_phy_def": 73,
     "base_mag_def": 89,
     "base_spd": 100,
+    "preferred_attack_style": "Magic",
     "moveset_key": "Qiuka",
     "localized": {
       "zh": {
@@ -1865,6 +1941,7 @@
     "base_phy_def": 92,
     "base_mag_def": 112,
     "base_spd": 125,
+    "preferred_attack_style": "Magic",
     "moveset_key": "Qiuka",
     "localized": {
       "zh": {
@@ -1889,6 +1966,7 @@
     "base_phy_def": 72,
     "base_mag_def": 55,
     "base_spd": 108,
+    "preferred_attack_style": "Physical",
     "moveset_key": "Toxilure",
     "localized": {
       "zh": {
@@ -1913,6 +1991,7 @@
     "base_phy_def": 90,
     "base_mag_def": 69,
     "base_spd": 135,
+    "preferred_attack_style": "Physical",
     "moveset_key": "Toxilure",
     "localized": {
       "zh": {
@@ -1937,6 +2016,7 @@
     "base_phy_def": 83,
     "base_mag_def": 83,
     "base_spd": 72,
+    "preferred_attack_style": "Both",
     "moveset_key": "Ebayflora",
     "localized": {
       "zh": {
@@ -1961,6 +2041,7 @@
     "base_phy_def": 104,
     "base_mag_def": 104,
     "base_spd": 90,
+    "preferred_attack_style": "Both",
     "moveset_key": "Ebayflora",
     "localized": {
       "zh": {
@@ -1985,6 +2066,7 @@
     "base_phy_def": 67,
     "base_mag_def": 96,
     "base_spd": 80,
+    "preferred_attack_style": "Physical",
     "moveset_key": "Shellnut",
     "localized": {
       "zh": {
@@ -2009,6 +2091,7 @@
     "base_phy_def": 84,
     "base_mag_def": 120,
     "base_spd": 100,
+    "preferred_attack_style": "Physical",
     "moveset_key": "Shellnut",
     "localized": {
       "zh": {
@@ -2033,6 +2116,7 @@
     "base_phy_def": 52,
     "base_mag_def": 67,
     "base_spd": 48,
+    "preferred_attack_style": "Magic",
     "moveset_key": "Heartblaze",
     "localized": {
       "zh": {
@@ -2057,6 +2141,7 @@
     "base_phy_def": 69,
     "base_mag_def": 89,
     "base_spd": 64,
+    "preferred_attack_style": "Magic",
     "moveset_key": "Heartblaze",
     "localized": {
       "zh": {
@@ -2081,6 +2166,7 @@
     "base_phy_def": 86,
     "base_mag_def": 112,
     "base_spd": 80,
+    "preferred_attack_style": "Magic",
     "moveset_key": "Heartblaze",
     "localized": {
       "zh": {
@@ -2105,6 +2191,7 @@
     "base_phy_def": 71,
     "base_mag_def": 87,
     "base_spd": 84,
+    "preferred_attack_style": "Magic",
     "moveset_key": "Moonlet",
     "localized": {
       "zh": {
@@ -2130,6 +2217,7 @@
     "base_phy_def": 87,
     "base_mag_def": 71,
     "base_spd": 84,
+    "preferred_attack_style": "Magic",
     "moveset_key": "Moonlet",
     "localized": {
       "zh": {
@@ -2155,6 +2243,7 @@
     "base_phy_def": 88,
     "base_mag_def": 108,
     "base_spd": 105,
+    "preferred_attack_style": "Magic",
     "moveset_key": "Moonlet",
     "localized": {
       "zh": {
@@ -2180,6 +2269,7 @@
     "base_phy_def": 108,
     "base_mag_def": 88,
     "base_spd": 105,
+    "preferred_attack_style": "Magic",
     "moveset_key": "Moonlet",
     "localized": {
       "zh": {
@@ -2205,6 +2295,7 @@
     "base_phy_def": 96,
     "base_mag_def": 67,
     "base_spd": 80,
+    "preferred_attack_style": "Physical",
     "moveset_key": "Seaptain",
     "localized": {
       "zh": {
@@ -2229,6 +2320,7 @@
     "base_phy_def": 120,
     "base_mag_def": 84,
     "base_spd": 100,
+    "preferred_attack_style": "Physical",
     "moveset_key": "Seaptain",
     "localized": {
       "zh": {
@@ -2253,6 +2345,7 @@
     "base_phy_def": 46,
     "base_mag_def": 60,
     "base_spd": 60,
+    "preferred_attack_style": "Magic",
     "moveset_key": "Sundaetina",
     "localized": {
       "zh": {
@@ -2277,6 +2370,7 @@
     "base_phy_def": 62,
     "base_mag_def": 80,
     "base_spd": 80,
+    "preferred_attack_style": "Magic",
     "moveset_key": "Sundaetina",
     "localized": {
       "zh": {
@@ -2301,6 +2395,7 @@
     "base_phy_def": 77,
     "base_mag_def": 100,
     "base_spd": 100,
+    "preferred_attack_style": "Magic",
     "moveset_key": "Sundaetina",
     "localized": {
       "zh": {
@@ -2325,6 +2420,7 @@
     "base_phy_def": 59,
     "base_mag_def": 50,
     "base_spd": 51,
+    "preferred_attack_style": "Physical",
     "moveset_key": "Cubanoid",
     "localized": {
       "zh": {
@@ -2349,6 +2445,7 @@
     "base_phy_def": 79,
     "base_mag_def": 67,
     "base_spd": 68,
+    "preferred_attack_style": "Physical",
     "moveset_key": "Cubanoid",
     "localized": {
       "zh": {
@@ -2373,6 +2470,7 @@
     "base_phy_def": 98,
     "base_mag_def": 84,
     "base_spd": 85,
+    "preferred_attack_style": "Physical",
     "moveset_key": "Cubanoid",
     "localized": {
       "zh": {
@@ -2397,6 +2495,7 @@
     "base_phy_def": 47,
     "base_mag_def": 38,
     "base_spd": 69,
+    "preferred_attack_style": "Physical",
     "moveset_key": "Nyve",
     "localized": {
       "zh": {
@@ -2421,6 +2520,7 @@
     "base_phy_def": 63,
     "base_mag_def": 50,
     "base_spd": 92,
+    "preferred_attack_style": "Physical",
     "moveset_key": "Nyve",
     "localized": {
       "zh": {
@@ -2445,6 +2545,7 @@
     "base_phy_def": 79,
     "base_mag_def": 63,
     "base_spd": 115,
+    "preferred_attack_style": "Physical",
     "moveset_key": "Nyve",
     "localized": {
       "zh": {
@@ -2469,6 +2570,7 @@
     "base_phy_def": 73,
     "base_mag_def": 57,
     "base_spd": 80,
+    "preferred_attack_style": "Both",
     "moveset_key": "Embermite",
     "localized": {
       "zh": {
@@ -2493,6 +2595,7 @@
     "base_phy_def": 92,
     "base_mag_def": 71,
     "base_spd": 100,
+    "preferred_attack_style": "Both",
     "moveset_key": "Embermite",
     "localized": {
       "zh": {
@@ -2517,6 +2620,7 @@
     "base_phy_def": 95,
     "base_mag_def": 77,
     "base_spd": 76,
+    "preferred_attack_style": "Physical",
     "moveset_key": "Mudhowl",
     "localized": {
       "zh": {
@@ -2541,6 +2645,7 @@
     "base_phy_def": 119,
     "base_mag_def": 96,
     "base_spd": 95,
+    "preferred_attack_style": "Physical",
     "moveset_key": "Mudhowl",
     "localized": {
       "zh": {
@@ -2565,6 +2670,7 @@
     "base_phy_def": 66,
     "base_mag_def": 53,
     "base_spd": 80,
+    "preferred_attack_style": "Physical",
     "moveset_key": "Kalaboss",
     "localized": {
       "zh": {
@@ -2589,6 +2695,7 @@
     "base_phy_def": 83,
     "base_mag_def": 66,
     "base_spd": 100,
+    "preferred_attack_style": "Physical",
     "moveset_key": "Kalaboss",
     "localized": {
       "zh": {
@@ -2613,6 +2720,7 @@
     "base_phy_def": 96,
     "base_mag_def": 92,
     "base_spd": 76,
+    "preferred_attack_style": "Both",
     "moveset_key": "Furycat",
     "localized": {
       "zh": {
@@ -2637,6 +2745,7 @@
     "base_phy_def": 120,
     "base_mag_def": 115,
     "base_spd": 95,
+    "preferred_attack_style": "Both",
     "moveset_key": "Furycat",
     "localized": {
       "zh": {
@@ -2661,6 +2770,7 @@
     "base_phy_def": 47,
     "base_mag_def": 47,
     "base_spd": 75,
+    "preferred_attack_style": "Magic",
     "moveset_key": "Prismashark",
     "localized": {
       "zh": {
@@ -2685,6 +2795,7 @@
     "base_phy_def": 63,
     "base_mag_def": 63,
     "base_spd": 100,
+    "preferred_attack_style": "Magic",
     "moveset_key": "Prismashark",
     "localized": {
       "zh": {
@@ -2709,6 +2820,7 @@
     "base_phy_def": 78,
     "base_mag_def": 78,
     "base_spd": 125,
+    "preferred_attack_style": "Magic",
     "moveset_key": "Prismashark",
     "localized": {
       "zh": {
@@ -2733,6 +2845,7 @@
     "base_phy_def": 86,
     "base_mag_def": 86,
     "base_spd": 125,
+    "preferred_attack_style": "Magic",
     "moveset_key": "Prismashark",
     "localized": {
       "zh": {
@@ -2757,6 +2870,7 @@
     "base_phy_def": 60,
     "base_mag_def": 60,
     "base_spd": 48,
+    "preferred_attack_style": "Magic",
     "moveset_key": "Chiliflower",
     "localized": {
       "zh": {
@@ -2781,6 +2895,7 @@
     "base_phy_def": 80,
     "base_mag_def": 80,
     "base_spd": 64,
+    "preferred_attack_style": "Magic",
     "moveset_key": "Chiliflower",
     "localized": {
       "zh": {
@@ -2805,6 +2920,7 @@
     "base_phy_def": 100,
     "base_mag_def": 100,
     "base_spd": 80,
+    "preferred_attack_style": "Magic",
     "moveset_key": "Chiliflower",
     "localized": {
       "zh": {
@@ -2829,6 +2945,7 @@
     "base_phy_def": 110,
     "base_mag_def": 110,
     "base_spd": 88,
+    "preferred_attack_style": "Magic",
     "moveset_key": "Chiliflower",
     "localized": {
       "zh": {

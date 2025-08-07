@@ -25,13 +25,17 @@ type_weak_against = Table(
     Column("type_id", Integer, ForeignKey("types.id"), primary_key=True),
     Column("target_type_id", Integer, ForeignKey("types.id"), primary_key=True)
 )
-
-
+    
 class MoveCategory(enum.Enum):
     PHY_ATTACK = "Physical Attack"
     MAG_ATTACK = "Magic Attack"
     DEFENSE = "Defense"
     STATUS = "Status"
+    
+class AttackStyle(enum.Enum):
+    PHYSICAL = "Physical"
+    MAGIC = "Magic"
+    BOTH = "Both"
     
 class MagicEffectCode(enum.Enum):
     ENHANCE_SPELL = "enhance_spell"
@@ -115,12 +119,42 @@ class Personality(Base):
     # Relationships
     user_monsters = relationship("UserMonster", back_populates="personality")
     
+class Talent(Base):
+    __tablename__ = "talents"
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    monster_instance_id: Mapped[int] = mapped_column(Integer, ForeignKey("user_monsters.id"))
+    hp_boost: Mapped[int] = mapped_column(Integer, default=0)
+    phy_atk_boost: Mapped[int] = mapped_column(Integer, default=0)
+    mag_atk_boost: Mapped[int] = mapped_column(Integer, default=0)
+    phy_def_boost: Mapped[int] = mapped_column(Integer, default=0)
+    mag_def_boost: Mapped[int] = mapped_column(Integer, default=0)
+    spd_boost: Mapped[int] = mapped_column(Integer, default=0)
+    
+    # Relationships
+    user_monster = relationship("UserMonster", back_populates="talent", uselist=False)
+    
+class MagicItem(Base):
+    __tablename__ = "magic_items"
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    name: Mapped[str] = mapped_column(String(32), unique=True, nullable=False)
+    description: Mapped[str] = mapped_column(Text, nullable=False)
+    effect_code: Mapped[MagicEffectCode] = mapped_column(Enum(MagicEffectCode, name="magic_effect_code_enum"), nullable=False)
+    applies_to_type_id: Mapped[int] = mapped_column(Integer, ForeignKey("types.id"), nullable=True)
+    effect_parameters: Mapped[dict] = mapped_column(JSONB, nullable=True)
+    localized: Mapped[dict] = mapped_column(JSONB, nullable=False, default=dict)
+    __table_args__ = (
+        Index("ix_magic_items_localized_gin", "localized", postgresql_using="gin"),
+    )
+
+    # Relationships
+    applies_to_type = relationship("Type", back_populates="magic_items")
+    
 class Move(Base):
     __tablename__ = "moves"
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     name: Mapped[str] = mapped_column(String(32), nullable=False, unique=True)
     move_type_id: Mapped[int] = mapped_column(Integer, ForeignKey("types.id"), nullable=True)
-    move_category: Mapped[MoveCategory] = mapped_column(Enum(MoveCategory, name="move_category"), nullable=False)
+    move_category: Mapped[MoveCategory] = mapped_column(Enum(MoveCategory, name="move_category_enum"), nullable=False)
     energy_cost: Mapped[int] = mapped_column(Integer, nullable=False)
     power: Mapped[int] = mapped_column(Integer, nullable=True)
     description: Mapped[str] = mapped_column(Text, nullable=False)
@@ -180,6 +214,7 @@ class Monster(Base):
     base_phy_def: Mapped[int] = mapped_column(Integer, nullable=False)
     base_mag_def: Mapped[int] = mapped_column(Integer, nullable=False)
     base_spd: Mapped[int] = mapped_column(Integer, nullable=False)
+    preferred_attack_style: Mapped[AttackStyle] = mapped_column(Enum(AttackStyle, name="preferred_attack_style_enum"), default=AttackStyle.BOTH, nullable=False)
     localized: Mapped[dict] = mapped_column(JSONB, nullable=False, default=dict)
     __table_args__ = (
         Index("ix_monsters_localized_gin", "localized", postgresql_using="gin"),
@@ -196,20 +231,6 @@ class Monster(Base):
     main_type = relationship("Type", foreign_keys=[main_type_id], back_populates="monsters_as_main_type")
     sub_type = relationship("Type", foreign_keys=[sub_type_id], back_populates="monsters_as_sub_type")
     default_legacy_type = relationship("Type", foreign_keys=[default_legacy_type_id], back_populates="monsters_as_legacy_type")
-    
-class Talent(Base):
-    __tablename__ = "talents"
-    id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    monster_instance_id: Mapped[int] = mapped_column(Integer, ForeignKey("user_monsters.id"))
-    hp_boost: Mapped[int] = mapped_column(Integer, default=0)
-    phy_atk_boost: Mapped[int] = mapped_column(Integer, default=0)
-    mag_atk_boost: Mapped[int] = mapped_column(Integer, default=0)
-    phy_def_boost: Mapped[int] = mapped_column(Integer, default=0)
-    mag_def_boost: Mapped[int] = mapped_column(Integer, default=0)
-    spd_boost: Mapped[int] = mapped_column(Integer, default=0)
-    
-    # Relationships
-    user_monster = relationship("UserMonster", back_populates="talent", uselist=False)
    
 # Represents a user's input monster (with personality, custom legacy type, talents) 
 class UserMonster(Base):
@@ -233,22 +254,6 @@ class UserMonster(Base):
     move3 = relationship("Move", foreign_keys=[move3_id])
     move4 = relationship("Move", foreign_keys=[move4_id])
     team = relationship("Team", back_populates="user_monsters")
-
-class MagicItem(Base):
-    __tablename__ = "magic_items"
-    id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    name: Mapped[str] = mapped_column(String(32), unique=True, nullable=False)
-    description: Mapped[str] = mapped_column(Text, nullable=False)
-    effect_code: Mapped[MagicEffectCode] = mapped_column(Enum(MagicEffectCode, name="magic_effect_code"), nullable=False)
-    applies_to_type_id: Mapped[int] = mapped_column(Integer, ForeignKey("types.id"), nullable=True)
-    effect_parameters: Mapped[dict] = mapped_column(JSONB, nullable=True)
-    localized: Mapped[dict] = mapped_column(JSONB, nullable=False, default=dict)
-    __table_args__ = (
-        Index("ix_magic_items_localized_gin", "localized", postgresql_using="gin"),
-    )
-
-    # Relationships
-    applies_to_type = relationship("Type", back_populates="magic_items")
     
 class Team(Base):
     __tablename__ = "teams"

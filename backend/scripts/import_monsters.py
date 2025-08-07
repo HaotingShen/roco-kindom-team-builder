@@ -1,13 +1,19 @@
 import json
 from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy.orm import Session
-from backend.models import Monster, MonsterSpecies, Type, Trait
+from backend.models import Monster, MonsterSpecies, Type, Trait, AttackStyle
 from backend.config import DATABASE_URL
 from sqlalchemy import create_engine, text
 
 MONSTERS_JSON_PATH = "backend/data/monsters.json"
 
 engine = create_engine(DATABASE_URL)
+
+ATTACK_STYLE_MAP = {
+    "Physical": "PHYSICAL",
+    "Magic": "MAGIC",
+    "Both": "BOTH"
+}
 
 def load_monsters_two_pass():
     with open(MONSTERS_JSON_PATH, encoding="utf-8") as f:
@@ -38,6 +44,7 @@ def load_monsters_two_pass():
                 base_phy_def=item["base_phy_def"],
                 base_mag_def=item["base_mag_def"],
                 base_spd=item["base_spd"],
+                preferred_attack_style=AttackStyle[ATTACK_STYLE_MAP[item["preferred_attack_style"]]],
                 localized=item["localized"]
             ).on_conflict_do_update(
                 index_elements=["name", "form"],
@@ -56,6 +63,7 @@ def load_monsters_two_pass():
                     "base_phy_def": item["base_phy_def"],
                     "base_mag_def": item["base_mag_def"],
                     "base_spd": item["base_spd"],
+                    "preferred_attack_style": AttackStyle[ATTACK_STYLE_MAP[item["preferred_attack_style"]]],
                     "localized": item["localized"]
                 }
             )

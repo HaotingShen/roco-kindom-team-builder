@@ -1,6 +1,5 @@
 import pytest
 import json
-import random
 from sqlalchemy import create_engine, text, select
 from sqlalchemy.orm import Session
 from backend.models import Monster
