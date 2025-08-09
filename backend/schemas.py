@@ -1,6 +1,6 @@
 from pydantic import BaseModel, ConfigDict, model_validator, Field
 from typing import Optional, List, Dict, Any, ClassVar
-from enum import Enum
+from backend.models import MoveCategory, AttackStyle
 
 class PageMeta(BaseModel):
     total: int
@@ -10,17 +10,6 @@ class PageMeta(BaseModel):
 class Page(BaseModel):
     meta: PageMeta
     items: List[Any]
-    
-class MoveCategory(str, Enum):
-    PHY_ATTACK = "Physical Attack"
-    MAG_ATTACK = "Magic Attack"
-    DEFENSE = "Defense"
-    STATUS = "Status"
-    
-class AttackStyle(str, Enum):
-    PHYSICAL = "Physical"
-    MAGIC = "Magic"
-    BOTH = "Both"
 
 class TypeOut(BaseModel):
     id: int

@@ -231,9 +231,6 @@ def compute_type_coverage(user_monsters, move_db_map, monster_db_map, type_db_ma
 def compute_magic_item_eval(magic_item, user_monster_outs, type_db_map):
     valid_targets = []
 
-    if not magic_item:
-        return None
-
     # Dynamic type IDs by name
     TYPE_NAME_TO_ID = {t.name.lower(): t.id for t in type_db_map.values()}
     GRASS_TYPE_ID = TYPE_NAME_TO_ID.get("grass")
@@ -315,6 +312,13 @@ def generate_recommendations(per_monster_analysis, type_coverage, magic_item_eva
             "Unknown"
         )
         recommendations.append(f"Only {name} can use the selected magic item.")
+    else:
+        names = [
+            analysis.user_monster.monster.name
+            for analysis in per_monster_analysis
+            if analysis.user_monster.id in magic_item_eval["valid_targets"]
+        ]
+        recommendations.append("The selected magic item can be used by: " + ", ".join(names) + ".")
 
     # 4. Monster Redundancy & Uniqueness
     all_types = []
