@@ -1,4 +1,4 @@
-from pydantic import BaseModel, model_validator, Field
+from pydantic import BaseModel, ConfigDict, model_validator, Field
 from typing import Optional, List, Dict, Any, ClassVar
 from enum import Enum
 
@@ -27,8 +27,7 @@ class TypeOut(BaseModel):
     name: str
     localized: Dict
     
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 class TraitOut(BaseModel):
     id: int
@@ -36,8 +35,7 @@ class TraitOut(BaseModel):
     description: str
     localized: Dict
     
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 class PersonalityOut(BaseModel):
     id: int
@@ -50,8 +48,7 @@ class PersonalityOut(BaseModel):
     spd_mod_pct: float
     localized: Dict
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 # Simplified version of MoveOut
 class MoveLiteOut(BaseModel):
@@ -60,8 +57,7 @@ class MoveLiteOut(BaseModel):
     move_type: Optional[TypeOut] = None
     localized: Dict
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 # Full version of MoveOut
 class MoveOut(MoveLiteOut):
@@ -71,24 +67,21 @@ class MoveOut(MoveLiteOut):
     description: str
     is_move_stone: bool
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 class LegacyMoveOut(BaseModel):
     monster_id: int
     type_id: int
     move_id: int
 
-    class Config:
-        from_attributes = True
-        
+    model_config = ConfigDict(from_attributes=True)
+
 class MonsterSpeciesOut(BaseModel):
     id: int
     name: str
     localized: Dict
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 # Simplified version of MonsterOut
 class MonsterLiteOut(BaseModel):
@@ -97,11 +90,12 @@ class MonsterLiteOut(BaseModel):
     form: str
     main_type: TypeOut
     sub_type: Optional[TypeOut] = None
+    leader_potential: bool
     is_leader_form: bool
+    preferred_attack_style: AttackStyle
     localized: Dict
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 # Full version of MonsterOut
 class MonsterOut(MonsterLiteOut):
@@ -116,19 +110,16 @@ class MonsterOut(MonsterLiteOut):
     base_spd: int
     move_pool: List[MoveOut]
     legacy_moves: List[LegacyMoveOut]
-    preferred_attack_style: AttackStyle
 
-    class Config:
-        from_attributes = True
-        
+    model_config = ConfigDict(from_attributes=True)
+
 class MagicItemOut(BaseModel):
     id: int
     name: str
     description: str
     localized: Dict
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 class GameTermOut(BaseModel):
     id: int
@@ -136,9 +127,8 @@ class GameTermOut(BaseModel):
     description: str
     localized: Dict
 
-    class Config:
-        from_attributes = True
-        
+    model_config = ConfigDict(from_attributes=True)
+
 class TalentIn(BaseModel):
     hp_boost: int = 0
     phy_atk_boost: int = 0
@@ -166,13 +156,14 @@ class TalentIn(BaseModel):
         boosted_count = sum(1 for b in boosts if b != 0)
         if boosted_count > 3:
             raise ValueError("At most 3 stats can be boosted")
+        if boosted_count < 1:
+            raise ValueError("At least 1 stat must be boosted")
         return self
 
 class TalentOut(TalentIn):
     id: int
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 class UserMonsterCreate(BaseModel):
     monster_id: int
@@ -196,12 +187,11 @@ class UserMonsterOut(BaseModel):
     talent: TalentOut
     team_id: Optional[int] = None
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 class TeamCreate(BaseModel):
     name: Optional[str] = None
-    user_monsters: List[UserMonsterCreate] = Field(..., min_items=6, max_items=6)
+    user_monsters: List[UserMonsterCreate] = Field(..., min_length=6, max_length=6)
     magic_item_id: int
 
 class TeamOut(BaseModel):
@@ -210,8 +200,7 @@ class TeamOut(BaseModel):
     user_monsters: List[UserMonsterOut]
     magic_item: MagicItemOut
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 class TeamAnalyzeByIdRequest(BaseModel):
     team_id: int
@@ -269,9 +258,8 @@ class MonsterAnalysisOut(BaseModel):
     counter_coverage: CounterCoverage
     defense_status_move: DefenseStatusMove
     trait_synergies: List[TraitSynergyFinding] = Field(default_factory=list)
-    
-    class Config:
-        from_attributes = True
+
+    model_config = ConfigDict(from_attributes=True)
 
 class TeamAnalysisOut(BaseModel):
     team: TeamOut
@@ -279,6 +267,29 @@ class TeamAnalysisOut(BaseModel):
     type_coverage: TypeCoverageReport
     magic_item_eval: MagicItemEvaluation
     recommendations: List[str] = Field(default_factory=list)
+
+    model_config = ConfigDict(from_attributes=True)
     
-    class Config:
-        from_attributes = True
+class TalentUpsert(BaseModel):
+    hp_boost: int = 0
+    phy_atk_boost: int = 0
+    mag_atk_boost: int = 0
+    phy_def_boost: int = 0
+    mag_def_boost: int = 0
+    spd_boost: int = 0
+
+class UserMonsterUpsert(BaseModel):
+    id: Optional[int] = None  # If present, means update; if missing, means create new
+    monster_id: int
+    personality_id: int
+    legacy_type_id: int
+    move1_id: int
+    move2_id: int
+    move3_id: int
+    move4_id: int
+    talent: TalentUpsert
+
+class TeamUpdate(BaseModel):
+    name: Optional[str] = None
+    magic_item_id: Optional[int] = None
+    user_monsters: List[UserMonsterUpsert]

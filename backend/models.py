@@ -122,7 +122,7 @@ class Personality(Base):
 class Talent(Base):
     __tablename__ = "talents"
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    monster_instance_id: Mapped[int] = mapped_column(Integer, ForeignKey("user_monsters.id"))
+    monster_instance_id: Mapped[int] = mapped_column(Integer, ForeignKey("user_monsters.id", ondelete="CASCADE"))
     hp_boost: Mapped[int] = mapped_column(Integer, default=0)
     phy_atk_boost: Mapped[int] = mapped_column(Integer, default=0)
     mag_atk_boost: Mapped[int] = mapped_column(Integer, default=0)
@@ -243,12 +243,12 @@ class UserMonster(Base):
     move2_id: Mapped[int] = mapped_column(Integer, ForeignKey("moves.id"))
     move3_id: Mapped[int] = mapped_column(Integer, ForeignKey("moves.id"))
     move4_id: Mapped[int] = mapped_column(Integer, ForeignKey("moves.id"))
-    team_id: Mapped[int] = mapped_column(Integer, ForeignKey("teams.id"), nullable=True)
+    team_id: Mapped[int] = mapped_column(Integer, ForeignKey("teams.id", ondelete="CASCADE"), nullable=True)
     # Relationships
     monster = relationship("Monster", back_populates="user_monsters")
     personality = relationship("Personality", back_populates="user_monsters")
     legacy_type = relationship("Type", back_populates="user_monsters_as_legacy")
-    talent = relationship("Talent", back_populates="user_monster", uselist=False)
+    talent = relationship("Talent", back_populates="user_monster", cascade="all, delete-orphan", uselist=False)
     move1 = relationship("Move", foreign_keys=[move1_id])
     move2 = relationship("Move", foreign_keys=[move2_id])
     move3 = relationship("Move", foreign_keys=[move3_id])
@@ -262,5 +262,5 @@ class Team(Base):
     magic_item_id: Mapped[int] = mapped_column(Integer, ForeignKey("magic_items.id"), nullable=True)
 
     # Relationships
-    user_monsters = relationship("UserMonster", back_populates="team")
+    user_monsters = relationship("UserMonster", back_populates="team", cascade="all, delete-orphan")
     magic_item = relationship("MagicItem")

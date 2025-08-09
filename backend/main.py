@@ -1,19 +1,20 @@
-from fastapi import FastAPI, Depends, Query, HTTPException
+from fastapi import FastAPI, Depends, Query, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session, sessionmaker, joinedload
 from sqlalchemy import create_engine, or_
-from config import DATABASE_URL, OPENAI_API_KEY, GEMINI_API_KEY
+from backend.config import DATABASE_URL, OPENAI_API_KEY, GEMINI_API_KEY
 from typing import Optional, List
-import models, schemas
+from decimal import Decimal, ROUND_HALF_UP
+from backend import models, schemas
+from collections import Counter
 import re
-import openai
-import google.generativeai as genai
+from google import genai
+from google.genai import types
 import asyncio
 import json
 import time
 
-openai.api_key = OPENAI_API_KEY
-genai.configure(api_key=GEMINI_API_KEY)
+client = genai.Client(api_key=GEMINI_API_KEY)
 
 app = FastAPI()
 
@@ -37,34 +38,34 @@ def get_db():
 
 # === TOP-LEVEL HELPER FUNCTIONS ===
 # Compute effective stats with base, talent, and personality multipliers
-def compute_effective_stats(monster, personality, talent):
-    # Helper to get modifier from personality
-    def mod(attr):
-        return getattr(personality, f"{attr}_mod_pct", 0.0)
+def round_half_up(n):
+    return int(Decimal(n).to_integral_value(rounding=ROUND_HALF_UP))
 
+def compute_effective_stats(monster, personality, talent):
     # HP formula: hp = [1.7 × (base_stats + hp_talent × 6) + 70 − 2.55 × hp_talent] × (1 + hp_personality_modifier) + 100
     base_hp = monster.base_hp
     hp_talent = talent.hp_boost
     hp = (1.7 * (base_hp + hp_talent * 6) + 70 - 2.55 * hp_talent)
-    hp = hp * (1 + mod("hp"))
-    hp = int(round(hp + 100))  # Round to nearest integer
+    hp = hp * (1 + personality.hp_mod_pct)
+    hp = int(round_half_up(hp + 100))  # int() for safety
 
-    # other stats = round(1.1 × (base_stats + talent × 6) + 10) × (1 + personality_modifier) + 50
-    def other_stat(attr, talent_attr):
+    # other stats = round_half_up(1.1 × (base_stats + talent × 6) + 10) × (1 + personality_modifier) + 50
+    def other_stat(attr, personality_attr, talent_attr):
         base = getattr(monster, attr)
+        pers = getattr(personality, personality_attr)
         tal = getattr(talent, talent_attr)
         val = 1.1 * (base + tal * 6) + 10
-        val = round(val) * (1 + mod(attr))
-        val = int(round(val + 50))
+        val = round_half_up(val) * (1 + pers)
+        val = int(round_half_up(val + 50))
         return val
 
     return schemas.EffectiveStats(
         hp=hp,
-        phy_atk=other_stat("base_phy_atk", "phy_atk_boost"),
-        mag_atk=other_stat("base_mag_atk", "mag_atk_boost"),
-        phy_def=other_stat("base_phy_def", "phy_def_boost"),
-        mag_def=other_stat("base_mag_def", "mag_def_boost"),
-        spd=other_stat("base_spd", "spd_boost"),
+        phy_atk=other_stat("base_phy_atk", "phy_atk_mod_pct", "phy_atk_boost"),
+        mag_atk=other_stat("base_mag_atk", "mag_atk_mod_pct", "mag_atk_boost"),
+        phy_def=other_stat("base_phy_def", "phy_def_mod_pct", "phy_def_boost"),
+        mag_def=other_stat("base_mag_def", "mag_def_mod_pct", "mag_def_boost"),
+        spd=other_stat("base_spd", "spd_mod_pct", "spd_boost"),
     )
     
 # Compute energy profile for moves, including average cost, zero-cost moves, and energy restore moves
@@ -159,9 +160,11 @@ Game Terms Glossary:
 {glossary}
 
 Instructions:
-1. Identify which moves are especially synergistic with the trait, and which might conflict.
-2. Give recommendations for improving move selection in general (e.g. suggest to favor moves of a certain type or avoid certain status effects, do NOT name or suggest specific move swaps).
-3. Output as JSON in the format:
+1. Identify which moves are especially synergistic with the trait.
+2. For your recommendations:
+    - Give **exactly two recommendations** (3-4 sentences max) that **explain in detail how the user should use the selected moves together**, including possible combos, turn order, defensive or offensive applications, and how to leverage the trait with the current moveset.
+    - Give **one additional recommendation** (1-2 sentences) for how to improve move selection in general (such as favoring certain types, effects, or utility, but do NOT suggest specific move swaps).
+3. Output as JSON in the following format:
 {{
 "synergy_moves": [list of move names],
 "recommendation": [list of suggestions as strings]
@@ -171,9 +174,11 @@ Instructions:
 
 # Compute team-level analysis
 def compute_type_coverage(user_monsters, move_db_map, monster_db_map, type_db_map):
-    all_type_ids = set(type_db_map.keys())
+    IGNORED_TYPE_NAMES = {"Leader"}
+    ignored_type_ids = {t.id for t in type_db_map.values() if t.name in IGNORED_TYPE_NAMES}
+    all_type_ids = set(type_db_map.keys()) - ignored_type_ids
 
-    # Step 1: Gather all move types for offense
+    # Gather all move types for offense
     team_move_types = set()
     for um in user_monsters:
         for move_id in [um.move1_id, um.move2_id, um.move3_id, um.move4_id]:
@@ -181,7 +186,7 @@ def compute_type_coverage(user_monsters, move_db_map, monster_db_map, type_db_ma
             if move.move_type_id:
                 team_move_types.add(move.move_type_id)
 
-    # Step 2: Offensive coverage
+    # Offensive coverage
     effective_against_types = set()
     for move_type_id in team_move_types:
         move_type = type_db_map[move_type_id]
@@ -189,8 +194,8 @@ def compute_type_coverage(user_monsters, move_db_map, monster_db_map, type_db_ma
 
     weak_against_types = list(all_type_ids - effective_against_types)
 
-    # Step 3: Defensive weakness (team_weak_to)
-    team_weak_to = set()
+    # Defensive weakness, build weakness count per type across team
+    type_weak_count = Counter()
     all_types = list(type_db_map.values())
     for um in user_monsters:
         base_monster = monster_db_map[um.monster_id]
@@ -198,22 +203,24 @@ def compute_type_coverage(user_monsters, move_db_map, monster_db_map, type_db_ma
         sub_type = type_db_map[base_monster.sub_type_id] if base_monster.sub_type_id else None
 
         for attacking_type in all_types:
-            # Determine effectiveness against main and sub
             weak_main = attacking_type in main_type.vulnerable_to
             weak_sub = sub_type and attacking_type in sub_type.vulnerable_to
 
             resist_main = attacking_type in main_type.resistant_to
             resist_sub = sub_type and attacking_type in sub_type.resistant_to
 
-            # Neutralization logic:
-            # - double weak = still weak
-            # - weak+resist = neutral
-            # - only one weak, other neutral = weak
+            # Per-monster weakness logic
+            is_weak = False
             if weak_main and weak_sub:
-                team_weak_to.add(attacking_type.id)
+                is_weak = True
             elif (weak_main and not resist_sub and not weak_sub) or (weak_sub and not resist_main and not weak_main):
-                team_weak_to.add(attacking_type.id)
-            # If one is weak and other is resist, do NOT add (neutralized)
+                is_weak = True
+
+            if is_weak:
+                type_weak_count[attacking_type.id] += 1
+
+    # Only include types that appear >= 3 times
+    team_weak_to = [type_id for type_id, count in type_weak_count.items() if count >= 3]
 
     return {
         "effective_against_types": sorted(effective_against_types),
@@ -310,11 +317,18 @@ def generate_recommendations(per_monster_analysis, type_coverage, magic_item_eva
         recommendations.append(f"Only {name} can use the selected magic item.")
 
     # 4. Monster Redundancy & Uniqueness
-    main_types = [analysis.user_monster.monster.main_type.id for analysis in per_monster_analysis]
-    if len(set(main_types)) <= 2:
-        names = [type_db_map[t].name for t in set(main_types)]
+    all_types = []
+    for analysis in per_monster_analysis:
+        m = analysis.user_monster.monster
+        all_types.append(m.main_type.id)
+        if m.sub_type is not None:
+            all_types.append(m.sub_type.id)
+    type_counts = Counter(all_types)
+    # Find any type that occurs on at least 4 monsters
+    common_types = [type_db_map[t].name for t, count in type_counts.items() if count >= 4]
+    if common_types:
         recommendations.append(
-            f"Most of your monsters share the same main types: {', '.join(names)}. This makes you more vulnerable to certain counters."
+            f"Most of your monsters share the type: {', '.join(common_types)}. This makes you more vulnerable to certain counters."
         )
 
     # 5. Monster Analysis - Per Monster
@@ -344,6 +358,32 @@ def generate_recommendations(per_monster_analysis, type_coverage, magic_item_eva
     if len(set(attack_styles)) == 1:
         style = attack_styles[0]
         recommendations.append(f"All your monsters are {style}-style attackers. This may make you predictable and easy to counter.")
+
+    # 7. Stat Analysis
+    stat_labels = {
+        "hp": "HP",
+        "phy_atk": "Physical Attack",
+        "mag_atk": "Magic Attack",
+        "overall_def": "Total Defense",
+        "spd": "Speed",
+    }
+    stat_roles = {
+        "hp": "frontline or defensive pivot",
+        "phy_atk": "main physical attacker",
+        "mag_atk": "main magic attacker",
+        "overall_def": "physical or special tank",
+        "spd": "lead, scout, or revenge killer",
+    }
+    for stat, label in stat_labels.items():
+        if stat != "overall_def":
+            stat_values = [(analysis.user_monster.monster.name, getattr(analysis.effective_stats, stat)) for analysis in per_monster_analysis]
+        else:
+            # Compute total defense (phy_def + mag_def)
+            stat_values = [(analysis.user_monster.monster.name, analysis.effective_stats.phy_def + analysis.effective_stats.mag_def) for analysis in per_monster_analysis]
+        if stat_values:
+            best = max(stat_values, key=lambda x: x[1])
+            recommendations.append(f"{best[0]} has the highest {label} ({best[1]}). Consider using it as your {stat_roles[stat]}.")
+
 
     # For debugging: include a summary of key findings
     if not recommendations:
@@ -467,6 +507,29 @@ def get_species(db: Session = Depends(get_db)):
     return db.query(models.MonsterSpecies).all()
 
 
+@app.get("/teams/{team_id}", response_model=schemas.TeamOut)
+def get_team(team_id: int, db: Session = Depends(get_db)):
+    db_team = (
+        db.query(models.Team)
+        .options(
+            joinedload(models.Team.user_monsters)
+            .joinedload(models.UserMonster.talent),
+            joinedload(models.Team.user_monsters)
+            .joinedload(models.UserMonster.monster)
+            .joinedload(models.Monster.main_type),
+            joinedload(models.Team.user_monsters)
+            .joinedload(models.UserMonster.monster)
+            .joinedload(models.Monster.sub_type),
+            joinedload(models.Team.magic_item),
+        )
+        .filter(models.Team.id == team_id)
+        .first()
+    )
+    if not db_team:
+        raise HTTPException(status_code=404, detail="Team not found")
+    return db_team
+
+
 # -------- POST Endpoints --------
 
 @app.post("/teams/", response_model=schemas.TeamOut)
@@ -517,22 +580,19 @@ async def analyze_team(req: schemas.TeamAnalyzeInlineRequest, db: Session = Depe
     team_data = req.team  # This is TeamCreate (with 6 UserMonsterCreate)
     
     # --- Helper: Call LLM and Parse Result ---
-    async def call_llm(prompt):
+    async def call_llm(prompt: str):
         try:
-            model = genai.GenerativeModel('gemini-2.5-flash')
-            generation_config = genai.types.GenerationConfig(response_mime_type="application/json")
-            response = await model.generate_content_async(prompt, generation_config=generation_config)
-            # Robust text extraction
-            text = ""
-            try:
-                text = response.candidates[0].content.parts[0].text
-            except Exception:
-                text = getattr(response, "text", "")
-            result = json.loads(text)
+            resp = await client.aio.models.generate_content(
+                model="gemini-2.5-flash",
+                contents=prompt,
+                config=types.GenerateContentConfig(
+                    response_mime_type="application/json"
+                ),
+            )
+            return json.loads(resp.text)
         except Exception as e:
             print("LLM error:", e)
-            result = {"synergy_moves": [], "recommendation": ["Error generating analysis."]}
-        return result
+            return {"synergy_moves": [], "recommendation": ["Error generating analysis."]}
     
     # === EFFICIENT DATA LOADING ===
     print("Start loading data for analysis...")
@@ -586,10 +646,7 @@ async def analyze_team(req: schemas.TeamAnalyzeInlineRequest, db: Session = Depe
         preferred_attack_style = getattr(base_monster, "preferred_attack_style", "Both")
         prompt = build_trait_synergy_prompt(base_monster, trait, selected_moves, preferred_attack_style, game_terms)
         llm_tasks.append(call_llm(prompt))
-    # llm_results = await asyncio.gather(*llm_tasks)
-    llm_results = []
-    for task in llm_tasks:
-        llm_results.append(await task)
+    llm_results = await asyncio.gather(*llm_tasks)
         
     print("Finish creating prompt for LLM analysis!")
 
@@ -635,7 +692,9 @@ async def analyze_team(req: schemas.TeamAnalyzeInlineRequest, db: Session = Depe
                 form=monster.form,
                 main_type=schemas.TypeOut(**type_db_map[monster.main_type_id].__dict__),
                 sub_type=schemas.TypeOut(**type_db_map[monster.sub_type_id].__dict__) if monster.sub_type_id else None,
+                leader_potential=getattr(monster, "leader_potential", False),
                 is_leader_form=monster.is_leader_form,
+                preferred_attack_style = getattr(monster, "preferred_attack_style", "Both"),
                 localized=monster.localized
             )
 
@@ -692,3 +751,141 @@ async def analyze_team(req: schemas.TeamAnalyzeInlineRequest, db: Session = Depe
     elapsed = time.time() - start_time
     print(f"POST /team/analyze took {elapsed:.3f} seconds")
     return result
+
+# -------- Analyze Team by ID --------
+
+@app.post("/team/analyze_by_id/", response_model=schemas.TeamAnalysisOut)
+async def analyze_team_by_id(req: schemas.TeamAnalyzeByIdRequest, db: Session = Depends(get_db)):
+    # Load the Team, its UserMonsters, Talents, etc. from the DB
+    db_team = db.query(models.Team).filter(models.Team.id == req.team_id).first()
+    if not db_team:
+        raise HTTPException(status_code=404, detail="Team not found")
+
+    # Build TeamCreate-like dict from DB objects
+    user_monsters = []
+    for um in db_team.user_monsters:
+        talent = db.query(models.Talent).filter(models.Talent.monster_instance_id == um.id).first()
+        user_monsters.append(
+            schemas.UserMonsterCreate(
+                monster_id=um.monster_id,
+                personality_id=um.personality_id,
+                legacy_type_id=um.legacy_type_id,
+                move1_id=um.move1_id,
+                move2_id=um.move2_id,
+                move3_id=um.move3_id,
+                move4_id=um.move4_id,
+                talent=schemas.TalentIn(
+                    hp_boost=talent.hp_boost,
+                    phy_atk_boost=talent.phy_atk_boost,
+                    mag_atk_boost=talent.mag_atk_boost,
+                    phy_def_boost=talent.phy_def_boost,
+                    mag_def_boost=talent.mag_def_boost,
+                    spd_boost=talent.spd_boost
+                ),
+            )
+        )
+    team_data = schemas.TeamCreate(
+        name=db_team.name,
+        user_monsters=user_monsters,
+        magic_item_id=db_team.magic_item_id
+    )
+    # Wrap as a TeamAnalyzeInlineRequest and call analysis logic
+    inline_req = schemas.TeamAnalyzeInlineRequest(team=team_data)
+    return await analyze_team(inline_req, db)
+
+# -------- PUT Team (Update) --------
+
+@app.put("/teams/{team_id}", response_model=schemas.TeamOut)
+def update_team(
+    team_id: int,
+    team_update: schemas.TeamUpdate,
+    db: Session = Depends(get_db)
+):
+    db_team = db.query(models.Team).filter(models.Team.id == team_id).first()
+    if not db_team:
+        raise HTTPException(status_code=404, detail="Team not found")
+
+    # Update team fields if provided
+    if team_update.name is not None:
+        db_team.name = team_update.name
+    if team_update.magic_item_id is not None:
+        db_team.magic_item_id = team_update.magic_item_id
+
+    # --- UserMonsters sync logic ---
+    # Build a mapping of incoming user_monsters by id (if present)
+    incoming_by_id = {um.id: um for um in team_update.user_monsters if um.id is not None}
+
+    # Build a set of incoming user_monster ids (for those to keep/update)
+    incoming_ids = set(incoming_by_id.keys())
+
+    # Remove any user_monsters not in the new request
+    for db_um in list(db_team.user_monsters):
+        if db_um.id not in incoming_ids:
+            db.delete(db_um)
+
+    db.flush()
+
+    # Update existing and add new user_monsters
+    existing_ums = {um.id: um for um in db_team.user_monsters}
+
+    for um_data in team_update.user_monsters:
+        if um_data.id is not None and um_data.id in existing_ums:
+            # Update existing user_monster
+            um = existing_ums[um_data.id]
+            um.monster_id = um_data.monster_id
+            um.personality_id = um_data.personality_id
+            um.legacy_type_id = um_data.legacy_type_id
+            um.move1_id = um_data.move1_id
+            um.move2_id = um_data.move2_id
+            um.move3_id = um_data.move3_id
+            um.move4_id = um_data.move4_id
+            # Update nested talent
+            if um.talent:
+                t = um_data.talent
+                um.talent.hp_boost = t.hp_boost
+                um.talent.phy_atk_boost = t.phy_atk_boost
+                um.talent.mag_atk_boost = t.mag_atk_boost
+                um.talent.phy_def_boost = t.phy_def_boost
+                um.talent.mag_def_boost = t.mag_def_boost
+                um.talent.spd_boost = t.spd_boost
+        else:
+            # Add new user_monster
+            um = models.UserMonster(
+                monster_id=um_data.monster_id,
+                personality_id=um_data.personality_id,
+                legacy_type_id=um_data.legacy_type_id,
+                move1_id=um_data.move1_id,
+                move2_id=um_data.move2_id,
+                move3_id=um_data.move3_id,
+                move4_id=um_data.move4_id,
+                team=db_team
+            )
+            db.add(um)
+            db.flush()
+            t = um_data.talent
+            talent = models.Talent(
+                monster_instance_id=um.id,
+                hp_boost=t.hp_boost,
+                phy_atk_boost=t.phy_atk_boost,
+                mag_atk_boost=t.mag_atk_boost,
+                phy_def_boost=t.phy_def_boost,
+                mag_def_boost=t.mag_def_boost,
+                spd_boost=t.spd_boost,
+            )
+            db.add(talent)
+            um.talent = talent
+
+    db.commit()
+    db.refresh(db_team)
+    return db_team
+
+# -------- DELETE Team --------
+
+@app.delete("/teams/{team_id}", status_code=status.HTTP_204_NO_CONTENT)
+def delete_team(team_id: int, db: Session = Depends(get_db)):
+    db_team = db.query(models.Team).filter(models.Team.id == team_id).first()
+    if not db_team:
+        raise HTTPException(status_code=404, detail="Team not found")
+    db.delete(db_team)
+    db.commit()
+    return
