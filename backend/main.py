@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Depends, Query, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session, sessionmaker, joinedload
-from sqlalchemy import create_engine, or_
+from sqlalchemy import create_engine, or_, cast, String, func
 from backend.config import DATABASE_URL, OPENAI_API_KEY, GEMINI_API_KEY
 from typing import Optional, List
 from decimal import Decimal, ROUND_HALF_UP
@@ -410,25 +410,55 @@ def get_monsters(
     trait_id: Optional[int] = Query(None),
     is_leader_form: Optional[bool] = Query(None),
     limit: int = Query(117, ge=1, le=117),
-    offset: int = Query(0, ge=0)
+    offset: int = Query(0, ge=0),
 ):
     query = db.query(models.Monster).options(
         joinedload(models.Monster.main_type),
-        joinedload(models.Monster.sub_type)
+        joinedload(models.Monster.sub_type),
     )
+
     if name:
-        query = query.filter(models.Monster.name.ilike(f"%{name}%"))
+        term = f"%{name}%"
+
+        # Dialect-aware JSON -> text extraction for localized.zh.name / localized.zh.form
+        dialect = db.bind.dialect.name
+
+        if dialect == "postgresql":
+            zh_name_expr = cast(models.Monster.localized['zh']['name'].astext, String)
+            zh_form_expr = cast(models.Monster.localized['zh']['form'].astext, String)
+        elif dialect == "sqlite":
+            zh_name_expr = func.json_extract(models.Monster.localized, '$.zh.name')
+            zh_form_expr = func.json_extract(models.Monster.localized, '$.zh.form')
+        else:
+            zh_name_expr = None
+            zh_form_expr = None
+
+        # Allow searching both English name and form column
+        filters = [models.Monster.name.ilike(term)]
+        filters.append(models.Monster.form.ilike(term))
+
+        if zh_name_expr is not None:
+            filters.append(cast(zh_name_expr, String).ilike(term))
+        if zh_form_expr is not None:
+            filters.append(cast(zh_form_expr, String).ilike(term))
+
+        query = query.filter(or_(*filters))
+
     if type_id:
-        query = query.filter(
-            or_(
-                models.Monster.main_type_id == type_id,
-                models.Monster.sub_type_id == type_id
-            )
-        )
+        query = query.filter(or_(
+            models.Monster.main_type_id == type_id,
+            models.Monster.sub_type_id == type_id,
+        ))
+
     if trait_id:
         query = query.filter(models.Monster.trait_id == trait_id)
+
     if is_leader_form is not None:
         query = query.filter(models.Monster.is_leader_form == is_leader_form)
+        
+    # Enforce deterministic order
+    query = query.order_by(models.Monster.id.asc())
+    
     return query.offset(offset).limit(limit).all()
 
 @app.get("/monsters/{monster_id}", response_model=schemas.MonsterOut)

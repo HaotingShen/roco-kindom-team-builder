@@ -7184,7 +7184,7 @@
     }
   },
   {
-    "name": "Hyperdimensional Projection",
+    "name": "Hyper Projection",
     "type": "Illusion",
     "category": "Status",
     "energy_cost": 4,
@@ -7360,7 +7360,7 @@
     }
   },
   {
-    "name": "Tetra-dimensional Degradation",
+    "name": "Tetra Degradation",
     "type": "Illusion",
     "category": "Magic Attack",
     "energy_cost": 6,
