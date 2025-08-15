@@ -3,6 +3,7 @@ import { endpoints } from "@/lib/api";
 import type { MonsterLiteOut, PersonalityOut, TypeOut, MoveOut } from "@/types";
 import { pickName, pickFormName, useI18n } from "@/i18n";
 import { useMemo } from "react";
+import { monsterImageUrlByCN, monsterImageUrlByEN, monsterImageUrlById } from "@/lib/images";
 
 /* ---------- helpers ---------- */
 
@@ -17,10 +18,6 @@ function slugifyTypeName(name?: string | null): string | null {
 function typeIconUrl(type: any, size: 30 | 45 | 60 = 30): string | null {
   const slug = slugifyTypeName(typeNameRaw(type));
   return slug ? `/type-icons/${size}/${slug}.png` : null;
-}
-// /public/monsters/{180|270|360}/{id}.png
-function monsterImgUrl(id?: number | null, size: 180 | 270 | 360 = 180): string | null {
-  return id ? `/monsters/${size}/${id}.png` : null;
 }
 
 function TypeBadge({
@@ -102,7 +99,14 @@ export default function MonsterCard({
   });
   const monster = monsterQ.data;
   const formLabel = pickFormName(monster, lang);
-  const monsterSrc = monsterImgUrl(monster?.id, imgSize);
+
+  // Image source chain: CN -> EN -> ID -> placeholder
+  const cnSrc = monsterImageUrlByCN(monster, imgSize);
+  const enSrc = monsterImageUrlByEN(monster, imgSize);
+  const idSrc = monsterImageUrlById(monster, imgSize);
+  const chain = [cnSrc, enSrc, idSrc, "/monsters/placeholder.png"].filter(
+    Boolean
+  ) as string[];
 
   // Query lists lazily; placeholders render even if not loaded yet.
   const persQ = useQuery({
@@ -139,15 +143,24 @@ export default function MonsterCard({
         <div className="flex gap-3">
           {/* avatar */}
           <div className="shrink-0">
-            {monsterSrc ? (
+            {chain.length ? (
               <img
-                src={monsterSrc}
+                src={chain[0]!}
                 alt=""
                 width={48}
                 height={48}
                 className="h-12 w-12 rounded-md object-contain bg-zinc-50"
+                data-fallback-step={0}
                 onError={(e) => {
-                  (e.currentTarget as HTMLImageElement).src = "/monsters/placeholder.png";
+                  const img = e.currentTarget as HTMLImageElement;
+                  const step = Number(img.dataset.fallbackStep || "0");
+                  const next = step + 1;
+                  if (next < chain.length) {
+                    img.dataset.fallbackStep = String(next);
+                    img.src = chain[next]!;
+                  } else if (img.src !== "/monsters/placeholder.png") {
+                    img.src = "/monsters/placeholder.png";
+                  }
                 }}
               />
             ) : (
