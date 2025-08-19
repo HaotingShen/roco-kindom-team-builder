@@ -285,92 +285,201 @@ def compute_magic_item_eval(magic_item, user_monster_outs, type_db_map):
     }
 
 # Generate recommendations based on analyses
-def generate_recommendations(per_monster_analysis, type_coverage, magic_item_eval, move_db_map, type_db_map):
-    recommendations = []
+# def generate_recommendations(per_monster_analysis, type_coverage, magic_item_eval, move_db_map, type_db_map):
+#     recommendations = []
 
-    # 1. Type Coverage - Offense
+#     # 1. Type Coverage - Offense
+#     if type_coverage["weak_against_types"]:
+#         names = [type_db_map[t].name for t in type_coverage["weak_against_types"]]
+#         recommendations.append(
+#             f"Your team cannot hit these types super-effectively: {', '.join(names)}. Consider adding moves for coverage."
+#         )
+
+#     # 2. Type Coverage - Team Weaknesses
+#     if type_coverage["team_weak_to"]:
+#         names = [type_db_map[t].name for t in type_coverage["team_weak_to"]]
+#         recommendations.append(
+#             f"Your team is especially vulnerable to: {', '.join(names)}. Consider defensive options or resistances."
+#         )
+
+#     # 3. Magic Item Usage
+#     if magic_item_eval["valid_targets"] == []:
+#         recommendations.append("Your selected magic item cannot be used by any monster in your current team!")
+#     elif len(magic_item_eval["valid_targets"]) == 1:
+#         idx = magic_item_eval["valid_targets"][0]
+#         name = next(
+#             (analysis.user_monster.monster.name for analysis in per_monster_analysis if analysis.user_monster.id == idx),
+#             "Unknown"
+#         )
+#         recommendations.append(f"Only {name} can use the selected magic item.")
+#     else:
+#         names = [
+#             analysis.user_monster.monster.name
+#             for analysis in per_monster_analysis
+#             if analysis.user_monster.id in magic_item_eval["valid_targets"]
+#         ]
+#         recommendations.append("The selected magic item can be used by: " + ", ".join(names) + ".")
+
+#     # 4. Monster Redundancy & Uniqueness
+#     all_types = []
+#     for analysis in per_monster_analysis:
+#         m = analysis.user_monster.monster
+#         all_types.append(m.main_type.id)
+#         if m.sub_type is not None:
+#             all_types.append(m.sub_type.id)
+#     type_counts = Counter(all_types)
+#     # Find any type that occurs on at least 4 monsters
+#     common_types = [type_db_map[t].name for t, count in type_counts.items() if count >= 4]
+#     if common_types:
+#         recommendations.append(
+#             f"Most of your monsters share the type: {', '.join(common_types)}. This makes you more vulnerable to certain counters."
+#         )
+
+#     # 5. Monster Analysis - Per Monster
+#     for analysis in per_monster_analysis:
+#         mname = analysis.user_monster.monster.name
+
+#         # Energy management
+#         if analysis.energy_profile.avg_energy_cost > 4:
+#             recommendations.append(f"{mname}'s moves have high average energy cost. Consider lower-cost or energy-restoring moves.")
+
+#         # Counter coverage
+#         if analysis.counter_coverage.total_counter_moves == 0:
+#             recommendations.append(f"{mname} has no counter-effect moves selected. This can make it vulnerable to prediction-based plays.")
+            
+#         # Defense/Status moves
+#         if analysis.defense_status_move.defense_status_move_count < 2:
+#             recommendations.append(f"{mname} has fewer than 2 Defense or Status moves. Consider adding more for survivability and utility.")
+            
+#         # Trait synergy moves
+#         for synergy in analysis.trait_synergies:
+#             if synergy.synergy_moves:
+#                 moves = [move_db_map[mid].name for mid in synergy.synergy_moves]
+#                 recommendations.append(f"{mname}'s trait works well with these moves: {', '.join(moves)}.")
+
+#     # 6. Role diversity (example: all physical attackers)
+#     attack_styles = [getattr(analysis.user_monster.monster, "preferred_attack_style", None) for analysis in per_monster_analysis]
+#     if len(set(attack_styles)) == 1:
+#         style = attack_styles[0]
+#         recommendations.append(f"All your monsters are {style}-style attackers. This may make you predictable and easy to counter.")
+
+#     # 7. Stat Analysis
+#     stat_labels = {
+#         "hp": "HP",
+#         "phy_atk": "Physical Attack",
+#         "mag_atk": "Magic Attack",
+#         "overall_def": "Total Defense",
+#         "spd": "Speed",
+#     }
+#     stat_roles = {
+#         "hp": "frontline or defensive pivot",
+#         "phy_atk": "main physical attacker",
+#         "mag_atk": "main magic attacker",
+#         "overall_def": "physical or special tank",
+#         "spd": "lead, scout, or revenge killer",
+#     }
+#     for stat, label in stat_labels.items():
+#         if stat != "overall_def":
+#             stat_values = [(analysis.user_monster.monster.name, getattr(analysis.effective_stats, stat)) for analysis in per_monster_analysis]
+#         else:
+#             # Compute total defense (phy_def + mag_def)
+#             stat_values = [(analysis.user_monster.monster.name, analysis.effective_stats.phy_def + analysis.effective_stats.mag_def) for analysis in per_monster_analysis]
+#         if stat_values:
+#             best = max(stat_values, key=lambda x: x[1])
+#             recommendations.append(f"{best[0]} has the highest {label} ({best[1]}). Consider using it as your {stat_roles[stat]}.")
+
+
+#     # For debugging: include a summary of key findings
+#     if not recommendations:
+#         recommendations.append("No major weaknesses or coverage gaps detected. Well-built team!")
+
+#     return recommendations
+
+def generate_recommendations(per_monster_analysis, type_coverage, magic_item_eval, move_db_map, type_db_map):
+    recs: List[schemas.RecItem] = []
+
+    def add(category, severity, message, *, type_ids=None, monster_ids=None, move_ids=None):
+        recs.append(schemas.RecItem(
+            category=category,
+            severity=severity,
+            message=message,
+            type_ids=type_ids or [],
+            monster_ids=monster_ids or [],
+            move_ids=move_ids or []
+        ))
+
+    # 1) Type coverage – offense
     if type_coverage["weak_against_types"]:
         names = [type_db_map[t].name for t in type_coverage["weak_against_types"]]
-        recommendations.append(
-            f"Your team cannot hit these types super-effectively: {', '.join(names)}. Consider adding moves for coverage."
-        )
+        add("coverage", "warn",
+            f"Your team cannot hit these types super-effectively: {', '.join(names)}. Consider adding moves for coverage.",
+            type_ids=type_coverage["weak_against_types"])
 
-    # 2. Type Coverage - Team Weaknesses
+    # 2) Team defensive weaknesses
     if type_coverage["team_weak_to"]:
         names = [type_db_map[t].name for t in type_coverage["team_weak_to"]]
-        recommendations.append(
-            f"Your team is especially vulnerable to: {', '.join(names)}. Consider defensive options or resistances."
-        )
+        add("weakness", "danger",
+            f"Your team is especially vulnerable to: {', '.join(names)}. Consider defensive options or resistances.",
+            type_ids=type_coverage["team_weak_to"])
 
-    # 3. Magic Item Usage
-    if magic_item_eval["valid_targets"] == []:
-        recommendations.append("Your selected magic item cannot be used by any monster in your current team!")
-    elif len(magic_item_eval["valid_targets"]) == 1:
-        idx = magic_item_eval["valid_targets"][0]
-        name = next(
-            (analysis.user_monster.monster.name for analysis in per_monster_analysis if analysis.user_monster.id == idx),
-            "Unknown"
-        )
-        recommendations.append(f"Only {name} can use the selected magic item.")
+    # 3) Magic item usage
+    vt = magic_item_eval.valid_targets
+    if not vt:
+        add("magic_item", "warn", "Your selected magic item cannot be used by any monster in your current team!")
+    elif len(vt) == 1:
+        add("magic_item", "info", "Only one monster can use the selected magic item.", monster_ids=vt)
     else:
-        names = [
-            analysis.user_monster.monster.name
-            for analysis in per_monster_analysis
-            if analysis.user_monster.id in magic_item_eval["valid_targets"]
-        ]
-        recommendations.append("The selected magic item can be used by: " + ", ".join(names) + ".")
+        add("magic_item", "info", "Multiple monsters can use the selected magic item.", monster_ids=vt)
 
-    # 4. Monster Redundancy & Uniqueness
+    # 4) Redundant typing
+    from collections import Counter
     all_types = []
     for analysis in per_monster_analysis:
         m = analysis.user_monster.monster
         all_types.append(m.main_type.id)
         if m.sub_type is not None:
             all_types.append(m.sub_type.id)
-    type_counts = Counter(all_types)
-    # Find any type that occurs on at least 4 monsters
-    common_types = [type_db_map[t].name for t, count in type_counts.items() if count >= 4]
-    if common_types:
-        recommendations.append(
-            f"Most of your monsters share the type: {', '.join(common_types)}. This makes you more vulnerable to certain counters."
-        )
+    counts = Counter(all_types)
+    common_type_ids = [tid for tid, cnt in counts.items() if cnt >= 4]
+    if common_type_ids:
+        names = [type_db_map[t].name for t in common_type_ids]
+        add("weakness", "warn",
+            f"Many monsters share these types: {', '.join(names)}. This increases vulnerability to specific counters.",
+            type_ids=common_type_ids)
 
-    # 5. Monster Analysis - Per Monster
+    # 5) Per-monster checks
     for analysis in per_monster_analysis:
+        mid = analysis.user_monster.id
         mname = analysis.user_monster.monster.name
 
-        # Energy management
         if analysis.energy_profile.avg_energy_cost > 4:
-            recommendations.append(f"{mname}'s moves have high average energy cost. Consider lower-cost or energy-restoring moves.")
+            add("energy", "warn",
+                f"{mname}'s moves have high average energy cost. Consider lower-cost or energy-restoring moves.",
+                monster_ids=[mid])
 
-        # Counter coverage
         if analysis.counter_coverage.total_counter_moves == 0:
-            recommendations.append(f"{mname} has no counter-effect moves selected. This can make it vulnerable to prediction-based plays.")
-            
-        # Defense/Status moves
+            add("counters", "warn",
+                f"{mname} has no counter-effect moves selected.",
+                monster_ids=[mid])
+
         if analysis.defense_status_move.defense_status_move_count < 2:
-            recommendations.append(f"{mname} has fewer than 2 Defense or Status moves. Consider adding more for survivability and utility.")
-            
-        # Trait synergy moves
+            add("defense_status", "info",
+                f"{mname} has fewer than 2 Defense/Status moves. Consider adding more for survivability.",
+                monster_ids=[mid])
+
         for synergy in analysis.trait_synergies:
             if synergy.synergy_moves:
-                moves = [move_db_map[mid].name for mid in synergy.synergy_moves]
-                recommendations.append(f"{mname}'s trait works well with these moves: {', '.join(moves)}.")
+                move_names = [move_db_map[x].name for x in synergy.synergy_moves]
+                add("trait_synergy", "info",
+                    f"{mname}'s trait works well with: {', '.join(move_names)}.",
+                    monster_ids=[mid], move_ids=synergy.synergy_moves)
 
-    # 6. Role diversity (example: all physical attackers)
-    attack_styles = [getattr(analysis.user_monster.monster, "preferred_attack_style", None) for analysis in per_monster_analysis]
-    if len(set(attack_styles)) == 1:
-        style = attack_styles[0]
-        recommendations.append(f"All your monsters are {style}-style attackers. This may make you predictable and easy to counter.")
+    # 6) Role diversity
+    styles = [getattr(a.user_monster.monster, "preferred_attack_style", None) for a in per_monster_analysis]
+    if len(set(styles)) == 1 and styles[0]:
+        add("general", "warn", f"All monsters are {styles[0]}-style attackers. This may make the team predictable.")
 
-    # 7. Stat Analysis
-    stat_labels = {
-        "hp": "HP",
-        "phy_atk": "Physical Attack",
-        "mag_atk": "Magic Attack",
-        "overall_def": "Total Defense",
-        "spd": "Speed",
-    }
+    # 7) Stat and role highlights
     stat_roles = {
         "hp": "frontline or defensive pivot",
         "phy_atk": "main physical attacker",
@@ -378,22 +487,44 @@ def generate_recommendations(per_monster_analysis, type_coverage, magic_item_eva
         "overall_def": "physical or special tank",
         "spd": "lead, scout, or revenge killer",
     }
-    for stat, label in stat_labels.items():
-        if stat != "overall_def":
-            stat_values = [(analysis.user_monster.monster.name, getattr(analysis.effective_stats, stat)) for analysis in per_monster_analysis]
-        else:
-            # Compute total defense (phy_def + mag_def)
-            stat_values = [(analysis.user_monster.monster.name, analysis.effective_stats.phy_def + analysis.effective_stats.mag_def) for analysis in per_monster_analysis]
-        if stat_values:
-            best = max(stat_values, key=lambda x: x[1])
-            recommendations.append(f"{best[0]} has the highest {label} ({best[1]}). Consider using it as your {stat_roles[stat]}.")
 
+    def best_of(stat, label, role_key=None):
+        vals = [(a.user_monster.monster.name, getattr(a.effective_stats, stat), a.user_monster.id)
+                for a in per_monster_analysis]
+        if not vals:
+            return
+        name, value, uid = max(vals, key=lambda x: x[1])
+        role_txt = stat_roles.get(role_key or stat)
+        role_suffix = f" Consider using it as your {role_txt}." if role_txt else ""
+        add(
+            "stat_highlight",
+            "info",
+            f"{name} has the highest {label} ({value}).{role_suffix}",
+            monster_ids=[uid],
+        )
 
-    # For debugging: include a summary of key findings
-    if not recommendations:
-        recommendations.append("No major weaknesses or coverage gaps detected. Well-built team!")
+    best_of("hp", "HP")
+    best_of("phy_atk", "Physical Attack")
+    best_of("mag_atk", "Magic Attack")
+    # overall defense = phy_def + mag_def
+    vals_def = [
+        (a.user_monster.monster.name,
+         a.effective_stats.phy_def + a.effective_stats.mag_def,
+         a.user_monster.id)
+        for a in per_monster_analysis
+    ]
+    if vals_def:
+        name, value, uid = max(vals_def, key=lambda x: x[1])
+        role_suffix = f" Consider using it as your {stat_roles['overall_def']}."
+        add(
+            "stat_highlight",
+            "info",
+            f"{name} has the highest Total Defense ({value}).{role_suffix}",
+            monster_ids=[uid],
+        )
+    best_of("spd", "Speed")
 
-    return recommendations
+    return recs
 
 
 # === GET Endpoints ===
@@ -664,7 +795,9 @@ async def analyze_team(req: schemas.TeamAnalyzeInlineRequest, db: Session = Depe
     print("Loaded personalities:", len(personality_db_map))
 
     print("Loading magic item and game terms...")
-    magic_item = db.query(models.MagicItem).filter(models.MagicItem.id == team_data.magic_item_id).first() if team_data.magic_item_id else None
+    if not team_data.magic_item_id:
+        raise HTTPException(status_code=400, detail="Magic item is required to analyze a team.")
+    magic_item = (db.query(models.MagicItem).filter(models.MagicItem.id == team_data.magic_item_id).first())
     game_terms = db.query(models.GameTerm).all()
     print("Loaded game terms:", len(game_terms))
     
@@ -762,11 +895,23 @@ async def analyze_team(req: schemas.TeamAnalyzeInlineRequest, db: Session = Depe
     # Call the top-level helper functions
     print("Start team-level analysis...")
     type_coverage = compute_type_coverage(team_data.user_monsters, move_db_map, monster_db_map, type_db_map)
-    magic_item_eval = compute_magic_item_eval(magic_item, user_monster_outs, type_db_map)
-    recommendations = generate_recommendations(per_monster_analysis, type_coverage, magic_item_eval, move_db_map, type_db_map)
+    magic_item_eval_dict = compute_magic_item_eval(magic_item, user_monster_outs, type_db_map)
+    magic_item_out = schemas.MagicItemOut(**magic_item.__dict__)
+    magic_item_eval = schemas.MagicItemEvaluation(
+        chosen_item=magic_item_out,
+        valid_targets=magic_item_eval_dict["valid_targets"],
+        best_target_monster_id=magic_item_eval_dict.get("best_target_monster_id"),
+        reasoning=magic_item_eval_dict.get("reasoning"),
+    )
 
-    # Build TeamOut and TeamAnalysisOut (final response)
-    magic_item_out = schemas.MagicItemOut(**magic_item.__dict__) if magic_item else None
+    recs_struct = generate_recommendations(
+        per_monster_analysis,
+        type_coverage,
+        magic_item_eval,
+        move_db_map,
+        type_db_map
+    )
+
     team_out = schemas.TeamOut(
         id=0,
         name=team_data.name,
@@ -778,7 +923,8 @@ async def analyze_team(req: schemas.TeamAnalyzeInlineRequest, db: Session = Depe
         per_monster=per_monster_analysis,
         type_coverage=type_coverage,
         magic_item_eval=magic_item_eval,
-        recommendations=recommendations,
+        recommendations=[r.message for r in recs_struct],
+        recommendations_structured=recs_struct,
     )
     
     print("Finish team-level analysis!")

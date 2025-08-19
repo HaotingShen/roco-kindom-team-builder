@@ -1,5 +1,5 @@
 from pydantic import BaseModel, ConfigDict, model_validator, Field
-from typing import Optional, List, Dict, Any, ClassVar
+from typing import Optional, List, Dict, Any, ClassVar, Literal
 from backend.models import MoveCategory, AttackStyle
 
 class PageMeta(BaseModel):
@@ -234,6 +234,14 @@ class TypeCoverageReport(BaseModel):
     weak_against_types: List[int] = Field(default_factory=list)
     team_weak_to: List[int] = Field(default_factory=list)
 
+class RecItem(BaseModel):
+    category: Literal["coverage", "weakness", "magic_item", "energy", "counters", "defense_status", "trait_synergy", "role_diversity", "stat_highlight", "general"] = "general"
+    severity: Literal["info", "warn", "danger"] = "info"
+    message: str
+    type_ids: List[int] = Field(default_factory=list)
+    monster_ids: List[int] = Field(default_factory=list)
+    move_ids: List[int] = Field(default_factory=list)
+
 class MagicItemEvaluation(BaseModel):
     chosen_item: MagicItemOut
     valid_targets: List[int]  # user_monster ids
@@ -256,6 +264,7 @@ class TeamAnalysisOut(BaseModel):
     type_coverage: TypeCoverageReport
     magic_item_eval: MagicItemEvaluation
     recommendations: List[str] = Field(default_factory=list)
+    recommendations_structured: List[RecItem] = Field(default_factory=list)
 
     model_config = ConfigDict(from_attributes=True)
     
