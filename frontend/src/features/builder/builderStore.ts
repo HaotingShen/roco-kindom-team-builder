@@ -1,8 +1,13 @@
 import { create } from "zustand";
-import type { ID, UserMonsterCreate, TeamCreate, TalentUpsert } from "@/types";
+import type { ID, UserMonsterCreate, TeamCreate, TalentUpsert, TeamAnalysisOut } from "@/types";
 
 const emptyTalent: TalentUpsert = {
-  hp_boost:0, phy_atk_boost:0, mag_atk_boost:0, phy_def_boost:0, mag_def_boost:0, spd_boost:0
+  hp_boost: 0,
+  phy_atk_boost: 0,
+  mag_atk_boost: 0,
+  phy_def_boost: 0,
+  mag_def_boost: 0,
+  spd_boost: 0,
 };
 
 function emptySlot(): UserMonsterCreate {
@@ -10,8 +15,11 @@ function emptySlot(): UserMonsterCreate {
     monster_id: 0,
     personality_id: 0,
     legacy_type_id: 0,
-    move1_id: 0, move2_id: 0, move3_id: 0, move4_id: 0,
-    talent: { ...emptyTalent }
+    move1_id: 0,
+    move2_id: 0,
+    move3_id: 0,
+    move4_id: 0,
+    talent: { ...emptyTalent },
   };
 }
 
@@ -26,7 +34,6 @@ function mergeWithoutUndef<T extends object>(base: T, patch: PartialNoUndef<T>):
   }
   return next as T;
 }
-// ---------------------------------
 
 type BuilderState = {
   name: string;
@@ -36,6 +43,8 @@ type BuilderState = {
   setMagicItem: (id: ID | null) => void;
   setSlot: (idx: number, patch: PartialNoUndef<UserMonsterCreate>) => void;
   toPayload: () => TeamCreate;
+  analysis: TeamAnalysisOut | null;
+  setAnalysis: (a: TeamAnalysisOut | null) => void;
   reset: () => void;
 };
 
@@ -45,24 +54,35 @@ export const useBuilderStore = create<BuilderState>((set, get) => ({
   slots: Array.from({ length: 6 }, emptySlot),
   setName: (name) => set({ name }),
   setMagicItem: (magic_item_id) => set({ magic_item_id }),
-  setSlot: (idx, patch) => set((s) => {
-    const slots = s.slots.slice();
-    const current = slots[idx] ?? emptySlot();
-    const next = mergeWithoutUndef<UserMonsterCreate>(current, patch);
-    slots[idx] = next;
-    return { slots };
-  }),
+  setSlot: (idx, patch) =>
+    set((s) => {
+      const slots = s.slots.slice();
+      const current = slots[idx] ?? emptySlot();
+      const next = mergeWithoutUndef<UserMonsterCreate>(current, patch);
+      slots[idx] = next;
+      return { slots };
+    }),
   toPayload: () => {
     const s = get();
+
+    // Enforce required magic item
+    if (s.magic_item_id == null) {
+      throw new Error("Magic item is required before analyzing.");
+    }
+
     return {
       name: s.name,
       magic_item_id: s.magic_item_id,
-      user_monsters: s.slots
+      user_monsters: s.slots,
     };
   },
-  reset: () => set({
-    name: "My Team",
-    magic_item_id: null,
-    slots: Array.from({ length: 6 }, emptySlot)
-  })
+  analysis: null,
+  setAnalysis: (a) => set({ analysis: a }),
+  reset: () =>
+    set({
+      name: "My Team",
+      magic_item_id: null,
+      slots: Array.from({ length: 6 }, emptySlot),
+      analysis: null,
+    }),
 }));

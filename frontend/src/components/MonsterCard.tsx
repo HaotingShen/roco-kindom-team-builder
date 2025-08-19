@@ -14,7 +14,6 @@ function slugifyTypeName(name?: string | null): string | null {
   if (!name) return null;
   return name.toLowerCase().replace(/\s+/g, "-");
 }
-// /public/type-icons/{30|45|60}/{slug}.png
 function typeIconUrl(type: any, size: 30 | 45 | 60 = 30): string | null {
   const slug = slugifyTypeName(typeNameRaw(type));
   return slug ? `/type-icons/${size}/${slug}.png` : null;
@@ -39,7 +38,9 @@ function TypeBadge({
           width={size / 2}
           height={size / 2}
           className="inline-block"
-          onError={(e) => ((e.currentTarget as HTMLImageElement).style.display = "none")}
+          onError={(e) =>
+            ((e.currentTarget as HTMLImageElement).style.display = "none")
+          }
         />
       ) : null}
       {label}
@@ -90,28 +91,29 @@ export default function MonsterCard({
   imgSize = 180,
   typeIconSize = 30,
 }: Props) {
-  const { lang } = useI18n();
+  const { lang, t } = useI18n();
 
   const monsterQ = useQuery({
     queryKey: ["monster-lite", monsterId],
-    queryFn: () => endpoints.monsterById(monsterId!).then((r) => r.data as MonsterLiteOut),
+    queryFn: () =>
+      endpoints.monsterById(monsterId!).then((r) => r.data as MonsterLiteOut),
     enabled: !!monsterId,
   });
   const monster = monsterQ.data;
   const formLabel = pickFormName(monster, lang);
 
-  // Image source chain: CN -> EN -> ID -> placeholder
-  const cnSrc = monsterImageUrlByCN(monster, imgSize);
-  const enSrc = monsterImageUrlByEN(monster, imgSize);
-  const idSrc = monsterImageUrlById(monster, imgSize);
-  const chain = [cnSrc, enSrc, idSrc, "/monsters/placeholder.png"].filter(
-    Boolean
-  ) as string[];
+  // Image fallbacks: CN -> EN -> ID -> placeholder
+  const chain = [
+    monsterImageUrlByCN(monster, imgSize),
+    monsterImageUrlByEN(monster, imgSize),
+    monsterImageUrlById(monster, imgSize),
+    "/monsters/placeholder.png",
+  ].filter(Boolean) as string[];
 
-  // Query lists lazily; placeholders render even if not loaded yet.
   const persQ = useQuery({
     queryKey: ["personalities"],
-    queryFn: () => endpoints.personalities().then((r) => r.data as PersonalityOut[]),
+    queryFn: () =>
+      endpoints.personalities().then((r) => r.data as PersonalityOut[]),
     enabled: true,
   });
   const typeQ = useQuery({
@@ -130,9 +132,12 @@ export default function MonsterCard({
   const legacyName = legacyObj ? pickName(legacyObj, lang) : "";
 
   const moveMap = useMoveMap(moveIds);
-
-  const mainTypeLabel = monster?.main_type ? pickName(monster.main_type as any, lang) : "";
-  const subTypeLabel = monster?.sub_type ? pickName(monster.sub_type as any, lang) : "";
+  const mainTypeLabel = monster?.main_type
+    ? pickName(monster.main_type as any, lang)
+    : "";
+  const subTypeLabel = monster?.sub_type
+    ? pickName(monster.sub_type as any, lang)
+    : "";
 
   return (
     <button
@@ -149,7 +154,7 @@ export default function MonsterCard({
                 alt=""
                 width={48}
                 height={48}
-                className="h-12 w-12 rounded-md object-contain bg-zinc-50"
+                className="h-16 w-16 rounded-md object-contain"
                 data-fallback-step={0}
                 onError={(e) => {
                   const img = e.currentTarget as HTMLImageElement;
@@ -169,46 +174,60 @@ export default function MonsterCard({
           </div>
 
           <div className="min-w-0 flex-1">
-            {/* name + form */}
-            <div className="font-medium truncate">
+            {/* name + form on separate lines */}
+            <div
+              className="font-medium truncate"
+              title={pickName(monster as any, lang)}
+            >
               {pickName(monster as any, lang)}
-              {formLabel && <span className="ml-1 text-zinc-500">({formLabel})</span>}
             </div>
+            {formLabel ? (
+              <div className="text-xs text-zinc-500 truncate" title={formLabel}>
+                {formLabel}
+              </div>
+            ) : null}
 
             {/* type chips */}
             <div className="mt-1 flex flex-wrap gap-1">
               {monster?.main_type && (
-                <TypeBadge type={monster.main_type} size={typeIconSize} label={mainTypeLabel} />
+                <TypeBadge
+                  type={monster.main_type}
+                  size={typeIconSize}
+                  label={mainTypeLabel}
+                />
               )}
               {monster?.sub_type && (
-                <TypeBadge type={monster.sub_type} size={typeIconSize} label={subTypeLabel} />
+                <TypeBadge
+                  type={monster.sub_type}
+                  size={typeIconSize}
+                  label={subTypeLabel}
+                />
               )}
             </div>
 
-            {/* personality + legacy — ALWAYS VISIBLE with placeholders */}
-            <div className="mt-2 flex flex-wrap items-center gap-2 text-xs text-zinc-500">
-              {/* Personality chip */}
-              <span className="inline-flex items-center gap-1 rounded bg-zinc-100 px-2 py-0.5">
+            {/* personality + legacy */}
+            <div className="mt-2 flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-1 rounded bg-zinc-50 px-2 py-0.5 text-[11px] text-zinc-600">
                 <span className="whitespace-nowrap">
-                  {lang === "zh" ? "性格" : "Personality"}:
+                  {t("builder.personality")}:
                 </span>
                 <span className={persName ? "text-zinc-700" : "text-zinc-500"}>
                   {persName || "—"}
                 </span>
               </span>
 
-              {/* Legacy chip */}
-              <span className="inline-flex items-center gap-1 rounded bg-zinc-100 px-2 py-0.5">
-                <span className="whitespace-nowrap">
-                  {lang === "zh" ? "血脉" : "Legacy"}:
-                </span>
+              <span className="inline-flex items-center gap-1 rounded bg-zinc-50 px-2 py-0.5 text-[11px] text-zinc-600">
+                <span className="whitespace-nowrap">{t("labels.legacy")}:</span>
                 {legacyObj && typeIconUrl(legacyObj, typeIconSize) ? (
                   <img
                     src={typeIconUrl(legacyObj, typeIconSize)!}
                     alt=""
                     width={typeIconSize / 2}
                     height={typeIconSize / 2}
-                    onError={(e) => ((e.currentTarget as HTMLImageElement).style.display = "none")}
+                    onError={(e) =>
+                      ((e.currentTarget as HTMLImageElement).style.display =
+                        "none")
+                    }
                   />
                 ) : null}
                 <span className={legacyName ? "text-zinc-700" : "text-zinc-500"}>
@@ -227,7 +246,7 @@ export default function MonsterCard({
                         key={`empty-${idx}`}
                         className="rounded bg-zinc-50 px-2 py-0.5 text-[11px] text-zinc-500"
                       >
-                        {lang === "zh" ? `技能${idx + 1}` : `Move ${idx + 1}`}: —
+                        {t("builder.moveN", { n: idx + 1 })}: —
                       </span>
                     );
                   }
@@ -248,7 +267,7 @@ export default function MonsterCard({
           </div>
         </div>
       ) : (
-        <div className="text-zinc-500">{lang === "zh" ? "选择精灵…" : "Select monster…"}</div>
+        <div className="text-zinc-500">{t("builder.selectMonster")}</div>
       )}
     </button>
   );

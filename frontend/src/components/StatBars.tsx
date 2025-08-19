@@ -1,5 +1,8 @@
+import { useI18n } from "@/i18n";
+
 export function StatBars({ data }: { data?: Record<string, number> | null }) {
-  if (!data || !Object.keys(data).length) return <div className="text-xs text-zinc-500">No stats.</div>;
+  const { t } = useI18n();
+  if (!data || !Object.keys(data).length) return <div className="text-xs text-zinc-500">{t("stats.noStats")}</div>;
   const entries = Object.entries(data);
   const max = Math.max(...entries.map(([,v]) => Number(v) || 0), 1);
   return (
@@ -11,8 +14,8 @@ export function StatBars({ data }: { data?: Record<string, number> | null }) {
             <div className="flex items-center justify-between text-xs text-zinc-600">
               <span>{k}</span><span>{v}</span>
             </div>
-            <div className="h-2 bg-zinc-100 rounded">
-              <div className="h-2 rounded" style={{ width: `${pct}%` }} />
+            <div className="h-2 rounded bar-bg">
+              <div className="h-2 rounded bar-fg" style={{ width: `${pct}%` }} />
             </div>
           </div>
         );
@@ -22,8 +25,8 @@ export function StatBars({ data }: { data?: Record<string, number> | null }) {
 }
 
 export function EnergyBars({ data }: { data?: Record<string, number> | null }) {
-  // expects like { "cost0": 1, "cost1": 2, "cost2": 1 } etc. If unknown, show fallback.
-  if (!data || !Object.keys(data).length) return <div className="text-xs text-zinc-500">No energy profile.</div>;
+  const { t } = useI18n();
+  if (!data || !Object.keys(data).length) return <div className="text-xs text-zinc-500">{t("stats.noEnergy")}</div>;
   const entries = Object.entries(data);
   const max = Math.max(...entries.map(([,v]) => Number(v) || 0), 1);
   return (
@@ -35,8 +38,8 @@ export function EnergyBars({ data }: { data?: Record<string, number> | null }) {
             <div className="flex items-center justify-between text-xs text-zinc-600">
               <span>{k}</span><span>{v}</span>
             </div>
-            <div className="h-2 bg-zinc-100 rounded">
-              <div className="h-2 rounded" style={{ width: `${pct}%` }} />
+            <div className="h-2 rounded bar-bg">
+              <div className="h-2 rounded bar-fg" style={{ width: `${pct}%` }} />
             </div>
           </div>
         );

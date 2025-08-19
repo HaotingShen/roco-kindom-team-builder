@@ -1,5 +1,27 @@
 @import "tailwindcss";
 
 :root {
-  --sidebar-w: 240px;
+  --sidebar-w: 12rem; /* 192px */
 }
+
+#root {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ml-sidebar {
+  margin-left: var(--sidebar-w);
+}
+
+/* Responsive sidebar width */
+@media (max-width: 1280px) {
+  :root { --sidebar-w: 11rem; }
+}
+@media (max-width: 1024px) {
+  :root { --sidebar-w: 10rem; }
+}
+
+/* Progress-bar helpers used by StatBars/EnergyBars */
+.bar-bg { background-color: rgb(244 244 245); }  /* zinc-100 */
+.bar-fg { background-color: rgb(82 82 91); }     /* zinc-600 */

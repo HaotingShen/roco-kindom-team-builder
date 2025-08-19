@@ -3,16 +3,21 @@ import { endpoints } from "@/lib/api";
 import { useI18n, pickName } from "@/i18n";
 import MonsterPicker from "./MonsterPicker";
 import { useBuilderStore } from "./builderStore";
-import type {
-  ID,
-  MoveOut,
-  PersonalityOut,
-  TypeOut,
-  UserMonsterCreate,
-} from "@/types";
+import type { ID, MoveOut, PersonalityOut, TypeOut, UserMonsterCreate } from "@/types";
 import { useMemo, useEffect, useRef, useState } from "react";
+import CustomSelect from "@/components/CustomSelect";
 
 // ---------- helpers ----------
+function Warn({ children }: { children: React.ReactNode }) {
+  return (
+    <div
+      role="alert"
+      className="text-[11px] px-2 py-1 rounded border border-amber-300 bg-amber-50 text-amber-800"
+    >
+      {children}
+    </div>
+  );
+}
 
 function useMonsterDetail(monsterId: ID | 0) {
   return useQuery({
@@ -24,22 +29,24 @@ function useMonsterDetail(monsterId: ID | 0) {
 
 // --- Personality effect formatters ---
 const EFFECT_FIELDS = [
-  ["HP", "hp_mod_pct"],
-  ["Phy Atk", "phy_atk_mod_pct"],
-  ["Mag Atk", "mag_atk_mod_pct"],
-  ["Phy Def", "phy_def_mod_pct"],
-  ["Mag Def", "mag_def_mod_pct"],
-  ["Speed", "spd_mod_pct"],
+  ["labels.hp", "hp_mod_pct"],
+  ["labels.phyAtk", "phy_atk_mod_pct"],
+  ["labels.magAtk", "mag_atk_mod_pct"],
+  ["labels.phyDef", "phy_def_mod_pct"],
+  ["labels.magDef", "mag_def_mod_pct"],
+  ["labels.spd", "spd_mod_pct"],
 ] as const;
 
-function getEffects(p: PersonalityOut) {
-  return EFFECT_FIELDS.map(([label, key]) => [label, (p as any)[key] as number] as const);
+function getEffects(p: PersonalityOut, t: (k: string) => string) {
+  return EFFECT_FIELDS.map(
+    ([labelKey, key]) => [t(labelKey), (p as any)[key] as number] as const
+  );
 }
 
 // Row text on the right, e.g. [Mag Atk ↑, Phy Def ↓]
-function formatRowEffects(p: PersonalityOut) {
-  const ups = getEffects(p).filter(([, v]) => v > 0).map(([n]) => `${n} ↑`);
-  const downs = getEffects(p).filter(([, v]) => v < 0).map(([n]) => `${n} ↓`);
+function formatRowEffects(p: PersonalityOut, t: (k: string) => string) {
+  const ups = getEffects(p, t).filter(([, v]) => v > 0).map(([n]) => `${n} ↑`);
+  const downs = getEffects(p, t).filter(([, v]) => v < 0).map(([n]) => `${n} ↓`);
   const items = [...ups, ...downs];
   return items.length ? `[${items.join(", ")}]` : "";
 }
@@ -52,18 +59,21 @@ function pct(v: number) {
 }
 
 // Sentence under the control, e.g. "Mag Atk +20%, Phy Def -10%"
-function formatSentenceEffects(p: PersonalityOut) {
-  const items = getEffects(p).filter(([, v]) => v !== 0);
-  if (!items.length) return "None";
+function formatSentenceEffects(p: PersonalityOut, t: (k: string) => string) {
+  const items = getEffects(p, t).filter(([, v]) => v !== 0);
+  if (!items.length) return "";
   // positives first, then negatives (just a nicety)
-  const ordered = [...items.filter(([, v]) => v > 0), ...items.filter(([, v]) => v < 0)];
+  const ordered = [
+    ...items.filter(([, v]) => v > 0),
+    ...items.filter(([, v]) => v < 0),
+  ];
   return ordered.map(([n, v]) => `${n} ${pct(v)}`).join(", ");
 }
 
 // Build maps using raw IDs (no network fetch needed)
 function extractLegacyInfo(detail: any): {
-  byType: Map<number, number>;   // type_id -> move_id
-  idSet: Set<number>;            // all legacy move ids
+  byType: Map<number, number>; // type_id -> move_id
+  idSet: Set<number>; // all legacy move ids
 } {
   const byType = new Map<number, number>();
   const idSet = new Set<number>();
@@ -177,19 +187,18 @@ const moveKeys = {
 type MoveKey = typeof moveKeys[keyof typeof moveKeys];
 
 // ---------- sections ----------
-
 function MovesSection({
   slot,
   detail,
   legacyTypeId,
-  onChange
+  onChange,
 }: {
   slot: UserMonsterCreate;
   detail: any;
   legacyTypeId: ID;
   onChange: (patch: Partial<UserMonsterCreate>) => void;
 }) {
-  const { lang } = useI18n();
+  const { lang, t } = useI18n();
   const movePool: MoveOut[] = detail?.move_pool ?? [];
 
   // Resolve legacy moves from IDs
@@ -210,7 +219,9 @@ function MovesSection({
     } else {
       // No legacy type yet: show all legacy moves (once loaded)
       if (!legacyLoading) {
-        base.unshift(...allLegacyMoves.map((m) => ({ move: m, isLegacy: true })));
+        base.unshift(
+          ...allLegacyMoves.map((m) => ({ move: m, isLegacy: true }))
+        );
       }
     }
     return base;
@@ -288,34 +299,33 @@ function MovesSection({
     <div className="space-y-2">
       {[1, 2, 3, 4].map((n) => {
         const currentId = (slot as any)[moveKeys[n as 1 | 2 | 3 | 4]] as ID;
+
+        const opts = candidates.map((c) => ({
+          value: c.move.id,
+          label: pickName(c.move as any, lang) || c.move.name,
+          rightLabel: c.isLegacy ? `[${t("labels.legacy")}]` : undefined,
+          disabled: !canPick(n as 1 | 2 | 3 | 4, c.move, c.isLegacy),
+        }));
+
         return (
           <div key={n} className="flex items-center gap-2">
-            <div className="w-16 text-xs text-zinc-500">Move {n}</div>
-            <select
-              value={currentId || ""}
-              onChange={(e) => onPick(n as 1 | 2 | 3 | 4, e.target.value)}
-              className="h-9 border rounded px-2 flex-1"
-            >
-              <option value="">—</option>
-              {candidates.map((c) => (
-                <option
-                  key={`${c.isLegacy ? "L" : "N"}-${c.move.id}`}
-                  value={c.move.id}
-                  disabled={!canPick(n as 1 | 2 | 3 | 4, c.move, c.isLegacy)}
-                >
-                  {pickName(c.move as any, lang) || c.move.name}
-                  {c.isLegacy ? "  [Legacy]" : ""}
-                </option>
-              ))}
-            </select>
+            <div className="w-16 text-xs text-zinc-500">{t("builder.moveN", { n })}</div>
+
+            <div className="flex-1 min-w-0">
+              <CustomSelect
+                value={currentId || null}
+                options={opts}
+                placeholder="—"
+                onChange={(id) => onPick(n as 1|2|3|4, String(id || ""))}
+                containerClassName="flex-1 min-w-0"
+                buttonClassName="w-full"
+              />
+            </div>
           </div>
         );
       })}
 
-      <div className="text-[11px] text-zinc-500">
-        You can pick <b>at most 1</b> Legacy move, and it must match the selected
-        Legacy Type.
-      </div>
+      <Warn>{t("builder.legacyHint")}</Warn>
     </div>
   );
 }
@@ -324,77 +334,28 @@ function PersonalitySelect({
   value,
   options,
   onChange,
-  placeholder = "Select…",
+  placeholder,
 }: {
   value?: number | null;
   options: PersonalityOut[];
   onChange: (id: number) => void;
   placeholder?: string;
 }) {
-  const { lang } = useI18n();
-  const [open, setOpen] = useState(false);
-  const btnRef = useRef<HTMLButtonElement>(null);
-  const popRef = useRef<HTMLDivElement>(null);
+  const { lang, t } = useI18n();
 
-  useEffect(() => {
-    function onDoc(e: MouseEvent) {
-      const t = e.target as Node;
-      if (popRef.current && !popRef.current.contains(t) && btnRef.current && !btnRef.current.contains(t)) {
-        setOpen(false);
-      }
-    }
-    document.addEventListener("mousedown", onDoc);
-    return () => document.removeEventListener("mousedown", onDoc);
-  }, []);
-
-  const current = options.find((p) => p.id === value);
+  const opts = (options ?? []).map((p) => ({
+    value: p.id,
+    label: pickName(p as any, lang),
+    rightLabel: formatRowEffects(p, t), // shows e.g. [Mag Atk ↑, Phy Def ↓]
+  }));
 
   return (
-    <div className="relative">
-      {/* Closed button: name ONLY (no effects) */}
-      <button
-        ref={btnRef}
-        type="button"
-        onClick={() => setOpen((o) => !o)}
-        className="h-9 w-full border rounded px-3 flex items-center justify-between"
-        aria-haspopup="listbox"
-        aria-expanded={open}
-      >
-        <span className="truncate">{current ? pickName(current as any, lang) : placeholder}</span>
-        <svg width="16" height="16" viewBox="0 0 20 20" aria-hidden="true">
-          <path d="M5 7l5 6 5-6" fill="currentColor" />
-        </svg>
-      </button>
-
-      {open && (
-        <div
-          ref={popRef}
-          role="listbox"
-          className="absolute z-20 mt-1 w-full border rounded bg-white shadow max-h-72 overflow-auto"
-        >
-          {options.map((p) => {
-            const selected = p.id === value;
-            return (
-              <div
-                key={p.id}
-                role="option"
-                aria-selected={selected}
-                onClick={() => { onChange(p.id); setOpen(false); }}
-                className={`px-3 py-2 flex items-center gap-2 cursor-pointer hover:bg-zinc-50 ${
-                  selected ? "bg-zinc-100" : ""
-                }`}
-              >
-                {/* localized row label */}
-                <span className="truncate">{pickName(p as any, lang)}</span>
-                <span className="ml-auto text-right text-xs text-zinc-600">
-                  {formatRowEffects(p)}
-                </span>
-              </div>
-            );
-          })}
-        </div>
-      )}
-    </div>
+    <CustomSelect
+      value={value ?? null}
+      options={opts}
+      placeholder={placeholder ?? t("common.select")}
+      onChange={(id) => onChange(id)}
+    />
   );
 }
 
@@ -405,6 +366,7 @@ function PersonalitySection({
   slot: UserMonsterCreate;
   onChange: (patch: Partial<UserMonsterCreate>) => void;
 }) {
+  const { lang, t } = useI18n();
   const { data } = useQuery({
     queryKey: ["personalities"],
     queryFn: () =>
@@ -415,7 +377,7 @@ function PersonalitySection({
 
   return (
     <div className="space-y-2">
-      <div className="text-sm font-medium">Personality</div>
+      <div className="text-sm font-medium">{t("builder.personality")}</div>
 
       <PersonalitySelect
         value={slot.personality_id || null}
@@ -424,8 +386,10 @@ function PersonalitySection({
       />
 
       {selected && (
-        <div className="text-xs text-zinc-600">
-          Effects: <span className="font-medium">{formatSentenceEffects(selected)}</span>
+        <div className="text-xs text-emerald-700">
+          {t("builder.effects", {
+            text: formatSentenceEffects(selected, t),
+          })}
         </div>
       )}
     </div>
@@ -435,37 +399,37 @@ function PersonalitySection({
 function LegacyTypeSection({
   slot,
   onChange,
-  onLegacyChange
+  onLegacyChange,
 }: {
   slot: UserMonsterCreate;
   onChange: (patch: Partial<UserMonsterCreate>) => void;
   onLegacyChange?: (newTypeId: ID) => void;
 }) {
-  const { lang } = useI18n();
+  const { lang, t } = useI18n();
   const { data } = useQuery({
     queryKey: ["types"],
-    queryFn: () => endpoints.types().then(r => r.data as TypeOut[])
+    queryFn: () => endpoints.types().then((r) => r.data as TypeOut[]),
   });
+
+  const opts = (data ?? []).map(type => ({
+    value: type.id,
+    label: pickName(type as any, lang),
+  }));
 
   return (
     <div className="space-y-1">
-      <div className="text-sm font-medium">Legacy Type</div>
-      <select
-        value={slot.legacy_type_id || ""}
-        onChange={e => {
-          const v = Number(e.target.value || 0) as ID;
-          onChange({ legacy_type_id: v });
-          onLegacyChange?.(v);
+      <div className="text-sm font-medium">{t("builder.legacyType")}</div>
+
+      <CustomSelect
+        value={slot.legacy_type_id || null}
+        options={opts}
+        placeholder={t("common.select")}
+        onChange={(v) => {
+          const id = (Number(v || 0) as ID);
+          onChange({ legacy_type_id: id });
+          onLegacyChange?.(id);
         }}
-        className="h-9 border rounded px-2 w-full"
-      >
-        <option value="">Select…</option>
-        {(data ?? []).map(t => (
-          <option key={t.id} value={t.id}>
-            {pickName(t as any, lang)}   {/* localized type name */}
-          </option>
-        ))}
-      </select>
+      />
     </div>
   );
 }
@@ -477,6 +441,7 @@ function TalentsSection({
   slot: UserMonsterCreate;
   onChange: (patch: Partial<UserMonsterCreate>) => void;
 }) {
+  const { t } = useI18n();
   const allowed = [0, 7, 8, 9, 10];
 
   // Backend keys stored in state
@@ -489,53 +454,50 @@ function TalentsSection({
     "spd_boost",
   ];
 
-  // Display labels
+  // Display labels (localized)
   const LABELS: Record<(typeof KEYS)[number], string> = {
-    hp_boost: "HP",
-    phy_atk_boost: "Phy Atk",
-    mag_atk_boost: "Mag Atk",
-    phy_def_boost: "Phy Def",
-    mag_def_boost: "Mag Def",
-    spd_boost: "Speed",
+    hp_boost: t("labels.hp"),
+    phy_atk_boost: t("labels.phyAtk"),
+    mag_atk_boost: t("labels.magAtk"),
+    phy_def_boost: t("labels.phyDef"),
+    mag_def_boost: t("labels.magDef"),
+    spd_boost: t("labels.spd"),
   };
 
   function setTalent(k: (typeof KEYS)[number], v: number) {
-    const t = { ...(slot.talent || {}) };
-    t[k] = v;
-    const boosted = KEYS.filter((k2) => (t[k2] ?? 0) > 0).length;
+    const tal = { ...(slot.talent || {}) };
+    tal[k] = v;
+    const boosted = KEYS.filter((k2) => (tal[k2] ?? 0) > 0).length;
     if (boosted > 3) {
-      alert("At most 3 stats can be boosted.");
+      alert(t("builder.v_max3"));
       return;
     }
-    onChange({ talent: t });
+    onChange({ talent: tal });
   }
 
   return (
     <div className="space-y-2">
-      <div className="text-sm font-medium">Talents</div>
+      <div className="text-sm font-medium">{t("builder.talents")}</div>
       <div className="grid grid-cols-2 gap-2">
-        {KEYS.map((k) => (
-          <div key={k} className="flex items-center gap-2">
-            {/* removed `uppercase`; use friendly label */}
-            <div className="w-24 text-xs text-zinc-600">{LABELS[k]}</div>
-            <select
-              aria-label={LABELS[k]}
-              value={slot.talent?.[k] ?? 0}
-              onChange={(e) => setTalent(k, Number(e.target.value))}
-              className="h-9 border rounded px-2"
-            >
-              {allowed.map((n) => (
-                <option key={n} value={n}>
-                  {n}
-                </option>
-              ))}
-            </select>
-          </div>
-        ))}
+        {KEYS.map((k) => {
+          const value = slot.talent?.[k] ?? 0;
+          const opts = allowed.map((n) => ({ value: n, label: String(n) }));
+          return (
+            <div key={k} className="flex items-center gap-2">
+              <div className="w-24 text-xs text-zinc-600">{LABELS[k]}</div>
+              <CustomSelect
+                ariaLabel={LABELS[k]}
+                value={value}
+                options={opts}
+                onChange={(v) => setTalent(k, v)}
+                buttonClassName="min-w-[64px]"
+              />
+            </div>
+          );
+        })}
       </div>
-      <div className="text-[11px] text-zinc-500">
-        Note: At most 3 stats can be boosted.
-      </div>
+
+      <Warn>{t("builder.talentsHint")}</Warn>
     </div>
   );
 }
@@ -551,7 +513,7 @@ export default function MonsterInspector({ activeIdx }: { activeIdx: number }) {
   const detailQ = useMonsterDetail(monsterId);
   const detail = detailQ.data;
 
-  const { lang } = useI18n();
+  const { lang, t } = useI18n();
 
   // Cast keeps TS happy with our store's stricter param type
   const onChange = (patch: Partial<UserMonsterCreate>) =>
@@ -567,11 +529,15 @@ export default function MonsterInspector({ activeIdx }: { activeIdx: number }) {
     const allowedMoveId = legacyByType.get(Number(newTypeId));
     const patch: Partial<UserMonsterCreate> = {};
 
-    ( [1,2,3,4] as const ).forEach(n => {
+    ([1, 2, 3, 4] as const).forEach((n) => {
       const key: MoveKey = moveKeys[n];
       const current = (slot as any)[key] as ID;
       // If this slot currently holds a legacy move and it's not the one allowed by the new type -> clear it
-      if (current && legacyIdSet.has(Number(current)) && Number(current) !== Number(allowedMoveId ?? -1)) {
+      if (
+        current &&
+        legacyIdSet.has(Number(current)) &&
+        Number(current) !== Number(allowedMoveId ?? -1)
+      ) {
         (patch as any)[key] = 0; // numeric zero
       }
     });
@@ -587,71 +553,58 @@ export default function MonsterInspector({ activeIdx }: { activeIdx: number }) {
 
   return (
     <aside className="rounded border bg-white p-3 space-y-4">
-      <div className="font-medium">Inspector — Slot {activeIdx + 1}</div>
+      <div className="font-medium">
+        {t("builder.inspectorTitle", { n: activeIdx + 1 })}
+      </div>
 
       {!slot ? (
-        <div className="text-sm text-zinc-600">
-          Select a valid slot on the left to configure.
-        </div>
+        <div className="text-sm text-zinc-600">{t("builder.pickAMonster")}</div>
       ) : !slot.monster_id ? (
         <>
           <MonsterPicker onPick={(m) => onChange({ monster_id: m.id })} />
-          <div className="text-[11px] text-zinc-500">
-            Tip: After choosing a monster, you can set Personality, Legacy Type,
-            Moves, and Talents.
-          </div>
+          <div className="text-[11px] text-zinc-600">{t("builder.tipAfterPick")}</div>
         </>
       ) : (
         <>
           <div className="flex items-center justify-end">
             <button
-              className="text-xs underline"
+              className="text-xs rounded cursor-pointer hover:text-zinc-900 hover:underline underline-offset-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400"
               onClick={() =>
-                onChange({
-                  monster_id: 0,
-                  move1_id: 0,
-                  move2_id: 0,
-                  move3_id: 0,
-                  move4_id: 0,
-                })
+                onChange({ monster_id: 0, move1_id: 0, move2_id: 0, move3_id: 0, move4_id: 0 })
               }
+              title={t('builder.changeMonster')}
             >
-              Change Monster
+              {t("builder.changeMonster")}
             </button>
           </div>
 
           <PersonalitySection slot={slot} onChange={onChange} />
 
-          <LegacyTypeSection
-            slot={slot}
-            onChange={onChange}
-            onLegacyChange={handleLegacyChange}
-          />
+          <LegacyTypeSection slot={slot} onChange={onChange} onLegacyChange={handleLegacyChange}/>
 
-          {/* Moved here: "Legacy Type grants ..." */}
+          {/* Note line: "Legacy Type grants ..." */}
           {slot.legacy_type_id ? (
             legacyLoadingMain ? (
-              <div className="text-xs text-zinc-500">Loading legacy move…</div>
+              <div className="text-xs text-zinc-500">{t("common.loading")}</div>
             ) : allowedLegacyMain ? (
               <div className="text-xs text-emerald-700">
-                Legacy Type grants:{" "}
-                <b>
-                  {pickName(allowedLegacyMain as any, lang) ||
-                    allowedLegacyMain.name}
-                </b>
-                . You can use it in one move slot.
+                {t("builder.legacyGrants", {
+                  name:
+                    pickName(allowedLegacyMain as any, lang) ||
+                    allowedLegacyMain.name,
+                })}
               </div>
             ) : (
               <div className="text-xs text-amber-700">
-                No legacy move found for this Legacy Type.
+                {t("builder.legacyMissing")}
               </div>
             )
           ) : null}
 
           <div>
-            <div className="text-sm font-medium mb-1">Moves</div>
+            <div className="text-sm font-medium mb-1">{t("builder.moves")}</div>
             {detailQ.isLoading ? (
-              <div className="text-xs text-zinc-500">Loading move pool…</div>
+              <div className="text-xs text-zinc-500">{t("common.loading")}</div>
             ) : (
               <MovesSection
                 slot={slot}
