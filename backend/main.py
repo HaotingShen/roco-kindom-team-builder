@@ -531,7 +531,7 @@ def generate_recommendations(per_monster_analysis, type_coverage, magic_item_eva
 
 @app.get("/")
 def read_root():
-    return {"message": "Welcome to roco kindom!"}
+    return {"message": "Welcome to Roco Team Builder!"}
 
 @app.get("/monsters/", response_model=List[schemas.MonsterLiteOut])
 def get_monsters(
