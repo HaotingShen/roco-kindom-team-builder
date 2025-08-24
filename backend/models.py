@@ -1,6 +1,6 @@
 import enum
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
-from sqlalchemy import String, Integer, Float, Boolean, ForeignKey, Table, Column, Enum, Index, Text, UniqueConstraint
+from sqlalchemy import String, Integer, Float, Boolean, ForeignKey, Table, Column, Enum, Index, Text, UniqueConstraint, DateTime, text
 from sqlalchemy.dialects.postgresql import JSONB
 
 class Base(DeclarativeBase):
@@ -260,6 +260,13 @@ class Team(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     name: Mapped[str] = mapped_column(String(32), nullable=True)
     magic_item_id: Mapped[int] = mapped_column(Integer, ForeignKey("magic_items.id"), nullable=True)
+    created_at = Column(DateTime(timezone=True),
+                        server_default=text("timezone('utc', now())"),
+                        nullable=False)
+    updated_at = Column(DateTime(timezone=True),
+                        server_default=text("timezone('utc', now())"),
+                        onupdate=text("timezone('utc', now())"),
+                        nullable=False)
 
     # Relationships
     user_monsters = relationship("UserMonster", back_populates="team", cascade="all, delete-orphan")

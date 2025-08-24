@@ -1,6 +1,7 @@
 from pydantic import BaseModel, ConfigDict, model_validator, Field
 from typing import Optional, List, Dict, Any, ClassVar, Literal
 from backend.models import MoveCategory, AttackStyle
+from datetime import datetime
 
 class PageMeta(BaseModel):
     total: int
@@ -188,6 +189,8 @@ class TeamOut(BaseModel):
     name: Optional[str] = None
     user_monsters: List[UserMonsterOut]
     magic_item: MagicItemOut
+    created_at: Optional[datetime] = None
+    updated_at: Optional[datetime] = None
 
     model_config = ConfigDict(from_attributes=True)
 

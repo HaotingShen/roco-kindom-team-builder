@@ -1,22 +1,21 @@
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import { endpoints } from "@/lib/api";
 import { useBuilderStore } from "./builderStore";
 import MonsterCard from "@/components/MonsterCard";
 import CustomSelect from "@/components/CustomSelect";
 import AnalysisResults from "@/components/AnalysisResults";
-import type { TypeOut, MonsterLiteOut, MagicItemOut, UserMonsterCreate, TeamCreate, TeamAnalysisOut } from "@/types";
+import type { TypeOut, MagicItemOut, UserMonsterCreate, TeamCreate, TeamAnalysisOut, TeamOut, TeamUpdate } from "@/types";
 import { useMemo, useState } from "react";
 import MonsterInspector from "./MonsterInspector";
 import { useI18n, pickName } from "@/i18n";
 
 type VKey =
-  | "v_pickMonster" | "v_setPersonality" | "v_chooseLegacy"
-  | "v_select4Moves" | "v_pickTalent" | "v_max3";
-
-const sevChip = (s: string) =>
-  s === "danger" ? "border-red-200 bg-red-50 text-red-700"
-  : s === "warn" ? "border-amber-200 bg-amber-50 text-amber-700"
-  : "border-zinc-200 bg-zinc-50 text-zinc-700";
+  | "v_pickMonster"
+  | "v_setPersonality"
+  | "v_chooseLegacy"
+  | "v_select4Moves"
+  | "v_pickTalent"
+  | "v_max3";
 
 // helper: count boosted talents
 function boostedCount(t: UserMonsterCreate["talent"]) {
@@ -51,21 +50,34 @@ function extractAxiosMessage(e: any): string {
 }
 
 export default function BuilderPage() {
-  const { slots, setSlot, magic_item_id, setMagicItem, toPayload, analysis, setAnalysis } = useBuilderStore();
+  const {
+    teamId,
+    name,
+    setName,
+    slots,
+    setSlot,
+    magic_item_id,
+    setMagicItem,
+    toPayload,
+    toUpdatePayload,
+    analysis,
+    setAnalysis,
+  } = useBuilderStore();
+
   const [activeIdx, setActiveIdx] = useState<number>(0);
+  const [serverErr, setServerErr] = useState<string | null>(null);
   const { lang, t } = useI18n();
 
   const magicItems = useQuery<MagicItemOut[]>({
     queryKey: ["magic_items"],
-    queryFn: () =>
-      endpoints.magicItems().then((r) => r.data as MagicItemOut[]),
+    queryFn: () => endpoints.magicItems().then((r) => r.data as MagicItemOut[]),
   });
-
-  const [serverErr, setServerErr] = useState<string | null>(null);
+  const qc = useQueryClient();
 
   const allErrors = useMemo<VKey[][]>(() => slots.map(validateSlot), [slots]);
   const canAnalyze = allErrors.every((list) => list.length === 0) && !!magic_item_id;
 
+  /* ---------- analyze ---------- */
   const analyze = useMutation({
     mutationFn: (payload: TeamCreate) =>
       endpoints.analyzeTeam(payload).then((r) => r.data as TeamAnalysisOut),
@@ -82,12 +94,61 @@ export default function BuilderPage() {
       return;
     }
     if (!canAnalyze) {
-      setServerErr(
-        t("builder.incompleteTeamMsg")
-      );
+      setServerErr(t("builder.incompleteTeamMsg"));
       return;
     }
-    analyze.mutate(toPayload());
+    try {
+      analyze.mutate(toPayload());
+    } catch (e: any) {
+      setServerErr(e?.message || t("builder.incompleteTeamMsg"));
+    }
+  };
+
+  /* ---------- save / update ---------- */
+  const createTeam = useMutation({
+    mutationFn: (payload: TeamCreate) =>
+      endpoints.createTeam(payload).then((r) => r.data as TeamOut),
+    onError: (err) => setServerErr(extractAxiosMessage(err)),
+    onSuccess: (team) => {
+      setServerErr(null);
+      // Remember team id so future saves become "Update"
+      useBuilderStore.setState({ teamId: team.id });
+      // Invalidate caches so list & detail re-fetch with the new team
+      qc.invalidateQueries({ queryKey: ["teams"] });
+      qc.invalidateQueries({ queryKey: ["team", team.id] });
+    },
+  });
+
+  const updateTeam = useMutation({
+    mutationFn: ({ id, body }: { id: number; body: TeamUpdate }) =>
+      endpoints.updateTeam(id, body).then((r) => r.data as TeamOut),
+    onError: (err) => setServerErr(extractAxiosMessage(err)),
+    onSuccess: (_updatedTeam, variables) => {
+      setServerErr(null);
+      qc.invalidateQueries({ queryKey: ["teams"] });
+      qc.invalidateQueries({ queryKey: ["team", variables.id] });
+    },
+  });
+
+  const onSaveOrUpdate = () => {
+    if (!magic_item_id || !canAnalyze) {
+      setServerErr(t("builder.incompleteTeamMsg"));
+      return;
+    }
+    try {
+      if (teamId) {
+        const body = toUpdatePayload();
+        if (!body) {
+          setServerErr(t("builder.incompleteTeamMsg"));
+          return;
+        }
+        updateTeam.mutate({ id: teamId, body });
+      } else {
+        createTeam.mutate(toPayload());
+      }
+    } catch (e: any) {
+      setServerErr(e?.message || t("builder.incompleteTeamMsg"));
+    }
   };
 
   return (
@@ -129,14 +190,10 @@ export default function BuilderPage() {
                 onClick={() => setActiveIdx(i)}
                 role="button"
                 tabIndex={0}
-                onKeyDown={(e) =>
-                  (e.key === "Enter" || e.key === " ") && setActiveIdx(i)
-                }
+                onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && setActiveIdx(i)}
               >
                 <div className="flex items-center justify-between">
-                  <div className="text-sm text-zinc-600">
-                    {t("builder.slot", { n: i + 1 })}
-                  </div>
+                  <div className="text-sm text-zinc-600">{t("builder.slot", { n: i + 1 })}</div>
 
                   {/* Status indicator */}
                   <span
@@ -153,12 +210,7 @@ export default function BuilderPage() {
                   monsterId={slot.monster_id || undefined}
                   personalityId={slot.personality_id || null}
                   legacyTypeId={slot.legacy_type_id || null}
-                  moveIds={[
-                    slot.move1_id,
-                    slot.move2_id,
-                    slot.move3_id,
-                    slot.move4_id,
-                  ]}
+                  moveIds={[slot.move1_id, slot.move2_id, slot.move3_id, slot.move4_id]}
                   onClick={() => setActiveIdx(i)}
                 />
 
@@ -175,29 +227,54 @@ export default function BuilderPage() {
         </div>
 
         {/* bottom bar */}
-        <div className="flex items-center gap-3 bg-white border rounded p-3">
-          <div className="text-sm">{t("builder.magicItem")}</div>
-          <CustomSelect
-            value={magic_item_id ?? null}
-            options={[
-              { value: 0, label: t("common.select") },
-              ...(magicItems.data ?? []).map((mi) => ({
-                value: mi.id,
-                label: pickName(mi as any, lang) || mi.name,
-              })),
-            ]}
-            placeholder={t("common.select")}
-            onChange={(v) => setMagicItem(v ? v : null)}
-            buttonClassName="min-w-[150px]"
-          />
+        <div className="flex flex-wrap items-center gap-3 bg-white border rounded p-3">
+          {/* team name */}
+          <div className="flex items-center gap-2">
+            <label className="text-sm">{t("builder.teamName") ?? "Team name"}</label>
+            <input
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder={t("builder.teamNamePlaceholder") ?? "My Team"}
+              className="h-9 rounded border px-2 text-sm w-[220px]"
+            />
+          </div>
+
+          {/* magic item */}
+          <div className="flex items-center gap-2">
+            <div className="text-sm">{t("builder.magicItem")}</div>
+            <CustomSelect
+              value={magic_item_id ?? null}
+              options={[
+                { value: 0, label: t("common.select") },
+                ...(magicItems.data ?? []).map((mi) => ({
+                  value: mi.id,
+                  label: pickName(mi as any, lang) || mi.name,
+                })),
+              ]}
+              placeholder={t("common.select")}
+              onChange={(v) => setMagicItem(v ? v : null)}
+              buttonClassName="min-w-[150px]"
+            />
+          </div>
+
           <div className="flex-1" />
+
+          {/* save / update */}
+          <button
+            onClick={onSaveOrUpdate}
+            disabled={!canAnalyze || createTeam.isPending || updateTeam.isPending}
+            className={`h-9 px-4 rounded ${canAnalyze ? "border cursor-pointer" : "bg-zinc-300 text-zinc-600 cursor-not-allowed"}`}
+            title={!canAnalyze ? t("builder.incompleteTeamMsg") : ""}
+          >
+            {teamId ? (t("builder.updateTeam") ?? "Update") : (t("builder.saveTeam") ?? "Save")}
+          </button>
+
+          {/* analyze */}
           <button
             onClick={onAnalyze}
             disabled={!canAnalyze || analyze.isPending}
             className={`h-9 px-4 rounded ${
-              canAnalyze
-                ? "bg-zinc-900 text-white cursor-pointer"
-                : "bg-zinc-300 text-zinc-600 cursor-not-allowed"
+              canAnalyze ? "bg-zinc-900 text-white cursor-pointer" : "bg-zinc-300 text-zinc-600 cursor-not-allowed"
             }`}
           >
             {analyze.isPending ? t("builder.analyzing") : t("builder.analyze")}
@@ -206,9 +283,7 @@ export default function BuilderPage() {
 
         {/* server errors or quick analysis */}
         {serverErr && (
-          <div className="rounded border border-red-300 bg-red-50 text-red-700 p-3 text-sm">
-            {serverErr}
-          </div>
+          <div className="rounded border border-red-300 bg-red-50 text-red-700 p-3 text-sm">{serverErr}</div>
         )}
 
         {analysis ? <AnalysisResults analysis={analysis} /> : null}

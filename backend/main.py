@@ -672,6 +672,25 @@ def get_species(db: Session = Depends(get_db)):
     return db.query(models.MonsterSpecies).all()
 
 
+@app.get("/teams/", response_model=List[schemas.TeamOut])
+def list_teams(db: Session = Depends(get_db)):
+    return (
+        db.query(models.Team)
+        .options(
+            joinedload(models.Team.user_monsters)
+                .joinedload(models.UserMonster.monster)
+                .joinedload(models.Monster.main_type),
+            joinedload(models.Team.user_monsters)
+                .joinedload(models.UserMonster.monster)
+                .joinedload(models.Monster.sub_type),
+            joinedload(models.Team.user_monsters)
+                .joinedload(models.UserMonster.talent),
+            joinedload(models.Team.magic_item),
+        )
+        .order_by(models.Team.id.desc())
+        .all()
+    )
+
 @app.get("/teams/{team_id}", response_model=schemas.TeamOut)
 def get_team(team_id: int, db: Session = Depends(get_db)):
     db_team = (
@@ -1055,6 +1074,7 @@ def update_team(
             db.add(talent)
             um.talent = talent
 
+    db_team.updated_at = func.now()
     db.commit()
     db.refresh(db_team)
     return db_team

@@ -175,10 +175,23 @@ export interface UserMonsterCreate {
 
 export interface TeamCreate {
   name: string;
-  /** You’ve made this required in BE; keep as ID here.
-   * If your store starts as null, convert before POST. */
   magic_item_id: ID;
   user_monsters: UserMonsterCreate[];
+}
+
+export interface UserMonsterUpsert {
+  id?: ID | null;
+  monster_id: ID;
+  personality_id: ID;
+  legacy_type_id: ID;
+  move1_id: ID; move2_id: ID; move3_id: ID; move4_id: ID;
+  talent: TalentUpsert;
+}
+
+export interface TeamUpdate {
+  name?: string | null;
+  magic_item_id?: ID | null;
+  user_monsters: UserMonsterUpsert[];
 }
 
 /* ---------- persisted / expanded models ---------- */
@@ -204,7 +217,9 @@ export interface TeamOut {
   id: ID;
   name?: string | null;
   user_monsters: UserMonsterOut[];
-  magic_item: MagicItemOut; // present in analysis response
+  magic_item: MagicItemOut;
+  created_at?: string;
+  updated_at?: string;
 }
 
 /* ---------- analysis DTOs (mirror backend schemas.py) ---------- */
