@@ -4,10 +4,10 @@ import shutil, re
 # repo root = ../../ from this file (backend/scripts/… -> backend -> root)
 ROOT = Path(__file__).resolve().parents[2]
 SRC = ROOT / "frontend" / "images"
-DST = ROOT / "frontend" / "public" / "monsters" / "180"
+DST = ROOT / "frontend" / "public" / "monsters" / "360"
 
 IMAGE_EXTS = {'.png','.jpg','.jpeg','.webp','.gif','.bmp','.tif','.tiff','.svg','.avif','.apng','.jfif','.ico'}
-STEM_RE = re.compile(r'^180px-页面_宠物_立绘_(.+?)(?:_\d+)?$')
+STEM_RE = re.compile(r'^360px-页面_宠物_立绘_(.+?)(?:_\d+)?$')
 
 def sanitize(name: str) -> str:
     # Convert full-width Chinese parentheses to ASCII and strip illegal chars
@@ -35,7 +35,7 @@ def main():
     for p in SRC.rglob('*'):
         if not p.is_file(): continue
         if p.suffix.lower() not in IMAGE_EXTS: continue
-        if not p.name.startswith('180px'): continue
+        if not p.name.startswith('360px'): continue
 
         m = STEM_RE.match(p.stem)
         if not m:
